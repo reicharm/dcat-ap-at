@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DCAT-AP AT 2.1 – Metadatenstandard für Österreich</title>
+
+    <!-- ReSpec -->
+    <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
+    <script class="remove">
+    var respecConfig = {
+        specStatus:      "base",
+        shortName:       "dcat-ap-at",
+        latestVersion:   "https://dcat-ap.at/",
+        thisVersion:     "https://dcat-ap.at/2.1",
+        lang:            "de",
+        publishDate:     "2024-06-19",
+        copyrightStart:  "2024",
+        license:         "cc-by",
+        editors: [
+            { name: "Brigitte Barotanyi",   company: "Bundesministerium für Finanzen" },
+            { name: "Hannes Ebner",         company: "MetaSolutions AB" },
+            { name: "Gregor Eibl",          company: "Universität für Weiterbildung Krems" },
+            { name: "Gerhard Hartmann",     company: "Stadt Wien" },
+            { name: "Manfred Mittlböck",    company: "Research Studios Austria Forschungsgesellschaft mbH" },
+            { name: "Rainer Prager",        company: "Land Niederösterreich" },
+            { name: "Michael Reichart",     company: "Bundesrechenzentrum GmbH" }
+        ],
+        github: {
+            repoURL:   "https://github.com/datagvat/DCAT-AP.at",
+            branch:    "main"
+        },
+        otherLinks: [
+            {
+                key: "Frühere Versionen",
+                data: [{ value: "Versionsübersicht", href: "../" }]
+            },
+            {
+                key: "Arbeitsgruppen",
+                data: [
+                    { value: "BLSG Fachgruppe data.gv.at" },
+                    { value: "BLSG AG-II" },
+                    { value: "AG Metadaten DCAT-AP, Cooperation OGD Österreich" }
+                ]
+            }
+        ],
+        localBiblio: {
+            "DCAT-AP": {
+                title:     "DCAT-AP 3.0.0",
+                href:      "https://semiceu.github.io/DCAT-AP/releases/3.0.0/",
+                publisher: "Publications Office of the European Union"
+            },
+            "DCAT": {
+                title:     "Data Catalog Vocabulary (DCAT) – Version 3",
+                href:      "https://www.w3.org/TR/vocab-dcat/",
+                publisher: "W3C"
+            }
+        },
+        postProcess: [initRdforms]
+    };
+
+    function initRdforms() {
+        if (typeof rdforms_specs !== "undefined") {
+            rdforms_specs.init({
+                language: "de",
+                bundles: [["../dcatapat.json"]],
+                main: [
+                    "dcatat:Catalog",
+                    "dcatat:Dataset",
+                    "dcatat:Distribution",
+                    "dcatat:DataService",
+                    "dcatat:CatalogRecord",
+                    "dcatat:foaf:Agent",
+                    "dcatat:dcat:contactPoint"
+                ],
+                supportive: [],
+                extras: {
+                    mapping: { de: "Entsprechung in metadaten-data.gv.at 2.6" }
+                }
+            });
+        }
+    }
+    </script>
+
+    <!-- Mermaid (class diagrams) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"
+            integrity="sha512-yD6UxqB1PGCP/nC8vd2pcozgicMkT/FEFo98T0ian+EtJPkbAL+h5gYV3r5Fpy1XWTVdDVoHx/E/9fFHdrHu1g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Highlight.js (code blocks) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+            integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
+          integrity="sha512-hasIneQUHlh06VNBe7f6ZcHmeRTLIaQWFd43YriJ0UND19bvYRauxthDg8E4eVNPm9bRUhr5JGeqH7FRFXQu5g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <!-- RDForms runtime -->
+    <script src="../libs/specs.js"></script>
+    <script src="../libs/rdfjson.js"></script>
+    <script src="../libs/recommendations.js"></script>
+
+    <!-- Custom styles for Mermaid diagrams and RDForms tables -->
+    <link rel="stylesheet" href="../libs/style.css">
+
+    <style>
+        /* Tighten up the ReSpec header spacing for the otherLinks block */
+        .head dl { margin-top: 0.5em; }
+        #diagram { margin: 1.5em 0; }
+    </style>
+</head>
+<body>
+
+<h1>Metadaten DCAT-AP AT</h1>
+<h2 class="subtitle">Erläuterungen zur Anpassung von DCAT-AP für Österreich – Version 2.1</h2>
+
+<section id="abstract">
+    <p>DCAT-AP AT ist das österreichische Profil der europäischen Metadatenspezifikation [[DCAT-AP]], die zur Beschreibung von Datenkatalogen eingeführt wurde. [[DCAT-AP]] wiederum ist ein Profil der W3C Recommendation [[DCAT]].</p>
+    <p>Dieses Dokument beschreibt den DCAT-AP AT Metadatenstandard in der Version 2.1 und legt fest, welche Metadatenfelder für österreichische Open-Data-Portale verpflichtend, empfohlen oder optional sind. Es richtet sich an Betreiber von Datenportalen sowie an alle Stellen, die Metadaten für österreichische Verwaltungsdaten bereitstellen.</p>
+</section>
+
+<section id="sotd">
+    <p>Dieses Dokument ist eine Empfehlung (<em>Recommendation</em>) der BLSG Fachgruppe data.gv.at. Die Spezifikation ist verbindlich für alle österreichischen Verwaltungsstellen, die Metadaten auf data.gv.at publizieren.</p>
+    <dl>
+        <dt>Kurzbezeichnung:</dt>
+        <dd>metadaten-DCAT-AP-AT 2.1</dd>
+        <dt>Doku-Klasse:</dt>
+        <dd>verbindlich</dd>
+        <dt>Gültig seit:</dt>
+        <dd>19. Juni 2024</dd>
+    </dl>
+</section>
+
+<section id="management-summary">
+    <h2>Management Summary</h2>
+    <p>DCAT-AP ist der Metadatenstandard in Europa für den Austausch offener Verwaltungsdaten. Nachdem Österreich sehr früh Open Data publiziert hat und es damals noch keinen Metadatenstandard gab, wurde der Metadatenstandard in der aktuellen Version 2.6 entwickelt. Der Auftrag der Lenkungsgruppe data.gv.at lautete, den Metadatenstandard auf DCAT-AP umzustellen. Das vorliegende Dokument beschreibt den DCAT-AP AT Metadatenstandard in der Version 2.1.</p>
+</section>
+
+<section id="introduction">
+    <h2>Einführung</h2>
+
+    <p>Bei DCAT-AP AT handelt es sich um das österreichische Profil der europäischen Metadatenspezifikation [[DCAT-AP]], die zur Beschreibung von Datenkatalogen eingeführt wurde. [[DCAT-AP]] wiederum ist ein Profil der W3C Recommendation [[DCAT]].</p>
+
+    <p>Das folgende Diagramm zeigt die primären Klassen, ihre Beziehungen sowie ihre verpflichtenden und empfohlenen Eigenschaften. Zur besseren Lesbarkeit werden Klassen und Eigenschaften in den Überschriften und im Diagramm mit benutzerfreundlichen Bezeichnungen vorgestellt. Die eigentlichen Metadatenausdrücke – die vollständigen URIs von Klassen und Eigenschaften – sind in den Details unter der jeweiligen Überschrift aufgeführt.</p>
+
+    <figure id="class-diagram">
+        <div class="mermaid">
+classDiagram
+
+Catalog --> Dataset : dataset
+Catalog --> Agent : publisher
+Catalog --> DataService : service
+Dataset --> Distribution : distribution
+Dataset --> Agent : publisher
+Dataset --> ContactPoint : contactPoint
+Distribution --> DataService : accessService
+DataService --> Dataset : servesDataset
+
+class Catalog {
+  dcterms:title
+  dcterms:description
+  dcterms:publisher
+  dcat:dataset
+  dcat:service
+  dcat:license
+  dcat:themeTaxonomy
+  dcat:issued
+  dcat:language
+  dcat:modified
+  foaf:homepage
+  dcterms:spatial
+}
+
+class Dataset {
+  dcterms:title
+  dcterms:description
+  dcat:contactPoint
+  dcat:distribution
+  dcat:keyword
+  dcterms:publisher
+  dcat:theme
+  dcterms:spatial
+  dcterms:temporal
+}
+
+class Distribution {
+  dcat:accessURL
+  dcatap:availability
+  dcterms:description
+  dcterms:format
+  dcterms:license
+}
+
+class DataService {
+  dcat:endpointURL
+  dcterms:title
+  dcat:endpointDescription
+  dcat:servesDataset
+  dcterms:license
+  dcterms:format
+  dcat:theme
+}
+
+class Agent {
+  foaf:name
+  dcterms:type
+}
+
+class ContactPoint {
+  rdf:type
+  vcard:fn
+  vcard:hasEmail
+}
+        </div>
+        <figcaption>Primäre Klassen von DCAT-AP AT 2.1 und ihre Beziehungen</figcaption>
+    </figure>
+</section>
+
+<section id="specification">
+    <h2>Spezifikation</h2>
+    <p>Die folgende interaktive Spezifikation zeigt für jede Klasse alle definierten Eigenschaften mit Verpflichtungsgrad, Kardinalität und Wertebereich.</p>
+    <!-- RDForms renders the specification tables into this container -->
+</section>
+
+<section id="changelog">
+    <h2>Änderungshistorie</h2>
+    <dl>
+        <dt>2.1.0 (19. Juni 2024)</dt>
+        <dd>Initiale Veröffentlichung der DCAT-AP AT 2.1 Spezifikation als österreichisches Profil von DCAT-AP.</dd>
+    </dl>
+</section>
+
+<script>
+    mermaid.initialize({ theme: "neutral", themeVariables: { fontSize: "14px" } });
+</script>
+
+</body>
+</html>
