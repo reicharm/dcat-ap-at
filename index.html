@@ -1,162 +1,282 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js" integrity="sha512-yD6UxqB1PGCP/nC8vd2pcozgicMkT/FEFo98T0ian+EtJPkbAL+h5gYV3r5Fpy1XWTVdDVoHx/E/9fFHdrHu1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" integrity="sha512-hasIneQUHlh06VNBe7f6ZcHmeRTLIaQWFd43YriJ0UND19bvYRauxthDg8E4eVNPm9bRUhr5JGeqH7FRFXQu5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" type="text/css" href="libs/style.css">
-    <title>Metadaten DCAT-AP AT</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DCAT-AP AT – Metadatenstandard für Österreich</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #f5f7fa;
+            color: #1a1a2e;
+            min-height: 100vh;
+        }
+
+        header {
+            background: #134962;
+            color: #fff;
+            padding: 2.5rem 2rem 2rem;
+            border-bottom: 4px solid #e84e0f;
+        }
+
+        header .inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header .flag {
+            display: flex;
+            gap: 4px;
+            width: 48px;
+            margin-bottom: 1.25rem;
+        }
+
+        header .flag span {
+            flex: 1;
+            height: 32px;
+            border-radius: 2px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            margin-top: 0.5rem;
+            font-size: 1.05rem;
+            opacity: 0.85;
+            max-width: 640px;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2.5rem 2rem 4rem;
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #134962;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 1rem;
+            margin-top: 2.5rem;
+            border-bottom: 2px solid #ddeeff;
+            padding-bottom: 0.4rem;
+        }
+
+        .about {
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #dde3ec;
+            padding: 1.5rem;
+            line-height: 1.7;
+            font-size: 0.97rem;
+            color: #333;
+        }
+
+        .about p + p { margin-top: 0.75rem; }
+
+        .about a { color: #134962; }
+
+        .version-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .version-card {
+            background: #fff;
+            border: 1px solid #dde3ec;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            text-decoration: none;
+            color: inherit;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        .version-card:hover {
+            border-color: #134962;
+            box-shadow: 0 2px 10px rgba(19, 73, 98, 0.1);
+        }
+
+        .version-badge {
+            background: #134962;
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 700;
+            padding: 0.35rem 0.75rem;
+            border-radius: 5px;
+            white-space: nowrap;
+            min-width: 4.5rem;
+            text-align: center;
+        }
+
+        .version-card.current .version-badge {
+            background: #e84e0f;
+        }
+
+        .version-meta {
+            flex: 1;
+        }
+
+        .version-meta strong {
+            display: block;
+            font-size: 1rem;
+        }
+
+        .version-meta span {
+            font-size: 0.87rem;
+            color: #666;
+        }
+
+        .version-status {
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .status-recommendation { background: #e6f4ea; color: #1a7336; }
+        .status-draft          { background: #fff8e1; color: #7d5a00; }
+        .status-deprecated     { background: #f3f3f3; color: #888; }
+
+        .arrow {
+            color: #aaa;
+            font-size: 1.2rem;
+        }
+
+        .extras-grid {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .extra-card {
+            background: #fff;
+            border: 1px solid #dde3ec;
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: inherit;
+            transition: border-color 0.15s;
+        }
+
+        .extra-card:hover {
+            border-color: #134962;
+        }
+
+        .extra-icon {
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .extra-meta strong { display: block; font-size: 0.97rem; }
+        .extra-meta span { font-size: 0.85rem; color: #666; }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.85rem;
+            color: #888;
+            border-top: 1px solid #e0e6ee;
+        }
+
+        footer a { color: #134962; }
+    </style>
 </head>
-<body class="h-entry">
-<div class="head">
-    <h1 class="title">Metadaten DCAT-AP AT</h1>
-    <h2 class="subtitle">Erläuterungen zur Anpassung von DCAT-AP für Österreich</h2>
-    <div>
-        <dl>
-            <dt>URL:</dt>
-            <dd><a href="./">https://dcat-ap.at/2.1</a></dd>
-            <dt>Version / Datum:</dt>
-            <dd>2.1.0 / 19.06.2024</dd>
-            <dt class="editor">Verfasst von:</dt>
-            <dd class="editor p-author h-card vcard">Brigitte Barotanyi (Bundesministerium für Finanzen)</dd>
-            <dd class="editor p-author h-card vcard">Hannes Ebner (MetaSolutions AB)</dd>
-            <dd class="editor p-author h-card vcard">Gregor Eibl (Universität für Weiterbildung Krems)</dd>
-            <dd class="editor p-author h-card vcard">Gerhard Hartmann (Stadt Wien)</dd>
-            <dd class="editor p-author h-card vcard">Manfred Mittlböck (Research Studios Austria Forschungsgesellschaft mbH)</dd>
-            <dd class="editor p-author h-card vcard">Rainer Prager (Land Niederösterreich)</dd>
-            <dd class="editor p-author h-card vcard">Michael Reichart (Bundesrechenzentrum GmbH)</dd>
-            <!--<dd class="editor p-author h-card vcard"><a class="p-name fn u-url url" href="mailto:vorname.nachname@organisation.gv.at">Vorname Nachname</a> - <a href="https://organisation.gv.at">Organisation</a></dd>-->
-            <dt class="editor">Arbeitsgruppen</dt>
-            <dd class="editor p-author h-card vcard">BLSG Fachgruppe data.gv.at</dd>
-            <dd class="editor p-author h-card vcard">BLSG AG-II</dd>
-            <dd class="editor p-author h-card vcard">Arbeitsgruppe Metadaten DCAT-AP der Cooperation OGD Österreich</dd>
-            <dt>Lizenz:</dt>
-            <dd><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></dd>
-            <dt>Doku-Klasse:</dt>
-            <dd>verbindlich</dd>
-            <dt>Kurzbezeichnung:</dt>
-            <dd>metadaten-DCAT-AP-AT 2.1</dd>
-            <dt>Doku-Stadium</dt>
-            <dd>Empfehlung</dd>
-            <dt>Gültig seit:</dt>
-            <dd>dd.mm.2024</dd>
-            <dt>Nächste Überprüfung am:</dt>
-            <dd>dd.mm.yyyy</dd>
-            <dt>Feedback:</dt>
-            <dd><a href="https://github.com/datagvat/DCAT-AP.at/issues">GitHub datagvat/DCAT-AP.at</a></dd>
-        </dl>
+<body>
+
+<header>
+    <div class="inner">
+        <div class="flag" aria-hidden="true">
+            <span style="background:#ee2020"></span>
+            <span style="background:#ffffff"></span>
+            <span style="background:#ee2020"></span>
+        </div>
+        <h1>DCAT-AP AT</h1>
+        <p>Österreichisches Profil der europäischen Metadatenspezifikation DCAT-AP zur Beschreibung offener Verwaltungsdaten</p>
     </div>
-    <p class="copyright">Copyright © 2024 <a href="https://data.gv.at">BLSG Fachgruppe data.gv.at</a></p>
-    <hr title="separator">
-</div>
-
-<nav id="toc"></nav>
-
-<section>
-    <h2>Management summary</h2>
-    <p>DCAT-AP ist der Metadatenstandard in Europa für den Austausch offener Verwaltungs&shy;daten. Nachdem Österreich sehr früh Open Data publiziert hat, und es damals noch keinen Meta&shy;daten&shy;standard gab, wurde der Meta&shy;daten&shy;standard in der aktuellen Version 2.6 entwickelt. Der Auftrag der Lenkungs&shy;gruppe data.gv.at lautete, den Meta&shy;daten&shy;standard auf DCAT-AP umzustellen. Das Dokument beschreibt den DCAT-AP AT Meta&shy;daten&shy;standard in der Version 2.1.</p>
-</section>
+</header>
 
 <main>
-    <section>
-        <p>Bei DCAT-AP AT handelt es sich um das österreichische Profil der europäischen Metadatenspezifikation DCAT-AP die zur Beschreibung von Datenkatalogen eingeführt wurde. DCAT-AP wiederum ist ein Profil der W3C Recommendation DCAT.</p>
-        <p>Das folgende Diagramm zeigt die primären Klassen, ihre Beziehungen, sowie ihre verpflichtenden und empfohlenen Eigenschaften. Zur besseren Lesbarkeit werden Klassen und Eigenschaften in beiden Überschriften und im Diagramm mit benutzerfreundlichen Bezeichnungen vorgestellt. Die eigentlichen Metadatenausdrücke, also die vollständigen URIs von Klassen und Eigenschaften, sind in den Details unter der jeweiligen Überschrift aufgeführt.</p>
-        <!--
-        <p>DCAT-AP AT is a metadata specification introduced for the purpose of describing data catalogs. More specifically, DCAT-AP AT is an Austrian profile of the European metadata specification DCAT-AP. DCAT-AP in turn, is a profile of the W3C recommendation DCAT.</p>
-        <p>The diagram below shows only the primary classes, their relationships and their mandatory and recommended properties. For improved readability, classes and properties are introduced using friendly labels in both headings and the diagram below. The actual metadata expressions, i.e. the full URIs of classes and properties, are listed in the details under each respective heading.</p>
-        -->
-        <div id="diagram" class="mermaid">
-            classDiagram
 
-            Catalog --> Dataset : dataset
-            Catalog --> Agent : publisher
-            Catalog --> DataService : service
-            Dataset --> Distribution : distribution
-            Dataset --> Agent : publisher
-            Dataset --> ContactPoint : contactPoint
-            Distribution --> DataService : accessService
-            DataService --> Dataset : servesDataset
-
-            class Catalog {
-              dcterms:title
-              dcterms:description
-              dcterms:publisher
-              dcat:dataset
-              dcat:service
-              dcat:license
-              dcat:themeTaxonomy
-              dcat:issued
-              dcat:language
-              dcat:modified
-              foaf:homepage
-              dcterms:spatial
-            }
-
-            %% class CatalogRecord {
-            %%   foaf:primaryTopic
-            %%   dcterms:modified
-            %%   dcterms:conformsTo
-            %%   adms:status
-            %%   dcterms:issued
-            %% }
-
-            class Dataset {
-              dcterms:title
-              dcterms:description
-              dcat:contactPoint
-              dcat:distribution
-              dcat:keyword
-              dcterms:publisher
-              dcat:theme
-              dcterms:spatial
-              dcterms:temporal
-            }
-
-            class Distribution {
-              dcat:accessURL
-              dcatap:availability
-              dcterms:description
-              dcterms:format
-              dcterms:license
-            }
-
-            class DataService {
-              dcat:endpointURL
-              dcterms:title
-              dcat:endpointDescription
-              dcat:servesDataset
-              dcterms:license
-              dcterms:format
-              dcat:theme
-            }
-
-            class Agent {
-              foaf:name
-              dcterms:type
-            }
-
-            class ContactPoint {
-              rdf:type
-              vcard:fn
-              vcard:hasEmail
-            }
-        </div>
+    <section class="about">
+        <p>DCAT-AP ist der europaweite Metadatenstandard für den Austausch offener Verwaltungsdaten. DCAT-AP AT definiert das österreichische Profil dieser Spezifikation und legt fest, welche Metadatenfelder für österreichische Open-Data-Portale verpflichtend, empfohlen oder optional sind.</p>
+        <p>Die Spezifikation basiert auf der <a href="https://www.w3.org/TR/vocab-dcat/" target="_blank" rel="noopener">W3C DCAT Recommendation</a> und ist mit dem europäischen Standard <a href="https://semiceu.github.io/DCAT-AP/releases/3.0.0/" target="_blank" rel="noopener">DCAT-AP</a> kompatibel. Sie wird von der <em>Arbeitsgruppe Metadaten DCAT-AP der Cooperation OGD Österreich</em> gepflegt.</p>
     </section>
+
+    <h2>Versionen</h2>
+    <div class="version-grid">
+
+        <a href="2.1/" class="version-card current">
+            <div class="version-badge">2.1</div>
+            <div class="version-meta">
+                <strong>DCAT-AP AT 2.1</strong>
+                <span>19. Juni 2024 · aktuelle Version</span>
+            </div>
+            <span class="version-status status-recommendation">Empfehlung</span>
+            <span class="arrow">›</span>
+        </a>
+
+        <!-- Frühere Versionen können hier ergänzt werden, z.B.:
+        <a href="2.0/" class="version-card">
+            <div class="version-badge">2.0</div>
+            <div class="version-meta">
+                <strong>DCAT-AP AT 2.0</strong>
+                <span>2022 · Vorgängerversion</span>
+            </div>
+            <span class="version-status status-deprecated">Veraltet</span>
+            <span class="arrow">›</span>
+        </a>
+        -->
+
+    </div>
+
+    <h2>Zusatzdokumente</h2>
+    <div class="extras-grid">
+
+        <a href="https://github.com/datagvat/DCAT-AP.at/issues" class="extra-card" target="_blank" rel="noopener">
+            <span class="extra-icon">🐛</span>
+            <div class="extra-meta">
+                <strong>Feedback &amp; Issues</strong>
+                <span>Fehler melden und Verbesserungen vorschlagen auf GitHub</span>
+            </div>
+        </a>
+
+        <a href="https://semiceu.github.io/DCAT-AP/releases/3.0.0/" class="extra-card" target="_blank" rel="noopener">
+            <span class="extra-icon">🇪🇺</span>
+            <div class="extra-meta">
+                <strong>DCAT-AP (europäisch)</strong>
+                <span>Übergeordneter Standard – DCAT-AP 3.0.0</span>
+            </div>
+        </a>
+
+        <a href="https://www.w3.org/TR/vocab-dcat/" class="extra-card" target="_blank" rel="noopener">
+            <span class="extra-icon">📘</span>
+            <div class="extra-meta">
+                <strong>W3C DCAT</strong>
+                <span>Data Catalog Vocabulary – W3C Recommendation</span>
+            </div>
+        </a>
+
+    </div>
+
 </main>
 
-<script>
-  mermaid.initialize({theme: 'neutral', themeVariables: {fontSize: '14px'}});
-</script>
+<footer>
+    <p>Copyright © 2024 <a href="https://data.gv.at">BLSG Fachgruppe data.gv.at</a> · Lizenz: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+</footer>
+
 </body>
-
-<script src="libs/specs.js"></script>
-<script>
-  document.targetLanguage = 'de';
-</script>
-<script src="config.js"></script>
-<link rel="stylesheet" href="libs/w3c_base.css">
-<link rel="stylesheet" href="libs/w3c_tweaks.css">
-
 </html>
