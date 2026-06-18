@@ -223,6 +223,785 @@ class ContactPoint {
     <!-- RDForms renders the specification tables into this container -->
 </section>
 
+<section id="namespaces">
+    <h2>Verwendete Namespaces</h2>
+    <p>In allen Beispielen dieses Dokuments werden folgende Namespace-Präfixe verwendet:</p>
+    <table class="simple">
+        <thead><tr><th>Präfix</th><th>Namespace-URI</th></tr></thead>
+        <tbody>
+            <tr><td><code>dcat:</code></td><td><code>http://www.w3.org/ns/dcat#</code></td></tr>
+            <tr><td><code>dcterms:</code></td><td><code>http://purl.org/dc/terms/</code></td></tr>
+            <tr><td><code>foaf:</code></td><td><code>http://xmlns.com/foaf/0.1/</code></td></tr>
+            <tr><td><code>vcard:</code></td><td><code>http://www.w3.org/2006/vcard/ns#</code></td></tr>
+            <tr><td><code>xsd:</code></td><td><code>http://www.w3.org/2001/XMLSchema#</code></td></tr>
+            <tr><td><code>dcatap:</code></td><td><code>http://data.europa.eu/r5r/</code></td></tr>
+            <tr><td><code>adms:</code></td><td><code>http://www.w3.org/ns/adms#</code></td></tr>
+            <tr><td><code>skos:</code></td><td><code>http://www.w3.org/2004/02/skos/core#</code></td></tr>
+            <tr><td><code>owl:</code></td><td><code>http://www.w3.org/2002/07/owl#</code></td></tr>
+            <tr><td><code>prov:</code></td><td><code>http://www.w3.org/ns/prov#</code></td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section id="classes">
+    <h2>Klassen im Detail</h2>
+    <p>Dieser Abschnitt beschreibt die wichtigsten Klassen von DCAT-AP AT mit ihren Eigenschaften und vollständigen Beispieldatensätzen. Die Beispiele basieren auf realen Datensätzen von <a href="https://www.data.gv.at">data.gv.at</a>.</p>
+
+    <!-- ═══════════════════════════════════════════════ DATASET ══ -->
+    <section id="class-dataset">
+        <h3>Datensatz (<code>dcat:Dataset</code>)</h3>
+        <p>Ein <em>Datensatz</em> (<code>dcat:Dataset</code>) ist eine identifizierbare Sammlung von Daten, die von einer Organisation veröffentlicht oder kuratiert wird. Er ist die zentrale Klasse in DCAT-AP AT. Ein Datensatz kann über eine oder mehrere Distributionen verfügbar gemacht werden.</p>
+        <p>Jeder Datensatz muss mindestens einen Titel (<code>dcterms:title</code>) und eine Beschreibung (<code>dcterms:description</code>) in deutscher Sprache enthalten. Publisher und Kontaktpunkt werden dringend empfohlen.</p>
+
+        <table class="simple">
+            <caption>Wichtigste Eigenschaften von <code>dcat:Dataset</code></caption>
+            <thead><tr><th>Eigenschaft</th><th>URI</th><th>Pflicht</th><th>Kardinalität</th></tr></thead>
+            <tbody>
+                <tr><td>Titel</td><td><code>dcterms:title</code></td><td>verpflichtend</td><td>1..n</td></tr>
+                <tr><td>Beschreibung</td><td><code>dcterms:description</code></td><td>verpflichtend</td><td>1..n</td></tr>
+                <tr><td>Kontaktpunkt</td><td><code>dcat:contactPoint</code></td><td>empfohlen</td><td>0..n</td></tr>
+                <tr><td>Herausgeber</td><td><code>dcterms:publisher</code></td><td>empfohlen</td><td>0..1</td></tr>
+                <tr><td>Thema</td><td><code>dcat:theme</code></td><td>empfohlen</td><td>0..n</td></tr>
+                <tr><td>Schlagwörter</td><td><code>dcat:keyword</code></td><td>optional</td><td>0..n</td></tr>
+                <tr><td>Distribution</td><td><code>dcat:distribution</code></td><td>optional</td><td>0..n</td></tr>
+                <tr><td>Räumliche Abdeckung</td><td><code>dcterms:spatial</code></td><td>optional</td><td>0..n</td></tr>
+                <tr><td>Zeitliche Abdeckung</td><td><code>dcterms:temporal</code></td><td>optional</td><td>0..n</td></tr>
+                <tr><td>Aktualisierungsfrequenz</td><td><code>dcterms:accrualPeriodicity</code></td><td>optional</td><td>0..1</td></tr>
+                <tr><td>Veröffentlichungsdatum</td><td><code>dcterms:issued</code></td><td>optional</td><td>0..1</td></tr>
+                <tr><td>Änderungsdatum</td><td><code>dcterms:modified</code></td><td>optional</td><td>0..1</td></tr>
+                <tr><td>Lizenz</td><td><code>dcterms:license</code></td><td>optional</td><td>0..1</td></tr>
+                <tr><td>Einstiegsseite</td><td><code>dcat:landingPage</code></td><td>optional</td><td>0..n</td></tr>
+            </tbody>
+        </table>
+
+        <p class="note">Themen (<code>dcat:theme</code>) sollen aus dem EU-kontrollierten Vokabular <a href="http://publications.europa.eu/resource/authority/data-theme">Data Theme</a> gewählt werden. Für österreichische Geodatensätze empfiehlt sich zusätzlich das Thema <code>REGI</code> (Regionen und Städte).</p>
+
+        <section class="informative" id="example-dataset-turtle">
+            <h4>Beispiel: Verwaltungsgrenzen Österreich – Turtle</h4>
+            <p>Basis: <a href="https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten">BEV Verwaltungsgrenzen Stichtagsdaten auf data.gv.at</a> (Bundesamt für Eich- und Vermessungswesen)</p>
+            <pre class="example" title="dcat:Dataset – Turtle">
+@prefix dcat:    &lt;http://www.w3.org/ns/dcat#&gt; .
+@prefix dcterms: &lt;http://purl.org/dc/terms/&gt; .
+@prefix foaf:    &lt;http://xmlns.com/foaf/0.1/&gt; .
+@prefix vcard:   &lt;http://www.w3.org/2006/vcard/ns#&gt; .
+@prefix xsd:     &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+@prefix dcatap:  &lt;http://data.europa.eu/r5r/&gt; .
+
+&lt;https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten&gt;
+    a dcat:Dataset ;
+
+    # Verpflichtend
+    dcterms:title       "Verwaltungsgrenzen Stichtagsdaten"@de ;
+    dcterms:description "Digitale Grenzen der österreichischen Verwaltungseinheiten "
+                        "(Gemeinden, Bezirke, Länder und Staatsgrenze) als Stichtagsdaten. "
+                        "Die Daten basieren auf dem Grundstücksverzeichnis des BEV und "
+                        "werden regelmäßig aktualisiert."@de ;
+
+    # Empfohlen
+    dcterms:publisher   &lt;https://www.bev.gv.at/&gt; ;
+    dcat:contactPoint   &lt;https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten#contact&gt; ;
+    dcat:theme          &lt;http://publications.europa.eu/resource/authority/data-theme/REGI&gt; ,
+                        &lt;http://publications.europa.eu/resource/authority/data-theme/GOVE&gt; ;
+
+    # Optional
+    dcat:keyword              "Verwaltungsgrenzen"@de , "Gemeinden"@de ,
+                              "Bezirke"@de , "Bundesländer"@de , "Staatsgrenze"@de ;
+    dcterms:spatial           &lt;http://publications.europa.eu/resource/authority/country/AUT&gt; ;
+    dcterms:accrualPeriodicity &lt;http://publications.europa.eu/resource/authority/frequency/IRREG&gt; ;
+    dcterms:issued            "2015-01-01"^^xsd:date ;
+    dcterms:modified          "2024-01-15"^^xsd:date ;
+    dcterms:license           &lt;https://creativecommons.org/licenses/by/4.0/&gt; ;
+    dcat:landingPage          &lt;https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten&gt; ;
+
+    dcat:distribution
+        &lt;https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten/resource/gpkg&gt; ,
+        &lt;https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten/resource/shp&gt; ,
+        &lt;https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten/resource/gml&gt; .
+
+&lt;https://www.bev.gv.at/&gt;
+    a foaf:Organization ;
+    foaf:name "Bundesamt für Eich- und Vermessungswesen (BEV)"@de .
+
+&lt;https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten#contact&gt;
+    a vcard:Organization ;
+    vcard:fn      "Bundesamt für Eich- und Vermessungswesen (BEV)" ;
+    vcard:hasEmail &lt;mailto:bev@bev.gv.at&gt; ;
+    vcard:hasURL   &lt;https://www.bev.gv.at/kontakt&gt; .
+            </pre>
+        </section>
+
+        <section class="informative" id="example-dataset-jsonld">
+            <h4>Beispiel: Verwaltungsgrenzen Österreich – JSON-LD</h4>
+            <pre class="example" title="dcat:Dataset – JSON-LD">
+{
+  "@context": {
+    "dcat":    "http://www.w3.org/ns/dcat#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "foaf":    "http://xmlns.com/foaf/0.1/",
+    "vcard":   "http://www.w3.org/2006/vcard/ns#",
+    "xsd":     "http://www.w3.org/2001/XMLSchema#",
+    "dcatap":  "http://data.europa.eu/r5r/"
+  },
+  "@graph": [
+    {
+      "@id":   "https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten",
+      "@type": "dcat:Dataset",
+      "dcterms:title": {
+        "@value": "Verwaltungsgrenzen Stichtagsdaten",
+        "@language": "de"
+      },
+      "dcterms:description": {
+        "@value": "Digitale Grenzen der österreichischen Verwaltungseinheiten (Gemeinden, Bezirke, Länder und Staatsgrenze) als Stichtagsdaten. Die Daten basieren auf dem Grundstücksverzeichnis des BEV und werden regelmäßig aktualisiert.",
+        "@language": "de"
+      },
+      "dcterms:publisher":  { "@id": "https://www.bev.gv.at/" },
+      "dcat:contactPoint":  { "@id": "https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten#contact" },
+      "dcat:theme": [
+        { "@id": "http://publications.europa.eu/resource/authority/data-theme/REGI" },
+        { "@id": "http://publications.europa.eu/resource/authority/data-theme/GOVE" }
+      ],
+      "dcat:keyword": [
+        { "@value": "Verwaltungsgrenzen", "@language": "de" },
+        { "@value": "Gemeinden",          "@language": "de" },
+        { "@value": "Bezirke",            "@language": "de" },
+        { "@value": "Bundesländer",       "@language": "de" },
+        { "@value": "Staatsgrenze",       "@language": "de" }
+      ],
+      "dcterms:spatial":  { "@id": "http://publications.europa.eu/resource/authority/country/AUT" },
+      "dcterms:accrualPeriodicity": { "@id": "http://publications.europa.eu/resource/authority/frequency/IRREG" },
+      "dcterms:issued":   { "@value": "2015-01-01", "@type": "xsd:date" },
+      "dcterms:modified": { "@value": "2024-01-15", "@type": "xsd:date" },
+      "dcterms:license":  { "@id": "https://creativecommons.org/licenses/by/4.0/" },
+      "dcat:landingPage": { "@id": "https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten" },
+      "dcat:distribution": [
+        { "@id": "https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten/resource/gpkg" },
+        { "@id": "https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten/resource/shp" },
+        { "@id": "https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten/resource/gml" }
+      ]
+    },
+    {
+      "@id":   "https://www.bev.gv.at/",
+      "@type": "foaf:Organization",
+      "foaf:name": { "@value": "Bundesamt für Eich- und Vermessungswesen (BEV)", "@language": "de" }
+    },
+    {
+      "@id":   "https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten#contact",
+      "@type": "vcard:Organization",
+      "vcard:fn":       "Bundesamt für Eich- und Vermessungswesen (BEV)",
+      "vcard:hasEmail": { "@id": "mailto:bev@bev.gv.at" },
+      "vcard:hasURL":   { "@id": "https://www.bev.gv.at/kontakt" }
+    }
+  ]
+}
+            </pre>
+        </section>
+
+        <section class="informative" id="example-dataset-rdfxml">
+            <h4>Beispiel: Verwaltungsgrenzen Österreich – RDF/XML</h4>
+            <pre class="example" title="dcat:Dataset – RDF/XML">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;rdf:RDF
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:dcat="http://www.w3.org/ns/dcat#"
+  xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:vcard="http://www.w3.org/2006/vcard/ns#"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema#"&gt;
+
+  &lt;dcat:Dataset rdf:about="https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten"&gt;
+
+    &lt;dcterms:title xml:lang="de"&gt;Verwaltungsgrenzen Stichtagsdaten&lt;/dcterms:title&gt;
+    &lt;dcterms:description xml:lang="de"&gt;Digitale Grenzen der österreichischen Verwaltungseinheiten
+      (Gemeinden, Bezirke, Länder und Staatsgrenze) als Stichtagsdaten. Die Daten basieren auf
+      dem Grundstücksverzeichnis des BEV und werden regelmäßig aktualisiert.&lt;/dcterms:description&gt;
+
+    &lt;dcterms:publisher rdf:resource="https://www.bev.gv.at/"/&gt;
+    &lt;dcat:contactPoint rdf:resource="https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten#contact"/&gt;
+
+    &lt;dcat:theme rdf:resource="http://publications.europa.eu/resource/authority/data-theme/REGI"/&gt;
+    &lt;dcat:theme rdf:resource="http://publications.europa.eu/resource/authority/data-theme/GOVE"/&gt;
+
+    &lt;dcat:keyword xml:lang="de"&gt;Verwaltungsgrenzen&lt;/dcat:keyword&gt;
+    &lt;dcat:keyword xml:lang="de"&gt;Gemeinden&lt;/dcat:keyword&gt;
+    &lt;dcat:keyword xml:lang="de"&gt;Bezirke&lt;/dcat:keyword&gt;
+    &lt;dcat:keyword xml:lang="de"&gt;Bundesländer&lt;/dcat:keyword&gt;
+    &lt;dcat:keyword xml:lang="de"&gt;Staatsgrenze&lt;/dcat:keyword&gt;
+
+    &lt;dcterms:spatial rdf:resource="http://publications.europa.eu/resource/authority/country/AUT"/&gt;
+    &lt;dcterms:accrualPeriodicity rdf:resource="http://publications.europa.eu/resource/authority/frequency/IRREG"/&gt;
+    &lt;dcterms:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date"&gt;2015-01-01&lt;/dcterms:issued&gt;
+    &lt;dcterms:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date"&gt;2024-01-15&lt;/dcterms:modified&gt;
+    &lt;dcterms:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/&gt;
+    &lt;dcat:landingPage rdf:resource="https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten"/&gt;
+
+    &lt;dcat:distribution rdf:resource="https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten/resource/gpkg"/&gt;
+    &lt;dcat:distribution rdf:resource="https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten/resource/shp"/&gt;
+    &lt;dcat:distribution rdf:resource="https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten/resource/gml"/&gt;
+  &lt;/dcat:Dataset&gt;
+
+  &lt;foaf:Organization rdf:about="https://www.bev.gv.at/"&gt;
+    &lt;foaf:name xml:lang="de"&gt;Bundesamt für Eich- und Vermessungswesen (BEV)&lt;/foaf:name&gt;
+  &lt;/foaf:Organization&gt;
+
+  &lt;vcard:Organization rdf:about="https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten#contact"&gt;
+    &lt;vcard:fn&gt;Bundesamt für Eich- und Vermessungswesen (BEV)&lt;/vcard:fn&gt;
+    &lt;vcard:hasEmail rdf:resource="mailto:bev@bev.gv.at"/&gt;
+    &lt;vcard:hasURL rdf:resource="https://www.bev.gv.at/kontakt"/&gt;
+  &lt;/vcard:Organization&gt;
+
+&lt;/rdf:RDF&gt;
+            </pre>
+        </section>
+    </section><!-- /class-dataset -->
+
+    <!-- ══════════════════════════════════════════ DISTRIBUTION ══ -->
+    <section id="class-distribution">
+        <h3>Distribution (<code>dcat:Distribution</code>)</h3>
+        <p>Eine <em>Distribution</em> stellt eine konkrete, abrufbare Form eines Datensatzes dar – etwa eine CSV-Datei, ein GeoPackage oder eine API-Antwort. Ein Datensatz kann mehrere Distributionen in verschiedenen Formaten besitzen.</p>
+        <p>Jede Distribution muss mindestens eine <code>dcat:accessURL</code> enthalten. Format und Lizenz sind dringend empfohlen, damit Nutzer die Daten korrekt einordnen können.</p>
+
+        <table class="simple">
+            <caption>Wichtigste Eigenschaften von <code>dcat:Distribution</code></caption>
+            <thead><tr><th>Eigenschaft</th><th>URI</th><th>Pflicht</th><th>Kardinalität</th></tr></thead>
+            <tbody>
+                <tr><td>Zugriffs-URL</td><td><code>dcat:accessURL</code></td><td>verpflichtend</td><td>1..n</td></tr>
+                <tr><td>Verfügbarkeit</td><td><code>dcatap:availability</code></td><td>empfohlen</td><td>0..1</td></tr>
+                <tr><td>Format</td><td><code>dcterms:format</code></td><td>empfohlen</td><td>0..1</td></tr>
+                <tr><td>Lizenz</td><td><code>dcterms:license</code></td><td>empfohlen</td><td>0..1</td></tr>
+                <tr><td>Beschreibung</td><td><code>dcterms:description</code></td><td>optional</td><td>0..n</td></tr>
+                <tr><td>Titel</td><td><code>dcterms:title</code></td><td>optional</td><td>0..n</td></tr>
+                <tr><td>Download-URL</td><td><code>dcat:downloadURL</code></td><td>optional</td><td>0..n</td></tr>
+                <tr><td>Medientyp</td><td><code>dcat:mediaType</code></td><td>optional</td><td>0..1</td></tr>
+                <tr><td>Dateigröße</td><td><code>dcat:byteSize</code></td><td>optional</td><td>0..1</td></tr>
+                <tr><td>Veröffentlichungsdatum</td><td><code>dcterms:issued</code></td><td>optional</td><td>0..1</td></tr>
+                <tr><td>Änderungsdatum</td><td><code>dcterms:modified</code></td><td>optional</td><td>0..1</td></tr>
+            </tbody>
+        </table>
+
+        <p class="note">Der Wert von <code>dcatap:availability</code> sollte aus dem kontrollierten Vokabular <a href="http://data.europa.eu/r5r/availability/">Planned Availability</a> stammen, z.B. <code>stable</code> für dauerhaft verfügbare Daten.</p>
+
+        <section class="informative" id="example-distribution-turtle">
+            <h4>Beispiel: Verwaltungsgrenzen – Distributionen in Turtle</h4>
+            <pre class="example" title="dcat:Distribution – Turtle (drei Formate)">
+@prefix dcat:    &lt;http://www.w3.org/ns/dcat#&gt; .
+@prefix dcterms: &lt;http://purl.org/dc/terms/&gt; .
+@prefix xsd:     &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+@prefix dcatap:  &lt;http://data.europa.eu/r5r/&gt; .
+
+# GeoPackage-Distribution
+&lt;https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten/resource/gpkg&gt;
+    a dcat:Distribution ;
+    dcterms:title    "Verwaltungsgrenzen GeoPackage"@de ;
+    dcat:accessURL   &lt;https://data.bev.gv.at/geonetwork/srv/api/records/d3cad0fb-ff6c-4fa9-8b2f-0cfeb7c9f6e7/attachments/VGD_Oesterreich_gst.gpkg&gt; ;
+    dcat:downloadURL &lt;https://data.bev.gv.at/geonetwork/srv/api/records/d3cad0fb-ff6c-4fa9-8b2f-0cfeb7c9f6e7/attachments/VGD_Oesterreich_gst.gpkg&gt; ;
+    dcterms:format   &lt;http://publications.europa.eu/resource/authority/file-type/GPKG&gt; ;
+    dcat:mediaType   &lt;https://www.iana.org/assignments/media-types/application/geopackage+sqlite3&gt; ;
+    dcterms:license  &lt;https://creativecommons.org/licenses/by/4.0/&gt; ;
+    dcatap:availability &lt;http://data.europa.eu/r5r/availability/stable&gt; ;
+    dcat:byteSize    "45678901"^^xsd:decimal ;
+    dcterms:modified "2024-01-15"^^xsd:date .
+
+# Shapefile-Distribution (als ZIP-Archiv)
+&lt;https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten/resource/shp&gt;
+    a dcat:Distribution ;
+    dcterms:title    "Verwaltungsgrenzen Shapefile (ZIP)"@de ;
+    dcat:accessURL   &lt;https://data.bev.gv.at/geonetwork/srv/api/records/d3cad0fb-ff6c-4fa9-8b2f-0cfeb7c9f6e7/attachments/VGD_Oesterreich_gst.zip&gt; ;
+    dcat:downloadURL &lt;https://data.bev.gv.at/geonetwork/srv/api/records/d3cad0fb-ff6c-4fa9-8b2f-0cfeb7c9f6e7/attachments/VGD_Oesterreich_gst.zip&gt; ;
+    dcterms:format   &lt;http://publications.europa.eu/resource/authority/file-type/SHP&gt; ;
+    dcterms:license  &lt;https://creativecommons.org/licenses/by/4.0/&gt; ;
+    dcatap:availability &lt;http://data.europa.eu/r5r/availability/stable&gt; ;
+    dcterms:modified "2024-01-15"^^xsd:date .
+
+# GML-Distribution
+&lt;https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten/resource/gml&gt;
+    a dcat:Distribution ;
+    dcterms:title    "Verwaltungsgrenzen GML"@de ;
+    dcat:accessURL   &lt;https://data.bev.gv.at/geonetwork/srv/api/records/d3cad0fb-ff6c-4fa9-8b2f-0cfeb7c9f6e7/attachments/VGD_Oesterreich_gst.gml&gt; ;
+    dcat:downloadURL &lt;https://data.bev.gv.at/geonetwork/srv/api/records/d3cad0fb-ff6c-4fa9-8b2f-0cfeb7c9f6e7/attachments/VGD_Oesterreich_gst.gml&gt; ;
+    dcterms:format   &lt;http://publications.europa.eu/resource/authority/file-type/GML&gt; ;
+    dcterms:license  &lt;https://creativecommons.org/licenses/by/4.0/&gt; ;
+    dcatap:availability &lt;http://data.europa.eu/r5r/availability/stable&gt; ;
+    dcterms:modified "2024-01-15"^^xsd:date .
+            </pre>
+        </section>
+
+        <section class="informative" id="example-distribution-jsonld">
+            <h4>Beispiel: Verwaltungsgrenzen – Distributionen in JSON-LD</h4>
+            <pre class="example" title="dcat:Distribution – JSON-LD">
+{
+  "@context": {
+    "dcat":    "http://www.w3.org/ns/dcat#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd":     "http://www.w3.org/2001/XMLSchema#",
+    "dcatap":  "http://data.europa.eu/r5r/"
+  },
+  "@graph": [
+    {
+      "@id":   "https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten/resource/gpkg",
+      "@type": "dcat:Distribution",
+      "dcterms:title":    { "@value": "Verwaltungsgrenzen GeoPackage", "@language": "de" },
+      "dcat:accessURL":   { "@id": "https://data.bev.gv.at/geonetwork/srv/api/records/d3cad0fb-ff6c-4fa9-8b2f-0cfeb7c9f6e7/attachments/VGD_Oesterreich_gst.gpkg" },
+      "dcat:downloadURL": { "@id": "https://data.bev.gv.at/geonetwork/srv/api/records/d3cad0fb-ff6c-4fa9-8b2f-0cfeb7c9f6e7/attachments/VGD_Oesterreich_gst.gpkg" },
+      "dcterms:format":   { "@id": "http://publications.europa.eu/resource/authority/file-type/GPKG" },
+      "dcat:mediaType":   { "@id": "https://www.iana.org/assignments/media-types/application/geopackage+sqlite3" },
+      "dcterms:license":  { "@id": "https://creativecommons.org/licenses/by/4.0/" },
+      "dcatap:availability": { "@id": "http://data.europa.eu/r5r/availability/stable" },
+      "dcat:byteSize":    { "@value": "45678901", "@type": "xsd:decimal" },
+      "dcterms:modified": { "@value": "2024-01-15", "@type": "xsd:date" }
+    },
+    {
+      "@id":   "https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten/resource/shp",
+      "@type": "dcat:Distribution",
+      "dcterms:title":    { "@value": "Verwaltungsgrenzen Shapefile (ZIP)", "@language": "de" },
+      "dcat:accessURL":   { "@id": "https://data.bev.gv.at/geonetwork/srv/api/records/d3cad0fb-ff6c-4fa9-8b2f-0cfeb7c9f6e7/attachments/VGD_Oesterreich_gst.zip" },
+      "dcat:downloadURL": { "@id": "https://data.bev.gv.at/geonetwork/srv/api/records/d3cad0fb-ff6c-4fa9-8b2f-0cfeb7c9f6e7/attachments/VGD_Oesterreich_gst.zip" },
+      "dcterms:format":   { "@id": "http://publications.europa.eu/resource/authority/file-type/SHP" },
+      "dcterms:license":  { "@id": "https://creativecommons.org/licenses/by/4.0/" },
+      "dcatap:availability": { "@id": "http://data.europa.eu/r5r/availability/stable" },
+      "dcterms:modified": { "@value": "2024-01-15", "@type": "xsd:date" }
+    },
+    {
+      "@id":   "https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten/resource/gml",
+      "@type": "dcat:Distribution",
+      "dcterms:title":    { "@value": "Verwaltungsgrenzen GML", "@language": "de" },
+      "dcat:accessURL":   { "@id": "https://data.bev.gv.at/geonetwork/srv/api/records/d3cad0fb-ff6c-4fa9-8b2f-0cfeb7c9f6e7/attachments/VGD_Oesterreich_gst.gml" },
+      "dcat:downloadURL": { "@id": "https://data.bev.gv.at/geonetwork/srv/api/records/d3cad0fb-ff6c-4fa9-8b2f-0cfeb7c9f6e7/attachments/VGD_Oesterreich_gst.gml" },
+      "dcterms:format":   { "@id": "http://publications.europa.eu/resource/authority/file-type/GML" },
+      "dcterms:license":  { "@id": "https://creativecommons.org/licenses/by/4.0/" },
+      "dcatap:availability": { "@id": "http://data.europa.eu/r5r/availability/stable" },
+      "dcterms:modified": { "@value": "2024-01-15", "@type": "xsd:date" }
+    }
+  ]
+}
+            </pre>
+        </section>
+
+        <section class="informative" id="example-distribution-rdfxml">
+            <h4>Beispiel: Verwaltungsgrenzen – Distribution in RDF/XML</h4>
+            <pre class="example" title="dcat:Distribution – RDF/XML (GeoPackage)">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;rdf:RDF
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:dcat="http://www.w3.org/ns/dcat#"
+  xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+  xmlns:dcatap="http://data.europa.eu/r5r/"&gt;
+
+  &lt;dcat:Distribution rdf:about="https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten/resource/gpkg"&gt;
+    &lt;dcterms:title xml:lang="de"&gt;Verwaltungsgrenzen GeoPackage&lt;/dcterms:title&gt;
+    &lt;dcat:accessURL   rdf:resource="https://data.bev.gv.at/geonetwork/srv/api/records/d3cad0fb-ff6c-4fa9-8b2f-0cfeb7c9f6e7/attachments/VGD_Oesterreich_gst.gpkg"/&gt;
+    &lt;dcat:downloadURL rdf:resource="https://data.bev.gv.at/geonetwork/srv/api/records/d3cad0fb-ff6c-4fa9-8b2f-0cfeb7c9f6e7/attachments/VGD_Oesterreich_gst.gpkg"/&gt;
+    &lt;dcterms:format  rdf:resource="http://publications.europa.eu/resource/authority/file-type/GPKG"/&gt;
+    &lt;dcterms:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/&gt;
+    &lt;dcatap:availability rdf:resource="http://data.europa.eu/r5r/availability/stable"/&gt;
+    &lt;dcat:byteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal"&gt;45678901&lt;/dcat:byteSize&gt;
+    &lt;dcterms:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date"&gt;2024-01-15&lt;/dcterms:modified&gt;
+  &lt;/dcat:Distribution&gt;
+
+&lt;/rdf:RDF&gt;
+            </pre>
+        </section>
+    </section><!-- /class-distribution -->
+
+    <!-- ══════════════════════════════════════════════ CATALOG ══ -->
+    <section id="class-catalog">
+        <h3>Katalog (<code>dcat:Catalog</code>)</h3>
+        <p>Ein <em>Katalog</em> ist eine kuratierte Sammlung von Metadaten zu Datensätzen und Datendiensten. Das österreichische Open-Data-Portal <a href="https://www.data.gv.at">data.gv.at</a> ist selbst ein solcher Katalog. Behörden, die eigene Portale betreiben, können ebenfalls einen Katalog-Eintrag anlegen.</p>
+
+        <table class="simple">
+            <caption>Wichtigste Eigenschaften von <code>dcat:Catalog</code></caption>
+            <thead><tr><th>Eigenschaft</th><th>URI</th><th>Pflicht</th><th>Kardinalität</th></tr></thead>
+            <tbody>
+                <tr><td>Titel</td><td><code>dcterms:title</code></td><td>verpflichtend</td><td>1..n</td></tr>
+                <tr><td>Beschreibung</td><td><code>dcterms:description</code></td><td>verpflichtend</td><td>1..n</td></tr>
+                <tr><td>Herausgeber</td><td><code>dcterms:publisher</code></td><td>verpflichtend</td><td>1..1</td></tr>
+                <tr><td>Datensatz</td><td><code>dcat:dataset</code></td><td>empfohlen</td><td>0..n</td></tr>
+                <tr><td>Lizenz</td><td><code>dcterms:license</code></td><td>empfohlen</td><td>0..1</td></tr>
+                <tr><td>Thesaurus</td><td><code>dcat:themeTaxonomy</code></td><td>empfohlen</td><td>0..n</td></tr>
+                <tr><td>Homepage</td><td><code>foaf:homepage</code></td><td>optional</td><td>0..1</td></tr>
+                <tr><td>Sprache</td><td><code>dcterms:language</code></td><td>optional</td><td>0..n</td></tr>
+                <tr><td>Räumliche Abdeckung</td><td><code>dcterms:spatial</code></td><td>optional</td><td>0..n</td></tr>
+                <tr><td>Veröffentlichungsdatum</td><td><code>dcterms:issued</code></td><td>optional</td><td>0..1</td></tr>
+                <tr><td>Änderungsdatum</td><td><code>dcterms:modified</code></td><td>optional</td><td>0..1</td></tr>
+            </tbody>
+        </table>
+
+        <section class="informative" id="example-catalog-turtle">
+            <h4>Beispiel: Datenkatalog der Stadt Wien – Turtle</h4>
+            <p>Basis: <a href="https://www.data.gv.at/katalog/organization/stadt-wien">Datensätze der Stadt Wien auf data.gv.at</a></p>
+            <pre class="example" title="dcat:Catalog – Turtle">
+@prefix dcat:    &lt;http://www.w3.org/ns/dcat#&gt; .
+@prefix dcterms: &lt;http://purl.org/dc/terms/&gt; .
+@prefix foaf:    &lt;http://xmlns.com/foaf/0.1/&gt; .
+@prefix xsd:     &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+
+&lt;https://www.data.gv.at/katalog/organization/stadt-wien&gt;
+    a dcat:Catalog ;
+
+    # Verpflichtend
+    dcterms:title       "Open Data Katalog der Stadt Wien"@de ;
+    dcterms:description "Datenkatalog mit offenen Verwaltungsdaten der Stadt Wien. "
+                        "Enthält Datensätze aus den Bereichen Stadtentwicklung, "
+                        "Umwelt, Verkehr, Bevölkerung und Soziales."@de ;
+    dcterms:publisher   &lt;https://www.wien.gv.at/&gt; ;
+
+    # Empfohlen
+    dcat:dataset          &lt;https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten&gt; ;
+    dcterms:license       &lt;https://creativecommons.org/licenses/by/4.0/&gt; ;
+    dcat:themeTaxonomy    &lt;http://publications.europa.eu/resource/authority/data-theme&gt; ;
+
+    # Optional
+    foaf:homepage         &lt;https://www.data.gv.at/katalog/organization/stadt-wien&gt; ;
+    dcterms:language      &lt;http://publications.europa.eu/resource/authority/language/DEU&gt; ;
+    dcterms:spatial       &lt;http://publications.europa.eu/resource/authority/country/AUT&gt; ;
+    dcterms:issued        "2012-01-01"^^xsd:date ;
+    dcterms:modified      "2024-06-01"^^xsd:date .
+
+&lt;https://www.wien.gv.at/&gt;
+    a foaf:Organization ;
+    foaf:name "Stadt Wien – Magistrat"@de .
+            </pre>
+        </section>
+
+        <section class="informative" id="example-catalog-jsonld">
+            <h4>Beispiel: Datenkatalog der Stadt Wien – JSON-LD</h4>
+            <pre class="example" title="dcat:Catalog – JSON-LD">
+{
+  "@context": {
+    "dcat":    "http://www.w3.org/ns/dcat#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "foaf":    "http://xmlns.com/foaf/0.1/",
+    "xsd":     "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id":   "https://www.data.gv.at/katalog/organization/stadt-wien",
+  "@type": "dcat:Catalog",
+  "dcterms:title": { "@value": "Open Data Katalog der Stadt Wien", "@language": "de" },
+  "dcterms:description": {
+    "@value": "Datenkatalog mit offenen Verwaltungsdaten der Stadt Wien. Enthält Datensätze aus den Bereichen Stadtentwicklung, Umwelt, Verkehr, Bevölkerung und Soziales.",
+    "@language": "de"
+  },
+  "dcterms:publisher": {
+    "@id":   "https://www.wien.gv.at/",
+    "@type": "foaf:Organization",
+    "foaf:name": { "@value": "Stadt Wien – Magistrat", "@language": "de" }
+  },
+  "dcat:dataset":       { "@id": "https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten" },
+  "dcterms:license":    { "@id": "https://creativecommons.org/licenses/by/4.0/" },
+  "dcat:themeTaxonomy": { "@id": "http://publications.europa.eu/resource/authority/data-theme" },
+  "foaf:homepage":      { "@id": "https://www.data.gv.at/katalog/organization/stadt-wien" },
+  "dcterms:language":   { "@id": "http://publications.europa.eu/resource/authority/language/DEU" },
+  "dcterms:spatial":    { "@id": "http://publications.europa.eu/resource/authority/country/AUT" },
+  "dcterms:issued":     { "@value": "2012-01-01", "@type": "xsd:date" },
+  "dcterms:modified":   { "@value": "2024-06-01", "@type": "xsd:date" }
+}
+            </pre>
+        </section>
+    </section><!-- /class-catalog -->
+
+    <!-- ════════════════════════════════════════ DATASERVICE ══ -->
+    <section id="class-dataservice">
+        <h3>Datendienst (<code>dcat:DataService</code>)</h3>
+        <p>Ein <em>Datendienst</em> ist eine Sammlung von Operationen, die über eine API programmatischen Zugriff auf einen oder mehrere Datensätze ermöglicht – z.B. ein WFS, WMS, OGC API Features oder ein SPARQL-Endpoint.</p>
+
+        <table class="simple">
+            <caption>Wichtigste Eigenschaften von <code>dcat:DataService</code></caption>
+            <thead><tr><th>Eigenschaft</th><th>URI</th><th>Pflicht</th><th>Kardinalität</th></tr></thead>
+            <tbody>
+                <tr><td>Endpunkt-URL</td><td><code>dcat:endpointURL</code></td><td>verpflichtend</td><td>1..n</td></tr>
+                <tr><td>Titel</td><td><code>dcterms:title</code></td><td>verpflichtend</td><td>1..n</td></tr>
+                <tr><td>Endpunkt-Beschreibung</td><td><code>dcat:endpointDescription</code></td><td>empfohlen</td><td>0..n</td></tr>
+                <tr><td>Bereitgestellte Datensätze</td><td><code>dcat:servesDataset</code></td><td>optional</td><td>0..n</td></tr>
+                <tr><td>Lizenz</td><td><code>dcterms:license</code></td><td>optional</td><td>0..1</td></tr>
+                <tr><td>Thema</td><td><code>dcat:theme</code></td><td>optional</td><td>0..n</td></tr>
+                <tr><td>Zugriffsrechte</td><td><code>dcterms:accessRights</code></td><td>optional</td><td>0..1</td></tr>
+            </tbody>
+        </table>
+
+        <section class="informative" id="example-dataservice-turtle">
+            <h4>Beispiel: BEV WFS-Dienst für Verwaltungsgrenzen – Turtle</h4>
+            <pre class="example" title="dcat:DataService – Turtle">
+@prefix dcat:    &lt;http://www.w3.org/ns/dcat#&gt; .
+@prefix dcterms: &lt;http://purl.org/dc/terms/&gt; .
+@prefix foaf:    &lt;http://xmlns.com/foaf/0.1/&gt; .
+
+&lt;https://www.data.gv.at/katalog/dataset/bev-wfs-verwaltungsgrenzen&gt;
+    a dcat:DataService ;
+
+    # Verpflichtend
+    dcat:endpointURL         &lt;https://data.bev.gv.at/geoserver/BEVdataRO/wfs&gt; ;
+    dcterms:title            "BEV WFS – Verwaltungsgrenzen"@de ;
+
+    # Empfohlen
+    dcat:endpointDescription &lt;https://data.bev.gv.at/geoserver/BEVdataRO/wfs?service=WFS&amp;version=2.0.0&amp;request=GetCapabilities&gt; ;
+
+    # Optional
+    dcat:servesDataset       &lt;https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten&gt; ;
+    dcterms:license          &lt;https://creativecommons.org/licenses/by/4.0/&gt; ;
+    dcat:theme               &lt;http://publications.europa.eu/resource/authority/data-theme/REGI&gt; ;
+    dcterms:publisher        &lt;https://www.bev.gv.at/&gt; .
+            </pre>
+        </section>
+
+        <section class="informative" id="example-dataservice-jsonld">
+            <h4>Beispiel: BEV WFS-Dienst – JSON-LD</h4>
+            <pre class="example" title="dcat:DataService – JSON-LD">
+{
+  "@context": {
+    "dcat":    "http://www.w3.org/ns/dcat#",
+    "dcterms": "http://purl.org/dc/terms/"
+  },
+  "@id":   "https://www.data.gv.at/katalog/dataset/bev-wfs-verwaltungsgrenzen",
+  "@type": "dcat:DataService",
+  "dcat:endpointURL":         { "@id": "https://data.bev.gv.at/geoserver/BEVdataRO/wfs" },
+  "dcterms:title":            { "@value": "BEV WFS – Verwaltungsgrenzen", "@language": "de" },
+  "dcat:endpointDescription": { "@id": "https://data.bev.gv.at/geoserver/BEVdataRO/wfs?service=WFS&version=2.0.0&request=GetCapabilities" },
+  "dcat:servesDataset":       { "@id": "https://www.data.gv.at/katalog/dataset/bev-verwaltungsgrenzen-stichtagsdaten" },
+  "dcterms:license":          { "@id": "https://creativecommons.org/licenses/by/4.0/" },
+  "dcat:theme":               { "@id": "http://publications.europa.eu/resource/authority/data-theme/REGI" }
+}
+            </pre>
+        </section>
+    </section><!-- /class-dataservice -->
+
+    <!-- ════════════════════════════════ ZWEITER DATENSATZ ══ -->
+    <section id="example-statistics">
+        <h3>Weiteres Beispiel: Statistischer Datensatz</h3>
+        <p>Das folgende Beispiel zeigt einen Datensatz der Statistik Austria mit zeitlicher Abdeckung und Aktualisierungsfrequenz – typische Eigenschaften für statistische Zeitreihen.</p>
+        <p>Basis: <a href="https://www.data.gv.at/katalog/dataset/stat_bevoelkerung-zu-jahresbeginn-gemeinden-ab-2002">Bevölkerung zu Jahresbeginn nach Gemeinden ab 2002 (Statistik Austria)</a></p>
+
+        <section class="informative" id="example-statistics-turtle">
+            <h4>Bevölkerungsstatistik – Turtle</h4>
+            <pre class="example" title="Statistischer Datensatz – Turtle">
+@prefix dcat:    &lt;http://www.w3.org/ns/dcat#&gt; .
+@prefix dcterms: &lt;http://purl.org/dc/terms/&gt; .
+@prefix foaf:    &lt;http://xmlns.com/foaf/0.1/&gt; .
+@prefix vcard:   &lt;http://www.w3.org/2006/vcard/ns#&gt; .
+@prefix xsd:     &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+@prefix dcatap:  &lt;http://data.europa.eu/r5r/&gt; .
+
+&lt;https://www.data.gv.at/katalog/dataset/stat_bevoelkerung-zu-jahresbeginn-gemeinden-ab-2002&gt;
+    a dcat:Dataset ;
+    dcterms:title       "Bevölkerung zu Jahresbeginn nach Gemeinden ab 2002"@de ;
+    dcterms:description "Bevölkerungsstand zu Jahresbeginn (1. Jänner) je Gemeinde, "
+                        "gegliedert nach Geschlecht. Datenquelle: Statistik Austria, "
+                        "Bevölkerungsregister. Zeitreihe ab 2002."@de ;
+    dcterms:publisher   &lt;https://www.statistik.at/&gt; ;
+    dcat:contactPoint   &lt;https://www.data.gv.at/katalog/dataset/stat_bevoelkerung-zu-jahresbeginn-gemeinden-ab-2002#contact&gt; ;
+    dcat:theme          &lt;http://publications.europa.eu/resource/authority/data-theme/SOCI&gt; ,
+                        &lt;http://publications.europa.eu/resource/authority/data-theme/REGI&gt; ;
+    dcat:keyword        "Bevölkerung"@de , "Gemeinden"@de ,
+                        "Statistik"@de , "Zeitreihe"@de ;
+    dcterms:spatial     &lt;http://publications.europa.eu/resource/authority/country/AUT&gt; ;
+    dcterms:temporal    [
+        a dcterms:PeriodOfTime ;
+        dcat:startDate "2002-01-01"^^xsd:date ;
+        dcat:endDate   "2024-01-01"^^xsd:date
+    ] ;
+    dcterms:accrualPeriodicity &lt;http://publications.europa.eu/resource/authority/frequency/ANNUAL&gt; ;
+    dcterms:issued      "2003-06-01"^^xsd:date ;
+    dcterms:modified    "2024-06-14"^^xsd:date ;
+    dcterms:license     &lt;https://creativecommons.org/licenses/by/4.0/&gt; ;
+    dcat:distribution   &lt;https://www.data.gv.at/katalog/dataset/stat_bevoelkerung-zu-jahresbeginn-gemeinden-ab-2002/resource/csv&gt; ,
+                        &lt;https://www.data.gv.at/katalog/dataset/stat_bevoelkerung-zu-jahresbeginn-gemeinden-ab-2002/resource/xlsx&gt; .
+
+&lt;https://www.statistik.at/&gt;
+    a foaf:Organization ;
+    foaf:name "Statistik Austria"@de .
+
+&lt;https://www.data.gv.at/katalog/dataset/stat_bevoelkerung-zu-jahresbeginn-gemeinden-ab-2002#contact&gt;
+    a vcard:Organization ;
+    vcard:fn       "Statistik Austria – Open Data" ;
+    vcard:hasEmail &lt;mailto:opendata@statistik.gv.at&gt; .
+
+# CSV-Distribution
+&lt;https://www.data.gv.at/katalog/dataset/stat_bevoelkerung-zu-jahresbeginn-gemeinden-ab-2002/resource/csv&gt;
+    a dcat:Distribution ;
+    dcterms:title    "Bevölkerung je Gemeinde – CSV"@de ;
+    dcat:accessURL   &lt;https://www.statistik.at/fileadmin/pages/opendata/bev_gemeinden_jahresbeginn.csv&gt; ;
+    dcat:downloadURL &lt;https://www.statistik.at/fileadmin/pages/opendata/bev_gemeinden_jahresbeginn.csv&gt; ;
+    dcterms:format   &lt;http://publications.europa.eu/resource/authority/file-type/CSV&gt; ;
+    dcat:mediaType   &lt;https://www.iana.org/assignments/media-types/text/csv&gt; ;
+    dcterms:license  &lt;https://creativecommons.org/licenses/by/4.0/&gt; ;
+    dcatap:availability &lt;http://data.europa.eu/r5r/availability/stable&gt; ;
+    dcterms:modified "2024-06-14"^^xsd:date .
+
+# XLSX-Distribution
+&lt;https://www.data.gv.at/katalog/dataset/stat_bevoelkerung-zu-jahresbeginn-gemeinden-ab-2002/resource/xlsx&gt;
+    a dcat:Distribution ;
+    dcterms:title    "Bevölkerung je Gemeinde – Excel"@de ;
+    dcat:accessURL   &lt;https://www.statistik.at/fileadmin/pages/opendata/bev_gemeinden_jahresbeginn.xlsx&gt; ;
+    dcat:downloadURL &lt;https://www.statistik.at/fileadmin/pages/opendata/bev_gemeinden_jahresbeginn.xlsx&gt; ;
+    dcterms:format   &lt;http://publications.europa.eu/resource/authority/file-type/XLSX&gt; ;
+    dcat:mediaType   &lt;https://www.iana.org/assignments/media-types/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&gt; ;
+    dcterms:license  &lt;https://creativecommons.org/licenses/by/4.0/&gt; ;
+    dcatap:availability &lt;http://data.europa.eu/r5r/availability/stable&gt; ;
+    dcterms:modified "2024-06-14"^^xsd:date .
+            </pre>
+        </section>
+
+        <section class="informative" id="example-statistics-jsonld">
+            <h4>Bevölkerungsstatistik – JSON-LD</h4>
+            <pre class="example" title="Statistischer Datensatz – JSON-LD">
+{
+  "@context": {
+    "dcat":    "http://www.w3.org/ns/dcat#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "foaf":    "http://xmlns.com/foaf/0.1/",
+    "vcard":   "http://www.w3.org/2006/vcard/ns#",
+    "xsd":     "http://www.w3.org/2001/XMLSchema#",
+    "dcatap":  "http://data.europa.eu/r5r/"
+  },
+  "@graph": [
+    {
+      "@id":   "https://www.data.gv.at/katalog/dataset/stat_bevoelkerung-zu-jahresbeginn-gemeinden-ab-2002",
+      "@type": "dcat:Dataset",
+      "dcterms:title": { "@value": "Bevölkerung zu Jahresbeginn nach Gemeinden ab 2002", "@language": "de" },
+      "dcterms:description": {
+        "@value": "Bevölkerungsstand zu Jahresbeginn (1. Jänner) je Gemeinde, gegliedert nach Geschlecht. Datenquelle: Statistik Austria, Bevölkerungsregister. Zeitreihe ab 2002.",
+        "@language": "de"
+      },
+      "dcterms:publisher": { "@id": "https://www.statistik.at/" },
+      "dcat:contactPoint": { "@id": "https://www.data.gv.at/katalog/dataset/stat_bevoelkerung-zu-jahresbeginn-gemeinden-ab-2002#contact" },
+      "dcat:theme": [
+        { "@id": "http://publications.europa.eu/resource/authority/data-theme/SOCI" },
+        { "@id": "http://publications.europa.eu/resource/authority/data-theme/REGI" }
+      ],
+      "dcat:keyword": [
+        { "@value": "Bevölkerung", "@language": "de" },
+        { "@value": "Gemeinden",   "@language": "de" },
+        { "@value": "Statistik",   "@language": "de" },
+        { "@value": "Zeitreihe",   "@language": "de" }
+      ],
+      "dcterms:spatial": { "@id": "http://publications.europa.eu/resource/authority/country/AUT" },
+      "dcterms:temporal": {
+        "@type": "dcterms:PeriodOfTime",
+        "dcat:startDate": { "@value": "2002-01-01", "@type": "xsd:date" },
+        "dcat:endDate":   { "@value": "2024-01-01", "@type": "xsd:date" }
+      },
+      "dcterms:accrualPeriodicity": { "@id": "http://publications.europa.eu/resource/authority/frequency/ANNUAL" },
+      "dcterms:issued":   { "@value": "2003-06-01", "@type": "xsd:date" },
+      "dcterms:modified": { "@value": "2024-06-14", "@type": "xsd:date" },
+      "dcterms:license":  { "@id": "https://creativecommons.org/licenses/by/4.0/" },
+      "dcat:distribution": [
+        { "@id": "https://www.data.gv.at/katalog/dataset/stat_bevoelkerung-zu-jahresbeginn-gemeinden-ab-2002/resource/csv" },
+        { "@id": "https://www.data.gv.at/katalog/dataset/stat_bevoelkerung-zu-jahresbeginn-gemeinden-ab-2002/resource/xlsx" }
+      ]
+    },
+    {
+      "@id":   "https://www.statistik.at/",
+      "@type": "foaf:Organization",
+      "foaf:name": { "@value": "Statistik Austria", "@language": "de" }
+    },
+    {
+      "@id":   "https://www.data.gv.at/katalog/dataset/stat_bevoelkerung-zu-jahresbeginn-gemeinden-ab-2002#contact",
+      "@type": "vcard:Organization",
+      "vcard:fn":       "Statistik Austria – Open Data",
+      "vcard:hasEmail": { "@id": "mailto:opendata@statistik.gv.at" }
+    },
+    {
+      "@id":   "https://www.data.gv.at/katalog/dataset/stat_bevoelkerung-zu-jahresbeginn-gemeinden-ab-2002/resource/csv",
+      "@type": "dcat:Distribution",
+      "dcterms:title":    { "@value": "Bevölkerung je Gemeinde – CSV", "@language": "de" },
+      "dcat:accessURL":   { "@id": "https://www.statistik.at/fileadmin/pages/opendata/bev_gemeinden_jahresbeginn.csv" },
+      "dcat:downloadURL": { "@id": "https://www.statistik.at/fileadmin/pages/opendata/bev_gemeinden_jahresbeginn.csv" },
+      "dcterms:format":   { "@id": "http://publications.europa.eu/resource/authority/file-type/CSV" },
+      "dcat:mediaType":   { "@id": "https://www.iana.org/assignments/media-types/text/csv" },
+      "dcterms:license":  { "@id": "https://creativecommons.org/licenses/by/4.0/" },
+      "dcatap:availability": { "@id": "http://data.europa.eu/r5r/availability/stable" },
+      "dcterms:modified": { "@value": "2024-06-14", "@type": "xsd:date" }
+    },
+    {
+      "@id":   "https://www.data.gv.at/katalog/dataset/stat_bevoelkerung-zu-jahresbeginn-gemeinden-ab-2002/resource/xlsx",
+      "@type": "dcat:Distribution",
+      "dcterms:title":    { "@value": "Bevölkerung je Gemeinde – Excel", "@language": "de" },
+      "dcat:accessURL":   { "@id": "https://www.statistik.at/fileadmin/pages/opendata/bev_gemeinden_jahresbeginn.xlsx" },
+      "dcat:downloadURL": { "@id": "https://www.statistik.at/fileadmin/pages/opendata/bev_gemeinden_jahresbeginn.xlsx" },
+      "dcterms:format":   { "@id": "http://publications.europa.eu/resource/authority/file-type/XLSX" },
+      "dcterms:license":  { "@id": "https://creativecommons.org/licenses/by/4.0/" },
+      "dcatap:availability": { "@id": "http://data.europa.eu/r5r/availability/stable" },
+      "dcterms:modified": { "@value": "2024-06-14", "@type": "xsd:date" }
+    }
+  ]
+}
+            </pre>
+        </section>
+
+        <section class="informative" id="example-statistics-rdfxml">
+            <h4>Bevölkerungsstatistik – RDF/XML</h4>
+            <pre class="example" title="Statistischer Datensatz – RDF/XML">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;rdf:RDF
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:dcat="http://www.w3.org/ns/dcat#"
+  xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:vcard="http://www.w3.org/2006/vcard/ns#"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+  xmlns:dcatap="http://data.europa.eu/r5r/"&gt;
+
+  &lt;dcat:Dataset rdf:about="https://www.data.gv.at/katalog/dataset/stat_bevoelkerung-zu-jahresbeginn-gemeinden-ab-2002"&gt;
+    &lt;dcterms:title xml:lang="de"&gt;Bevölkerung zu Jahresbeginn nach Gemeinden ab 2002&lt;/dcterms:title&gt;
+    &lt;dcterms:description xml:lang="de"&gt;Bevölkerungsstand zu Jahresbeginn (1. Jänner) je Gemeinde,
+      gegliedert nach Geschlecht. Datenquelle: Statistik Austria,
+      Bevölkerungsregister. Zeitreihe ab 2002.&lt;/dcterms:description&gt;
+    &lt;dcterms:publisher rdf:resource="https://www.statistik.at/"/&gt;
+    &lt;dcat:contactPoint rdf:resource="https://www.data.gv.at/katalog/dataset/stat_bevoelkerung-zu-jahresbeginn-gemeinden-ab-2002#contact"/&gt;
+    &lt;dcat:theme rdf:resource="http://publications.europa.eu/resource/authority/data-theme/SOCI"/&gt;
+    &lt;dcat:theme rdf:resource="http://publications.europa.eu/resource/authority/data-theme/REGI"/&gt;
+    &lt;dcat:keyword xml:lang="de"&gt;Bevölkerung&lt;/dcat:keyword&gt;
+    &lt;dcat:keyword xml:lang="de"&gt;Gemeinden&lt;/dcat:keyword&gt;
+    &lt;dcat:keyword xml:lang="de"&gt;Statistik&lt;/dcat:keyword&gt;
+    &lt;dcterms:spatial rdf:resource="http://publications.europa.eu/resource/authority/country/AUT"/&gt;
+    &lt;dcterms:temporal&gt;
+      &lt;dcterms:PeriodOfTime&gt;
+        &lt;dcat:startDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date"&gt;2002-01-01&lt;/dcat:startDate&gt;
+        &lt;dcat:endDate   rdf:datatype="http://www.w3.org/2001/XMLSchema#date"&gt;2024-01-01&lt;/dcat:endDate&gt;
+      &lt;/dcterms:PeriodOfTime&gt;
+    &lt;/dcterms:temporal&gt;
+    &lt;dcterms:accrualPeriodicity rdf:resource="http://publications.europa.eu/resource/authority/frequency/ANNUAL"/&gt;
+    &lt;dcterms:issued   rdf:datatype="http://www.w3.org/2001/XMLSchema#date"&gt;2003-06-01&lt;/dcterms:issued&gt;
+    &lt;dcterms:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date"&gt;2024-06-14&lt;/dcterms:modified&gt;
+    &lt;dcterms:license  rdf:resource="https://creativecommons.org/licenses/by/4.0/"/&gt;
+    &lt;dcat:distribution rdf:resource="https://www.data.gv.at/katalog/dataset/stat_bevoelkerung-zu-jahresbeginn-gemeinden-ab-2002/resource/csv"/&gt;
+    &lt;dcat:distribution rdf:resource="https://www.data.gv.at/katalog/dataset/stat_bevoelkerung-zu-jahresbeginn-gemeinden-ab-2002/resource/xlsx"/&gt;
+  &lt;/dcat:Dataset&gt;
+
+  &lt;foaf:Organization rdf:about="https://www.statistik.at/"&gt;
+    &lt;foaf:name xml:lang="de"&gt;Statistik Austria&lt;/foaf:name&gt;
+  &lt;/foaf:Organization&gt;
+
+  &lt;vcard:Organization rdf:about="https://www.data.gv.at/katalog/dataset/stat_bevoelkerung-zu-jahresbeginn-gemeinden-ab-2002#contact"&gt;
+    &lt;vcard:fn&gt;Statistik Austria – Open Data&lt;/vcard:fn&gt;
+    &lt;vcard:hasEmail rdf:resource="mailto:opendata@statistik.gv.at"/&gt;
+  &lt;/vcard:Organization&gt;
+
+  &lt;dcat:Distribution rdf:about="https://www.data.gv.at/katalog/dataset/stat_bevoelkerung-zu-jahresbeginn-gemeinden-ab-2002/resource/csv"&gt;
+    &lt;dcterms:title xml:lang="de"&gt;Bevölkerung je Gemeinde – CSV&lt;/dcterms:title&gt;
+    &lt;dcat:accessURL   rdf:resource="https://www.statistik.at/fileadmin/pages/opendata/bev_gemeinden_jahresbeginn.csv"/&gt;
+    &lt;dcat:downloadURL rdf:resource="https://www.statistik.at/fileadmin/pages/opendata/bev_gemeinden_jahresbeginn.csv"/&gt;
+    &lt;dcterms:format   rdf:resource="http://publications.europa.eu/resource/authority/file-type/CSV"/&gt;
+    &lt;dcterms:license  rdf:resource="https://creativecommons.org/licenses/by/4.0/"/&gt;
+    &lt;dcatap:availability rdf:resource="http://data.europa.eu/r5r/availability/stable"/&gt;
+    &lt;dcterms:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date"&gt;2024-06-14&lt;/dcterms:modified&gt;
+  &lt;/dcat:Distribution&gt;
+
+  &lt;dcat:Distribution rdf:about="https://www.data.gv.at/katalog/dataset/stat_bevoelkerung-zu-jahresbeginn-gemeinden-ab-2002/resource/xlsx"&gt;
+    &lt;dcterms:title xml:lang="de"&gt;Bevölkerung je Gemeinde – Excel&lt;/dcterms:title&gt;
+    &lt;dcat:accessURL   rdf:resource="https://www.statistik.at/fileadmin/pages/opendata/bev_gemeinden_jahresbeginn.xlsx"/&gt;
+    &lt;dcat:downloadURL rdf:resource="https://www.statistik.at/fileadmin/pages/opendata/bev_gemeinden_jahresbeginn.xlsx"/&gt;
+    &lt;dcterms:format   rdf:resource="http://publications.europa.eu/resource/authority/file-type/XLSX"/&gt;
+    &lt;dcterms:license  rdf:resource="https://creativecommons.org/licenses/by/4.0/"/&gt;
+    &lt;dcatap:availability rdf:resource="http://data.europa.eu/r5r/availability/stable"/&gt;
+    &lt;dcterms:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date"&gt;2024-06-14&lt;/dcterms:modified&gt;
+  &lt;/dcat:Distribution&gt;
+
+&lt;/rdf:RDF&gt;
+            </pre>
+        </section>
+    </section><!-- /example-statistics -->
+
+</section><!-- /classes -->
+
 <section id="changelog">
     <h2>Änderungshistorie</h2>
     <dl>
