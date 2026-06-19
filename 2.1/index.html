@@ -55,31 +55,8 @@
                 href:      "https://www.w3.org/TR/vocab-dcat/",
                 publisher: "W3C"
             }
-        },
-        postProcess: [initRdforms]
-    };
-
-    function initRdforms() {
-        if (typeof rdforms_specs !== "undefined") {
-            rdforms_specs.init({
-                language: "de",
-                bundles: [["../dcatapat.json"]],
-                main: [
-                    "dcatat:Catalog",
-                    "dcatat:Dataset",
-                    "dcatat:Distribution",
-                    "dcatat:DataService",
-                    "dcatat:CatalogRecord",
-                    "dcatat:foaf:Agent",
-                    "dcatat:dcat:contactPoint"
-                ],
-                supportive: [],
-                extras: {
-                    mapping: { de: "Entsprechung in metadaten-data.gv.at 2.6" }
-                }
-            });
         }
-    }
+    };
     </script>
 
     <!-- Mermaid (class diagrams) -->
@@ -96,18 +73,20 @@
           integrity="sha512-hasIneQUHlh06VNBe7f6ZcHmeRTLIaQWFd43YriJ0UND19bvYRauxthDg8E4eVNPm9bRUhr5JGeqH7FRFXQu5g=="
           crossorigin="anonymous" referrerpolicy="no-referrer">
 
-    <!-- RDForms runtime -->
-    <script src="../libs/specs.js"></script>
-    <script src="../libs/rdfjson.js"></script>
-    <script src="../libs/recommendations.js"></script>
-
-    <!-- Custom styles for Mermaid diagrams and RDForms tables -->
+    <!-- Mermaid diagram styling -->
     <link rel="stylesheet" href="../libs/style.css">
 
     <style>
-        /* Tighten up the ReSpec header spacing for the otherLinks block */
-        .head dl { margin-top: 0.5em; }
-        #diagram { margin: 1.5em 0; }
+        figure { margin: 1.5em 0; }
+        figure figcaption { font-style: italic; font-size: .9em; color: #555; margin-top: .5em; }
+        table.props { border-collapse: collapse; width: 100%; font-size: .9em; }
+        table.props th, table.props td { border: 1px solid #ccc; padding: .4em .7em; text-align: left; vertical-align: top; }
+        table.props th { background: #f0f4f8; }
+        .badge-m  { background:#c8e6c9; color:#1b5e20; border-radius:3px; padding:1px 5px; font-size:.8em; white-space:nowrap; }
+        .badge-r  { background:#fff9c4; color:#5d4037; border-radius:3px; padding:1px 5px; font-size:.8em; white-space:nowrap; }
+        .badge-o  { background:#f5f5f5; color:#555;    border-radius:3px; padding:1px 5px; font-size:.8em; white-space:nowrap; }
+        .ref-box  { background:#e8f4fd; border-left:4px solid #2196f3; padding:1em 1.2em; margin:1.5em 0; border-radius:0 4px 4px 0; }
+        .ref-box a { font-weight:bold; }
     </style>
 </head>
 <body>
@@ -211,12 +190,6 @@ class ContactPoint {
         </div>
         <figcaption>Primäre Klassen von DCAT-AP AT 2.1 und ihre Beziehungen</figcaption>
     </figure>
-</section>
-
-<section id="specification">
-    <h2>Interaktive Eigenschaftstabellen</h2>
-    <p>Die folgenden Tabellen listen für jede Klasse alle definierten Eigenschaften mit Verpflichtungsgrad, Kardinalität, Datentyp und Wertebereich auf. Sie werden automatisch aus der maschinenlesbaren Spezifikationsdatei (<code>dcatapat.json</code>) generiert und dienen als normative Referenz.</p>
-    <!-- RDForms renders the property tables into this container -->
 </section>
 
 <section id="namespaces">
@@ -997,6 +970,14 @@ class ContactPoint {
     </section><!-- /example-statistics -->
 
 </section><!-- /classes -->
+
+<section id="eigenschaftsreferenz">
+    <h2>Vollständige Eigenschaftsreferenz</h2>
+    <p>Neben den Beispielen in diesem Dokument steht eine interaktive Eigenschaftsreferenz zur Verfügung. Sie listet für jede Klasse alle definierten Eigenschaften mit Verpflichtungsgrad, Kardinalität, Datentyp, Wertebereich und Entsprechung im nationalen Standard metadaten-data.gv.at 2.6 auf.</p>
+    <div class="ref-box">
+        → <a href="referenz.html">Interaktive Eigenschaftsreferenz DCAT-AP AT 2.1</a> — generiert aus der maschinenlesbaren Spezifikationsdatei <code>dcatapat.json</code>
+    </div>
+</section>
 
 <section id="changelog">
     <h2>Änderungshistorie</h2>

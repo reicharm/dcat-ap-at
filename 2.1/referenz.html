@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="../favicon.ico">
+    <title>DCAT-AP AT 2.1 – Eigenschaftsreferenz</title>
+    <link rel="stylesheet" href="../libs/w3c_base.css">
+    <link rel="stylesheet" href="../libs/w3c_tweaks.css">
+    <link rel="stylesheet" href="../libs/style.css">
+    <style>
+        .back-link {
+            display: inline-block;
+            margin: 1em 0 .5em;
+            font-size: .9em;
+            color: #134962;
+            text-decoration: none;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .back-link::before { content: "← "; }
+    </style>
+</head>
+<body class="h-entry">
+
+<div class="head">
+    <a class="back-link" href="index.html">Zurück zur Spezifikation DCAT-AP AT 2.1</a>
+    <h1 class="title">Eigenschaftsreferenz DCAT-AP AT</h1>
+    <h2 class="subtitle">Vollständige interaktive Eigenschaftstabellen – Version 2.1</h2>
+    <div>
+        <dl>
+            <dt>URL:</dt>
+            <dd><a href="https://dcat-ap.at/2.1/referenz.html">https://dcat-ap.at/2.1/referenz.html</a></dd>
+            <dt>Version / Datum:</dt>
+            <dd>2.1.0 / 19.06.2024</dd>
+            <dt>Lizenz:</dt>
+            <dd><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></dd>
+            <dt>Spezifikation:</dt>
+            <dd><a href="index.html">DCAT-AP AT 2.1 (normatives Dokument)</a></dd>
+        </dl>
+    </div>
+    <p>Diese Seite listet für jede Klasse von DCAT-AP AT alle definierten Eigenschaften mit
+    Verpflichtungsgrad, Kardinalität, Datentyp, Wertebereich und Entsprechung im
+    nationalen Standard <em>metadaten-data.gv.at 2.6</em> auf.
+    Die Tabellen werden automatisch aus der maschinenlesbaren Spezifikationsdatei
+    <code>dcatapat.json</code> generiert.</p>
+    <p class="copyright">Copyright © 2024 <a href="https://data.gv.at">BLSG Fachgruppe data.gv.at</a></p>
+    <hr title="separator">
+</div>
+
+<nav id="toc"></nav>
+
+<script src="../libs/specs.js"></script>
+<script src="../libs/rdfjson.js"></script>
+<script src="../libs/recommendations.js"></script>
+<script>
+    document.targetLanguage = 'de';
+</script>
+<script>
+rdforms_specs.init({
+    language: 'de',
+    bundles: [
+        ['../dcatapat.json'],
+    ],
+    main: [
+        'dcatat:Catalog',
+        'dcatat:Dataset',
+        'dcatat:Distribution',
+        'dcatat:DataService',
+        'dcatat:CatalogRecord',
+        'dcatat:foaf:Agent',
+        'dcatat:dcat:contactPoint',
+    ],
+    supportive: [],
+    extras: {
+        mapping: {
+            de: 'Entsprechung in metadaten-data.gv.at 2.6'
+        }
+    }
+});
+</script>
+
+</body>
+</html>
