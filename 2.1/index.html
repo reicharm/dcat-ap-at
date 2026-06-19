@@ -116,33 +116,29 @@
 <h2 class="subtitle">Erläuterungen zur Anpassung von DCAT-AP für Österreich – Version 2.1</h2>
 
 <section id="abstract">
-    <p>DCAT-AP AT ist das österreichische Profil der europäischen Metadatenspezifikation [[DCAT-AP]], die zur Beschreibung von Datenkatalogen eingeführt wurde. [[DCAT-AP]] wiederum ist ein Profil der W3C Recommendation [[DCAT]].</p>
-    <p>Dieses Dokument beschreibt den DCAT-AP AT Metadatenstandard in der Version 2.1 und legt fest, welche Metadatenfelder für österreichische Open-Data-Portale verpflichtend, empfohlen oder optional sind. Es richtet sich an Betreiber von Datenportalen sowie an alle Stellen, die Metadaten für österreichische Verwaltungsdaten bereitstellen.</p>
+    <p>Dieses Dokument definiert DCAT-AP AT 2.1, das österreichische Profil von [[DCAT-AP]] zur Beschreibung offener Verwaltungsdaten auf <a href="https://www.data.gv.at">data.gv.at</a>. Es legt fest, welche Metadatenfelder verpflichtend, empfohlen oder optional sind, und richtet sich an Betreiber von Datenportalen sowie alle Stellen, die Metadaten für österreichische Verwaltungsdaten bereitstellen.</p>
 </section>
 
 <section id="sotd">
-    <p>Dieses Dokument ist eine Empfehlung (<em>Recommendation</em>) der BLSG Fachgruppe data.gv.at. Die Spezifikation ist verbindlich für alle österreichischen Verwaltungsstellen, die Metadaten auf data.gv.at publizieren.</p>
+    <p>Dieses Dokument ist eine Empfehlung (<em>Recommendation</em>) der BLSG Fachgruppe data.gv.at und verbindlich für alle österreichischen Verwaltungsstellen, die Metadaten auf data.gv.at publizieren.</p>
     <dl>
-        <dt>Kurzbezeichnung:</dt>
-        <dd>metadaten-DCAT-AP-AT 2.1</dd>
-        <dt>Doku-Klasse:</dt>
-        <dd>verbindlich</dd>
-        <dt>Gültig seit:</dt>
-        <dd>19. Juni 2024</dd>
+        <dt>Kurzbezeichnung:</dt>    <dd>metadaten-DCAT-AP-AT 2.1</dd>
+        <dt>Doku-Klasse:</dt>        <dd>verbindlich</dd>
+        <dt>Gültig seit:</dt>        <dd>19. Juni 2024</dd>
     </dl>
 </section>
 
 <section id="management-summary">
     <h2>Management Summary</h2>
-    <p>DCAT-AP ist der Metadatenstandard in Europa für den Austausch offener Verwaltungsdaten. Nachdem Österreich sehr früh Open Data publiziert hat und es damals noch keinen Metadatenstandard gab, wurde der Metadatenstandard in der aktuellen Version 2.6 entwickelt. Der Auftrag der Lenkungsgruppe data.gv.at lautete, den Metadatenstandard auf DCAT-AP umzustellen. Das vorliegende Dokument beschreibt den DCAT-AP AT Metadatenstandard in der Version 2.1.</p>
+    <p>DCAT-AP ist der europäische Metadatenstandard für den Austausch offener Verwaltungsdaten. Er basiert auf der W3C Recommendation [[DCAT]] und definiert ein einheitliches Vokabular zur Beschreibung von Datenkatalogen, Datensätzen und Distributionen.</p>
+    <p>Österreich hat Open Data früh eingeführt und dabei einen eigenen nationalen Metadatenstandard (metadaten-data.gv.at, Version 2.6) entwickelt. Mit der Verbreitung von DCAT-AP auf europäischer Ebene und der Notwendigkeit interoperabler Metadaten wurde der Auftrag erteilt, den nationalen Standard auf DCAT-AP umzustellen. Das Ergebnis dieser Arbeit ist DCAT-AP AT: ein österreichisches Profil, das DCAT-AP um nationale Anforderungen ergänzt und gleichzeitig die Kompatibilität mit dem europäischen Standard sicherstellt.</p>
+    <p>Die Standardisierungshierarchie lautet: [[DCAT]] (W3C) → [[DCAT-AP]] (EU) → DCAT-AP AT (Österreich).</p>
 </section>
 
 <section id="introduction">
-    <h2>Einführung</h2>
+    <h2>Überblick und Datenmodell</h2>
 
-    <p>Bei DCAT-AP AT handelt es sich um das österreichische Profil der europäischen Metadatenspezifikation [[DCAT-AP]], die zur Beschreibung von Datenkatalogen eingeführt wurde. [[DCAT-AP]] wiederum ist ein Profil der W3C Recommendation [[DCAT]].</p>
-
-    <p>Das folgende Diagramm zeigt die primären Klassen, ihre Beziehungen sowie ihre verpflichtenden und empfohlenen Eigenschaften. Zur besseren Lesbarkeit werden Klassen und Eigenschaften in den Überschriften und im Diagramm mit benutzerfreundlichen Bezeichnungen vorgestellt. Die eigentlichen Metadatenausdrücke – die vollständigen URIs von Klassen und Eigenschaften – sind in den Details unter der jeweiligen Überschrift aufgeführt.</p>
+    <p>Das folgende Diagramm zeigt die primären Klassen von DCAT-AP AT, ihre Beziehungen sowie ihre wichtigsten Eigenschaften. Zur besseren Lesbarkeit werden Klassen und Eigenschaften mit benutzerfreundlichen Bezeichnungen dargestellt. Die eigentlichen Metadatenausdrücke – die vollständigen URIs von Klassen und Eigenschaften – sind in den Detailabschnitten weiter unten aufgeführt.</p>
 
     <figure id="class-diagram">
         <div class="mermaid">
@@ -218,9 +214,9 @@ class ContactPoint {
 </section>
 
 <section id="specification">
-    <h2>Spezifikation</h2>
-    <p>Die folgende interaktive Spezifikation zeigt für jede Klasse alle definierten Eigenschaften mit Verpflichtungsgrad, Kardinalität und Wertebereich.</p>
-    <!-- RDForms renders the specification tables into this container -->
+    <h2>Interaktive Eigenschaftstabellen</h2>
+    <p>Die folgenden Tabellen listen für jede Klasse alle definierten Eigenschaften mit Verpflichtungsgrad, Kardinalität, Datentyp und Wertebereich auf. Sie werden automatisch aus der maschinenlesbaren Spezifikationsdatei (<code>dcatapat.json</code>) generiert und dienen als normative Referenz.</p>
+    <!-- RDForms renders the property tables into this container -->
 </section>
 
 <section id="namespaces">
