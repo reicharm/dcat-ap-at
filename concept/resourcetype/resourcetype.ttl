@@ -1,0 +1,27 @@
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix restype: <http://dcat-ap.at/concept/resourcetype/> .
+
+# Vokabular "Ressourcentyp" für dcterms:type an dcat:Dataset.
+# Ein Datenprodukt ist ein dcat:Dataset mit dcterms:type restype:Dataproduct.
+
+restype:
+    a skos:ConceptScheme ;
+    dcterms:title "Ressourcentyp"@de , "Resource type"@en ;
+    skos:prefLabel "Ressourcentyp"@de , "Resource type"@en ;
+    dcterms:description "Typen von Ressourcen im DZG-Metadatenmodell, die über dcterms:type an dcat:Dataset unterschieden werden."@de ,
+        "Types of resources in the DZG metadata model that are distinguished by dcterms:type on dcat:Dataset."@en ;
+    dcterms:created "2026-11-24"^^xsd:date ;
+    owl:versionInfo "0.1" ;
+    skos:hasTopConcept restype:Dataproduct .
+
+restype:Dataproduct
+    a skos:Concept ;
+    skos:inScheme restype: ;
+    skos:topConceptOf restype: ;
+    skos:notation "Dataproduct" ;
+    skos:prefLabel "Datenprodukt"@de , "Data product"@en ;
+    skos:definition "Fachlich zusammengehörige Datensätze und Datensatzserien einer öffentlichen Stelle, zusammen mit der Beschreibung ihrer Entstehung (Erhebungsform, Datenquellen, Grundgesamtheit, Rechtsgrundlagen). Ein Datenprodukt hat selbst keine Distributionen; seine Bestandteile verweisen mit dcterms:isPartOf auf es."@de ,
+        "Datasets and dataset series of a public body that belong together, with a description of how they are produced (survey method, data sources, population, legal basis). A data product has no distributions of its own; its members refer to it with dcterms:isPartOf."@en .

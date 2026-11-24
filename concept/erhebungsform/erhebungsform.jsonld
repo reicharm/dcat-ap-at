@@ -1,0 +1,325 @@
+[
+  {
+    "@id": "http://dcat-ap.at/concept/erhebungsform/vollerhebung-abschneidegrenze",
+    "@type": [
+      "http://www.w3.org/2004/02/skos/core#Concept"
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "de",
+        "@value": "Erhebung aller Einheiten oberhalb einer Abschneidegrenze."
+      },
+      {
+        "@language": "en",
+        "@value": "Survey of all units above a cut-off threshold."
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#inScheme": [
+      {
+        "@id": "http://dcat-ap.at/concept/erhebungsform/"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#notation": [
+      {
+        "@value": "vollerhebung-abschneidegrenze"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#prefLabel": [
+      {
+        "@language": "de",
+        "@value": "Vollerhebung mit Abschneidegrenze (Konzentrationserhebung)"
+      },
+      {
+        "@language": "en",
+        "@value": "Full survey with cut-off threshold (concentration survey)"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+      {
+        "@id": "http://dcat-ap.at/concept/erhebungsform/"
+      }
+    ]
+  },
+  {
+    "@id": "http://dcat-ap.at/concept/erhebungsform/",
+    "@type": [
+      "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+    ],
+    "http://purl.org/dc/terms/created": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#date",
+        "@value": "2026-11-24"
+      }
+    ],
+    "http://purl.org/dc/terms/description": [
+      {
+        "@language": "de",
+        "@value": "Formen der Erhebung, mit der die Daten eines Datenprodukts gewonnen werden. Teil des DZG-Metadatenmodells (Klasse Datenprodukt)."
+      },
+      {
+        "@language": "en",
+        "@value": "Methods of data collection used to produce the data of a data product. Part of the DZG metadata model (class Data product)."
+      }
+    ],
+    "http://purl.org/dc/terms/title": [
+      {
+        "@language": "de",
+        "@value": "Erhebungsform"
+      },
+      {
+        "@language": "en",
+        "@value": "Survey method"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#versionInfo": [
+      {
+        "@value": "0.1"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#hasTopConcept": [
+      {
+        "@id": "http://dcat-ap.at/concept/erhebungsform/stichprobe-manuell"
+      },
+      {
+        "@id": "http://dcat-ap.at/concept/erhebungsform/stichprobe-zufall"
+      },
+      {
+        "@id": "http://dcat-ap.at/concept/erhebungsform/stichprobe-abschneidegrenze"
+      },
+      {
+        "@id": "http://dcat-ap.at/concept/erhebungsform/vollerhebung-abschneidegrenze"
+      },
+      {
+        "@id": "http://dcat-ap.at/concept/erhebungsform/vollerhebung"
+      },
+      {
+        "@id": "http://dcat-ap.at/concept/erhebungsform/andere"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#prefLabel": [
+      {
+        "@language": "de",
+        "@value": "Erhebungsform"
+      },
+      {
+        "@language": "en",
+        "@value": "Survey method"
+      }
+    ]
+  },
+  {
+    "@id": "http://dcat-ap.at/concept/erhebungsform/stichprobe-manuell",
+    "@type": [
+      "http://www.w3.org/2004/02/skos/core#Concept"
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "de",
+        "@value": "Stichprobe aus repräsentativen Einheiten, die durch Expert:innen ausgewählt werden."
+      },
+      {
+        "@language": "en",
+        "@value": "Sample of representative units selected by experts."
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#inScheme": [
+      {
+        "@id": "http://dcat-ap.at/concept/erhebungsform/"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#notation": [
+      {
+        "@value": "stichprobe-manuell"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#prefLabel": [
+      {
+        "@language": "de",
+        "@value": "Manuelle Stichprobe"
+      },
+      {
+        "@language": "en",
+        "@value": "Manual sample"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+      {
+        "@id": "http://dcat-ap.at/concept/erhebungsform/"
+      }
+    ]
+  },
+  {
+    "@id": "http://dcat-ap.at/concept/erhebungsform/vollerhebung",
+    "@type": [
+      "http://www.w3.org/2004/02/skos/core#Concept"
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "de",
+        "@value": "Erhebung aller Einheiten der Grundgesamtheit."
+      },
+      {
+        "@language": "en",
+        "@value": "Survey of all units of the population."
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#inScheme": [
+      {
+        "@id": "http://dcat-ap.at/concept/erhebungsform/"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#notation": [
+      {
+        "@value": "vollerhebung"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#prefLabel": [
+      {
+        "@language": "de",
+        "@value": "Vollerhebung ohne Abschneidegrenzen"
+      },
+      {
+        "@language": "en",
+        "@value": "Full survey without cut-off threshold"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+      {
+        "@id": "http://dcat-ap.at/concept/erhebungsform/"
+      }
+    ]
+  },
+  {
+    "@id": "http://dcat-ap.at/concept/erhebungsform/andere",
+    "@type": [
+      "http://www.w3.org/2004/02/skos/core#Concept"
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "de",
+        "@value": "Eine Erhebungsform, die keinem anderen Konzept dieses Vokabulars entspricht."
+      },
+      {
+        "@language": "en",
+        "@value": "A survey method not covered by any other concept of this vocabulary."
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#inScheme": [
+      {
+        "@id": "http://dcat-ap.at/concept/erhebungsform/"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#notation": [
+      {
+        "@value": "andere"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#prefLabel": [
+      {
+        "@language": "de",
+        "@value": "andere"
+      },
+      {
+        "@language": "en",
+        "@value": "other"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#scopeNote": [
+      {
+        "@language": "de",
+        "@value": "Die Erhebungsform kann in dcterms:description der prov:Activity beschrieben werden."
+      },
+      {
+        "@language": "en",
+        "@value": "The survey method can be described in dcterms:description of the prov:Activity."
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+      {
+        "@id": "http://dcat-ap.at/concept/erhebungsform/"
+      }
+    ]
+  },
+  {
+    "@id": "http://dcat-ap.at/concept/erhebungsform/stichprobe-abschneidegrenze",
+    "@type": [
+      "http://www.w3.org/2004/02/skos/core#Concept"
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "de",
+        "@value": "Zufallsstichprobe aus einem eingeschränkten Teil der Grundgesamtheit."
+      },
+      {
+        "@language": "en",
+        "@value": "Random sample drawn from a restricted part of the population."
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#inScheme": [
+      {
+        "@id": "http://dcat-ap.at/concept/erhebungsform/"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#notation": [
+      {
+        "@value": "stichprobe-abschneidegrenze"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#prefLabel": [
+      {
+        "@language": "de",
+        "@value": "Stichprobenerhebung mit Abschneidegrenze"
+      },
+      {
+        "@language": "en",
+        "@value": "Random sample survey with cut-off threshold"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+      {
+        "@id": "http://dcat-ap.at/concept/erhebungsform/"
+      }
+    ]
+  },
+  {
+    "@id": "http://dcat-ap.at/concept/erhebungsform/stichprobe-zufall",
+    "@type": [
+      "http://www.w3.org/2004/02/skos/core#Concept"
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "de",
+        "@value": "Erhebung bei einer Zufallsstichprobe aus der Grundgesamtheit."
+      },
+      {
+        "@language": "en",
+        "@value": "Survey of a random sample drawn from the population."
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#inScheme": [
+      {
+        "@id": "http://dcat-ap.at/concept/erhebungsform/"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#notation": [
+      {
+        "@value": "stichprobe-zufall"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#prefLabel": [
+      {
+        "@language": "de",
+        "@value": "Stichprobenerhebung (Zufallsstichprobe)"
+      },
+      {
+        "@language": "en",
+        "@value": "Random sample survey"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+      {
+        "@id": "http://dcat-ap.at/concept/erhebungsform/"
+      }
+    ]
+  }
+]

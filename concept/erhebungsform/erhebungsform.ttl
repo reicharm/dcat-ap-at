@@ -1,0 +1,77 @@
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix erh:     <http://dcat-ap.at/concept/erhebungsform/> .
+
+# Vokabular "Erhebungsform" für die Klasse Datenprodukt (DZG-Metadatenmodell).
+# Verwendung: Datenprodukt prov:wasGeneratedBy [ a prov:Activity ; dcterms:type erh:… ] .
+# Bei erh:andere kann die Erhebungsform in dcterms:description der Aktivität beschrieben werden.
+
+erh:
+    a skos:ConceptScheme ;
+    dcterms:title "Erhebungsform"@de , "Survey method"@en ;
+    skos:prefLabel "Erhebungsform"@de , "Survey method"@en ;
+    dcterms:description "Formen der Erhebung, mit der die Daten eines Datenprodukts gewonnen werden. Teil des DZG-Metadatenmodells (Klasse Datenprodukt)."@de ,
+        "Methods of data collection used to produce the data of a data product. Part of the DZG metadata model (class Data product)."@en ;
+    dcterms:created "2026-11-24"^^xsd:date ;
+    owl:versionInfo "0.1" ;
+    skos:hasTopConcept erh:stichprobe-manuell , erh:stichprobe-zufall , erh:stichprobe-abschneidegrenze ,
+        erh:vollerhebung-abschneidegrenze , erh:vollerhebung , erh:andere .
+
+erh:stichprobe-manuell
+    a skos:Concept ;
+    skos:inScheme erh: ;
+    skos:topConceptOf erh: ;
+    skos:notation "stichprobe-manuell" ;
+    skos:prefLabel "Manuelle Stichprobe"@de , "Manual sample"@en ;
+    skos:definition "Stichprobe aus repräsentativen Einheiten, die durch Expert:innen ausgewählt werden."@de ,
+        "Sample of representative units selected by experts."@en .
+
+erh:stichprobe-zufall
+    a skos:Concept ;
+    skos:inScheme erh: ;
+    skos:topConceptOf erh: ;
+    skos:notation "stichprobe-zufall" ;
+    skos:prefLabel "Stichprobenerhebung (Zufallsstichprobe)"@de , "Random sample survey"@en ;
+    skos:definition "Erhebung bei einer Zufallsstichprobe aus der Grundgesamtheit."@de ,
+        "Survey of a random sample drawn from the population."@en .
+
+erh:stichprobe-abschneidegrenze
+    a skos:Concept ;
+    skos:inScheme erh: ;
+    skos:topConceptOf erh: ;
+    skos:notation "stichprobe-abschneidegrenze" ;
+    skos:prefLabel "Stichprobenerhebung mit Abschneidegrenze"@de , "Random sample survey with cut-off threshold"@en ;
+    skos:definition "Zufallsstichprobe aus einem eingeschränkten Teil der Grundgesamtheit."@de ,
+        "Random sample drawn from a restricted part of the population."@en .
+
+erh:vollerhebung-abschneidegrenze
+    a skos:Concept ;
+    skos:inScheme erh: ;
+    skos:topConceptOf erh: ;
+    skos:notation "vollerhebung-abschneidegrenze" ;
+    skos:prefLabel "Vollerhebung mit Abschneidegrenze (Konzentrationserhebung)"@de ,
+        "Full survey with cut-off threshold (concentration survey)"@en ;
+    skos:definition "Erhebung aller Einheiten oberhalb einer Abschneidegrenze."@de ,
+        "Survey of all units above a cut-off threshold."@en .
+
+erh:vollerhebung
+    a skos:Concept ;
+    skos:inScheme erh: ;
+    skos:topConceptOf erh: ;
+    skos:notation "vollerhebung" ;
+    skos:prefLabel "Vollerhebung ohne Abschneidegrenzen"@de , "Full survey without cut-off threshold"@en ;
+    skos:definition "Erhebung aller Einheiten der Grundgesamtheit."@de ,
+        "Survey of all units of the population."@en .
+
+erh:andere
+    a skos:Concept ;
+    skos:inScheme erh: ;
+    skos:topConceptOf erh: ;
+    skos:notation "andere" ;
+    skos:prefLabel "andere"@de , "other"@en ;
+    skos:definition "Eine Erhebungsform, die keinem anderen Konzept dieses Vokabulars entspricht."@de ,
+        "A survey method not covered by any other concept of this vocabulary."@en ;
+    skos:scopeNote "Die Erhebungsform kann in dcterms:description der prov:Activity beschrieben werden."@de ,
+        "The survey method can be described in dcterms:description of the prov:Activity."@en .
