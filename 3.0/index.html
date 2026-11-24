@@ -47,6 +47,7 @@
                 ]
             }
         ],
+        postProcess: [function () { setStatusLabel("Empfehlung in Vorbereitung"); }],
         lint: {
             "no-unused-dfns": false,
             "required-sections": false
@@ -76,9 +77,19 @@
             }
         }
     };
+
+    function setStatusLabel(label) {
+        var e = document.getElementById("w3c-state");
+        if (!e) return;
+        var t = e.querySelector("time");
+        e.textContent = label + " ";
+        if (t) e.appendChild(t);
+    }
     </script>
 
     <style>
+        /* kein "UNOFFICIAL"-Wasserzeichen */
+        body::before, body::after, html::before, html::after { content: none !important; display: none !important; }
         /* ── obligation badges ── */
         .badge-m { background:#c8e6c9; color:#1b5e20; border-radius:3px; padding:1px 5px; font-size:.8em; white-space:nowrap; }
         .badge-r { background:#fff9c4; color:#5d4037; border-radius:3px; padding:1px 5px; font-size:.8em; white-space:nowrap; }
