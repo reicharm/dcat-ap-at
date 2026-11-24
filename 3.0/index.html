@@ -48,7 +48,8 @@
             }
         ],
         lint: {
-            "no-unused-dfns": false
+            "no-unused-dfns": false,
+            "required-sections": false
         },
         localBiblio: {
             "DCAT-AP": {
@@ -350,6 +351,26 @@
         <li><span class="badge-r">empfohlen</span> — Soll angegeben werden, wenn vorhanden</li>
         <li><span class="badge-o">optional</span> — Kann angegeben werden</li>
     </ul>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     KONFORMITÄT
+═══════════════════════════════════════════════════════════════════════════ -->
+<section id="conformance">
+    <h2>Konformität</h2>
+    <p>
+        Die Schlüsselwörter „MUSS“, „DARF NICHT“, „SOLL“, „SOLLTE NICHT“ und „KANN“ sowie die
+        englischen Entsprechungen „MUST“, „MUST NOT“, „SHOULD“, „SHOULD NOT“ und „MAY“ in den
+        Eigenschaftsbeschreibungen dieses Dokuments sind gemäß [[RFC2119]] und [[RFC8174]] zu
+        interpretieren, wenn sie in Großbuchstaben geschrieben sind.
+    </p>
+    <p>
+        Eine Implementierung konform zu DCAT-AP AT 3.0 stellt für alle als
+        <span class="badge-m">verpflichtend</span> gekennzeichneten Eigenschaften Werte bereit,
+        verarbeitet alle als <span class="badge-r">empfohlen</span> und
+        <span class="badge-o">optional</span> gekennzeichneten Eigenschaften und beachtet die
+        angeführten Kardinalitäten und kontrollierten Vokabulare.
+    </p>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════════════════════
