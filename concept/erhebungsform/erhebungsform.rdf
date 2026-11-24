@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+  xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <skos:ConceptScheme rdf:about="http://dcat-ap.at/concept/erhebungsform/">
+    <dcterms:title xml:lang="de">Erhebungsform</dcterms:title>
+    <dcterms:title xml:lang="en">Survey method</dcterms:title>
+    <skos:prefLabel xml:lang="de">Erhebungsform</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Survey method</skos:prefLabel>
+    <dcterms:description xml:lang="de">Formen der Erhebung, mit der die Daten eines Datenprodukts gewonnen werden. Teil des DZG-Metadatenmodells (Klasse Datenprodukt).</dcterms:description>
+    <dcterms:description xml:lang="en">Methods of data collection used to produce the data of a data product. Part of the DZG metadata model (class Data product).</dcterms:description>
+    <dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-11-24</dcterms:created>
+    <owl:versionInfo>0.1</owl:versionInfo>
+    <skos:hasTopConcept>
+      <skos:Concept rdf:about="http://dcat-ap.at/concept/erhebungsform/stichprobe-manuell">
+        <skos:inScheme rdf:resource="http://dcat-ap.at/concept/erhebungsform/"/>
+        <skos:topConceptOf rdf:resource="http://dcat-ap.at/concept/erhebungsform/"/>
+        <skos:notation>stichprobe-manuell</skos:notation>
+        <skos:prefLabel xml:lang="de">Manuelle Stichprobe</skos:prefLabel>
+        <skos:prefLabel xml:lang="en">Manual sample</skos:prefLabel>
+        <skos:definition xml:lang="de">Stichprobe aus repräsentativen Einheiten, die durch Expert:innen ausgewählt werden.</skos:definition>
+        <skos:definition xml:lang="en">Sample of representative units selected by experts.</skos:definition>
+      </skos:Concept>
+    </skos:hasTopConcept>
+    <skos:hasTopConcept>
+      <skos:Concept rdf:about="http://dcat-ap.at/concept/erhebungsform/stichprobe-zufall">
+        <skos:inScheme rdf:resource="http://dcat-ap.at/concept/erhebungsform/"/>
+        <skos:topConceptOf rdf:resource="http://dcat-ap.at/concept/erhebungsform/"/>
+        <skos:notation>stichprobe-zufall</skos:notation>
+        <skos:prefLabel xml:lang="de">Stichprobenerhebung (Zufallsstichprobe)</skos:prefLabel>
+        <skos:prefLabel xml:lang="en">Random sample survey</skos:prefLabel>
+        <skos:definition xml:lang="de">Erhebung bei einer Zufallsstichprobe aus der Grundgesamtheit.</skos:definition>
+        <skos:definition xml:lang="en">Survey of a random sample drawn from the population.</skos:definition>
+      </skos:Concept>
+    </skos:hasTopConcept>
+    <skos:hasTopConcept>
+      <skos:Concept rdf:about="http://dcat-ap.at/concept/erhebungsform/stichprobe-abschneidegrenze">
+        <skos:inScheme rdf:resource="http://dcat-ap.at/concept/erhebungsform/"/>
+        <skos:topConceptOf rdf:resource="http://dcat-ap.at/concept/erhebungsform/"/>
+        <skos:notation>stichprobe-abschneidegrenze</skos:notation>
+        <skos:prefLabel xml:lang="de">Stichprobenerhebung mit Abschneidegrenze</skos:prefLabel>
+        <skos:prefLabel xml:lang="en">Random sample survey with cut-off threshold</skos:prefLabel>
+        <skos:definition xml:lang="de">Zufallsstichprobe aus einem eingeschränkten Teil der Grundgesamtheit.</skos:definition>
+        <skos:definition xml:lang="en">Random sample drawn from a restricted part of the population.</skos:definition>
+      </skos:Concept>
+    </skos:hasTopConcept>
+    <skos:hasTopConcept>
+      <skos:Concept rdf:about="http://dcat-ap.at/concept/erhebungsform/vollerhebung-abschneidegrenze">
+        <skos:inScheme rdf:resource="http://dcat-ap.at/concept/erhebungsform/"/>
+        <skos:topConceptOf rdf:resource="http://dcat-ap.at/concept/erhebungsform/"/>
+        <skos:notation>vollerhebung-abschneidegrenze</skos:notation>
+        <skos:prefLabel xml:lang="de">Vollerhebung mit Abschneidegrenze (Konzentrationserhebung)</skos:prefLabel>
+        <skos:prefLabel xml:lang="en">Full survey with cut-off threshold (concentration survey)</skos:prefLabel>
+        <skos:definition xml:lang="de">Erhebung aller Einheiten oberhalb einer Abschneidegrenze.</skos:definition>
+        <skos:definition xml:lang="en">Survey of all units above a cut-off threshold.</skos:definition>
+      </skos:Concept>
+    </skos:hasTopConcept>
+    <skos:hasTopConcept>
+      <skos:Concept rdf:about="http://dcat-ap.at/concept/erhebungsform/vollerhebung">
+        <skos:inScheme rdf:resource="http://dcat-ap.at/concept/erhebungsform/"/>
+        <skos:topConceptOf rdf:resource="http://dcat-ap.at/concept/erhebungsform/"/>
+        <skos:notation>vollerhebung</skos:notation>
+        <skos:prefLabel xml:lang="de">Vollerhebung ohne Abschneidegrenzen</skos:prefLabel>
+        <skos:prefLabel xml:lang="en">Full survey without cut-off threshold</skos:prefLabel>
+        <skos:definition xml:lang="de">Erhebung aller Einheiten der Grundgesamtheit.</skos:definition>
+        <skos:definition xml:lang="en">Survey of all units of the population.</skos:definition>
+      </skos:Concept>
+    </skos:hasTopConcept>
+    <skos:hasTopConcept>
+      <skos:Concept rdf:about="http://dcat-ap.at/concept/erhebungsform/andere">
+        <skos:inScheme rdf:resource="http://dcat-ap.at/concept/erhebungsform/"/>
+        <skos:topConceptOf rdf:resource="http://dcat-ap.at/concept/erhebungsform/"/>
+        <skos:notation>andere</skos:notation>
+        <skos:prefLabel xml:lang="de">andere</skos:prefLabel>
+        <skos:prefLabel xml:lang="en">other</skos:prefLabel>
+        <skos:definition xml:lang="de">Eine Erhebungsform, die keinem anderen Konzept dieses Vokabulars entspricht.</skos:definition>
+        <skos:definition xml:lang="en">A survey method not covered by any other concept of this vocabulary.</skos:definition>
+        <skos:scopeNote xml:lang="de">Die Erhebungsform kann in dcterms:description der prov:Activity beschrieben werden.</skos:scopeNote>
+        <skos:scopeNote xml:lang="en">The survey method can be described in dcterms:description of the prov:Activity.</skos:scopeNote>
+      </skos:Concept>
+    </skos:hasTopConcept>
+  </skos:ConceptScheme>
+</rdf:RDF>

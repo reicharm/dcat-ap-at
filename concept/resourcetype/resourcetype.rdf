@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+  xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <skos:Concept rdf:about="http://dcat-ap.at/concept/resourcetype/Dataproduct">
+    <skos:inScheme>
+      <skos:ConceptScheme rdf:about="http://dcat-ap.at/concept/resourcetype/">
+        <dcterms:title xml:lang="de">Ressourcentyp</dcterms:title>
+        <dcterms:title xml:lang="en">Resource type</dcterms:title>
+        <skos:prefLabel xml:lang="de">Ressourcentyp</skos:prefLabel>
+        <skos:prefLabel xml:lang="en">Resource type</skos:prefLabel>
+        <dcterms:description xml:lang="de">Typen von Ressourcen im DZG-Metadatenmodell, die über dcterms:type an dcat:Dataset unterschieden werden.</dcterms:description>
+        <dcterms:description xml:lang="en">Types of resources in the DZG metadata model that are distinguished by dcterms:type on dcat:Dataset.</dcterms:description>
+        <dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-11-24</dcterms:created>
+        <owl:versionInfo>0.1</owl:versionInfo>
+        <skos:hasTopConcept rdf:resource="http://dcat-ap.at/concept/resourcetype/Dataproduct"/>
+      </skos:ConceptScheme>
+    </skos:inScheme>
+    <skos:topConceptOf rdf:resource="http://dcat-ap.at/concept/resourcetype/"/>
+    <skos:notation>Dataproduct</skos:notation>
+    <skos:prefLabel xml:lang="de">Datenprodukt</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Data product</skos:prefLabel>
+    <skos:definition xml:lang="de">Fachlich zusammengehörige Datensätze und Datensatzserien einer öffentlichen Stelle, zusammen mit der Beschreibung ihrer Entstehung (Erhebungsform, Datenquellen, Grundgesamtheit, Rechtsgrundlagen). Ein Datenprodukt hat selbst keine Distributionen; seine Bestandteile verweisen mit dcterms:isPartOf auf es.</skos:definition>
+    <skos:definition xml:lang="en">Datasets and dataset series of a public body that belong together, with a description of how they are produced (survey method, data sources, population, legal basis). A data product has no distributions of its own; its members refer to it with dcterms:isPartOf.</skos:definition>
+  </skos:Concept>
+</rdf:RDF>
