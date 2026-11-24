@@ -1,0 +1,58 @@
+{
+  "version": "1.1",
+  "id": "dcat-ap-3-at",
+  "core": [
+    {
+      "id": "catalog",
+      "description": "DZG catalog using the DCAT-AP 3.0.1 field model with AT adaptations",
+      "path": "dcat-ap-3-at.hub.shapes.ttl",
+      "name": "catalog",
+      "shapeUri": "https://data.gv.at/shapes/dcat-ap-at-dzg#CatalogShape"
+    },
+    {
+      "id": "dataset",
+      "description": "DZG dataset using the DCAT-AP 3.0.1 field model with AT adaptations",
+      "path": "dcat-ap-3-at.hub.shapes.ttl",
+      "name": "dataset",
+      "shapeUri": "https://data.gv.at/shapes/dcat-ap-at-dzg#DatasetShape"
+    }
+  ],
+  "resources": [
+    {
+      "id": "dataset-series",
+      "description": "DZG dataset series according to DCAT-AP 3.0.1",
+      "path": "dcat-ap-3-at.hub.shapes.ttl",
+      "name": "dataset series",
+      "typeUri": "http://www.w3.org/ns/dcat#DatasetSeries",
+      "shapeUri": "https://data.gv.at/shapes/dcat-ap-at-dzg#DatasetSeriesShape",
+      "searchSettings": {}
+    },
+    {
+      "id": "data-service",
+      "description": "DZG data service according to DCAT-AP 3.0.1",
+      "path": "dcat-ap-3-at.hub.shapes.ttl",
+      "name": "data service",
+      "typeUri": "http://www.w3.org/ns/dcat#DataService",
+      "shapeUri": "https://data.gv.at/shapes/dcat-ap-at-dzg#DataServiceShape",
+      "searchSettings": {}
+    },
+    {
+      "id": "catalog-record",
+      "description": "DZG catalog record according to DCAT-AP 3.0.1",
+      "path": "dcat-ap-3-at.hub.shapes.ttl",
+      "name": "catalog record",
+      "typeUri": "http://www.w3.org/ns/dcat#CatalogRecord",
+      "shapeUri": "https://data.gv.at/shapes/dcat-ap-at-dzg#CatalogRecordShape",
+      "searchSettings": {}
+    },
+    {
+      "id": "relationship",
+      "description": "DZG qualified relationship according to DCAT-AP 3.0.1",
+      "path": "dcat-ap-3-at.hub.shapes.ttl",
+      "name": "relationship",
+      "typeUri": "http://www.w3.org/ns/dcat#Relationship",
+      "shapeUri": "https://data.gv.at/shapes/dcat-ap-at-dzg#RelationshipShape",
+      "searchSettings": {}
+    }
+  ]
+}

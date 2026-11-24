@@ -148,6 +148,7 @@
         .status-recommendation { background: #e6f4ea; color: #1a7336; }
         .status-draft          { background: #fff8e1; color: #7d5a00; }
         .status-deprecated     { background: #f3f3f3; color: #888; }
+        .status-planned        { background: #e3f2fd; color: #0d47a1; }
 
         .arrow {
             color: #aaa;
@@ -213,37 +214,63 @@
 
     <section class="about">
         <p>DCAT-AP ist der europaweite Metadatenstandard für den Austausch offener Verwaltungsdaten. DCAT-AP AT definiert das österreichische Profil dieser Spezifikation und legt fest, welche Metadatenfelder für österreichische Open-Data-Portale verpflichtend, empfohlen oder optional sind.</p>
-        <p>Die Spezifikation basiert auf der <a href="https://www.w3.org/TR/vocab-dcat/" target="_blank" rel="noopener">W3C DCAT Recommendation</a> und ist mit dem europäischen Standard <a href="https://semiceu.github.io/DCAT-AP/releases/3.0.0/" target="_blank" rel="noopener">DCAT-AP</a> kompatibel. Sie wird von der <em>Arbeitsgruppe Metadaten DCAT-AP der Cooperation OGD Österreich</em> gepflegt.</p>
+        <p>Die Spezifikation basiert auf der <a href="https://www.w3.org/TR/vocab-dcat-3/" target="_blank" rel="noopener">W3C DCAT 3 Recommendation</a> und ist mit dem europäischen Standard <a href="https://semiceu.github.io/DCAT-AP/releases/3.0.1/" target="_blank" rel="noopener">DCAT-AP 3.0.1</a> kompatibel. Sie wird von der <em>Arbeitsgruppe Metadaten DCAT-AP der Cooperation OGD Österreich</em> gepflegt.</p>
     </section>
 
     <h2>Versionen</h2>
     <div class="version-grid">
 
+        <a href="3.0/" class="version-card">
+            <div class="version-badge" style="background:#0d47a1;">3.0</div>
+            <div class="version-meta">
+                <strong>DCAT-AP AT 3.0</strong>
+                <span>Basierend auf DCAT-AP 3.0.1 · HVD · DatasetSeries · in Vorbereitung</span>
+            </div>
+            <span class="version-status status-draft">Entwurf</span>
+            <span class="arrow">›</span>
+        </a>
+
         <a href="2.1/" class="version-card current">
             <div class="version-badge">2.1</div>
             <div class="version-meta">
                 <strong>DCAT-AP AT 2.1</strong>
-                <span>19. Juni 2024 · aktuelle Version</span>
+                <span>19. Juni 2024 · aktuelle stabile Version</span>
             </div>
             <span class="version-status status-recommendation">Empfehlung</span>
             <span class="arrow">›</span>
         </a>
 
-        <!-- Frühere Versionen können hier ergänzt werden, z.B.:
-        <a href="2.0/" class="version-card">
-            <div class="version-badge">2.0</div>
+    </div>
+
+    <h2>Spezialisierte Profile</h2>
+    <div class="version-grid">
+
+        <a href="dzg/" class="version-card">
+            <div class="version-badge" style="background:#555; font-size:0.75rem; padding:0.35rem 0.5rem;">DZG</div>
             <div class="version-meta">
-                <strong>DCAT-AP AT 2.0</strong>
-                <span>2022 · Vorgängerversion</span>
+                <strong>DCAT-AP AT DZG</strong>
+                <span>Profil für das Datenzugangsgesetz (BGBl. I Nr. 182/2024) · in Vorbereitung</span>
             </div>
-            <span class="version-status status-deprecated">Veraltet</span>
+            <span class="version-status status-planned">Geplant</span>
             <span class="arrow">›</span>
         </a>
-        -->
 
     </div>
 
-    <h2>Zusatzdokumente</h2>
+    <h2>Vokabulare</h2>
+    <div class="extras-grid">
+
+        <a href="voc/" class="extra-card">
+            <span class="extra-icon">📚</span>
+            <div class="extra-meta">
+                <strong>Österreichische Vokabulare</strong>
+                <span>Kontrollierte Vokabulare für österreichische Metadaten – in Vorbereitung</span>
+            </div>
+        </a>
+
+    </div>
+
+    <h2>Zusatzdokumente &amp; Links</h2>
     <div class="extras-grid">
 
         <a href="https://github.com/datagvat/DCAT-AP.at/issues" class="extra-card" target="_blank" rel="noopener">
@@ -254,19 +281,27 @@
             </div>
         </a>
 
-        <a href="https://semiceu.github.io/DCAT-AP/releases/3.0.0/" class="extra-card" target="_blank" rel="noopener">
+        <a href="https://semiceu.github.io/DCAT-AP/releases/3.0.1/" class="extra-card" target="_blank" rel="noopener">
             <span class="extra-icon">🇪🇺</span>
             <div class="extra-meta">
-                <strong>DCAT-AP (europäisch)</strong>
-                <span>Übergeordneter Standard – DCAT-AP 3.0.0</span>
+                <strong>DCAT-AP 3.0.1 (europäisch)</strong>
+                <span>Übergeordneter Standard – SEMIC / Europäische Kommission</span>
             </div>
         </a>
 
-        <a href="https://www.w3.org/TR/vocab-dcat/" class="extra-card" target="_blank" rel="noopener">
+        <a href="https://www.w3.org/TR/vocab-dcat-3/" class="extra-card" target="_blank" rel="noopener">
             <span class="extra-icon">📘</span>
             <div class="extra-meta">
-                <strong>W3C DCAT</strong>
+                <strong>W3C DCAT 3</strong>
                 <span>Data Catalog Vocabulary – W3C Recommendation</span>
+            </div>
+        </a>
+
+        <a href="https://eur-lex.europa.eu/eli/reg_impl/2023/138/oj" class="extra-card" target="_blank" rel="noopener">
+            <span class="extra-icon">⚖️</span>
+            <div class="extra-meta">
+                <strong>HVD Implementing Regulation</strong>
+                <span>EU-Durchführungsverordnung zu hochwertigen Datensätzen (2023/138)</span>
             </div>
         </a>
 
@@ -275,7 +310,7 @@
 </main>
 
 <footer>
-    <p>Copyright © 2024 <a href="https://data.gv.at">BLSG Fachgruppe data.gv.at</a> · Lizenz: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+    <p>Copyright © 2024–2026 <a href="https://data.gv.at">BLSG Fachgruppe data.gv.at</a> · Lizenz: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
 </footer>
 
 </body>

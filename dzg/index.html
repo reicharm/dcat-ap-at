@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DCAT-AP AT DZG – Metadatenstandard für das Datenzugangsgesetz</title>
+
+    <!-- ReSpec -->
+    <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
+    <script class="remove">
+    var respecConfig = {
+        specStatus:      "base",
+        shortName:       "dcat-ap-at-dzg",
+        latestVersion:   "https://dcat-ap.at/",
+        thisVersion:     "https://dcat-ap.at/dzg",
+        lang:            "de",
+        publishDate:     "2026-01-01",
+        copyrightStart:  "2026",
+        license:         "cc-by",
+        editors: [
+            { name: "Brigitte Barotanyi",   company: "Bundesministerium für Finanzen" },
+            { name: "Hannes Ebner",         company: "MetaSolutions AB" },
+            { name: "Gregor Eibl",          company: "Universität für Weiterbildung Krems" },
+            { name: "Gerhard Hartmann",     company: "Stadt Wien" },
+            { name: "Manfred Mittlböck",    company: "Research Studios Austria Forschungsgesellschaft mbH" },
+            { name: "Rainer Prager",        company: "Land Niederösterreich" },
+            { name: "Michael Reichart",     company: "Bundesrechenzentrum GmbH" }
+        ],
+        github: {
+            repoURL:   "https://github.com/datagvat/DCAT-AP.at",
+            branch:    "main"
+        },
+        otherLinks: [
+            {
+                key: "Versionen",
+                data: [
+                    { value: "DCAT-AP AT 3.0", href: "../3.0/" },
+                    { value: "DCAT-AP AT 2.1", href: "../2.1/" },
+                    { value: "Versionsübersicht", href: "../" }
+                ]
+            },
+            {
+                key: "Arbeitsgruppen",
+                data: [
+                    { value: "BLSG Fachgruppe data.gv.at" },
+                    { value: "BLSG AG-II" },
+                    { value: "AG Metadaten DCAT-AP, Cooperation OGD Österreich" }
+                ]
+            }
+        ],
+        localBiblio: {
+            "DCAT-AP": {
+                title:     "DCAT-AP 3.0.1",
+                href:      "https://semiceu.github.io/DCAT-AP/releases/3.0.1/",
+                publisher: "Publications Office of the European Union"
+            },
+            "DCAT": {
+                title:     "Data Catalog Vocabulary (DCAT) – Version 3",
+                href:      "https://www.w3.org/TR/vocab-dcat/",
+                publisher: "W3C"
+            },
+            "DZG": {
+                title:     "Bundesgesetz über den Zugang zu Daten (Datenzugangsgesetz – DZG)",
+                href:      "https://www.ris.bka.gv.at/",
+                publisher: "Republik Österreich"
+            }
+        }
+    };
+    </script>
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../libs/style.css">
+
+    <style>
+        .head dl { margin-top: 0.5em; }
+        .placeholder-box {
+            border: 2px dashed #aaa;
+            background: #f9f9f9;
+            padding: 1.5em 2em;
+            border-radius: 4px;
+            margin: 1.5em 0;
+            color: #555;
+        }
+        .placeholder-box h3 {
+            margin-top: 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Metadaten DCAT-AP AT</h1>
+<h2 class="subtitle">Erläuterungen zur Anpassung von DCAT-AP für das österreichische Datenzugangsgesetz (DZG)</h2>
+
+<section id="abstract">
+    <p>DCAT-AP AT DZG ist das österreichische Profil der europäischen Metadatenspezifikation [[DCAT-AP]]
+    für Datensätze und Datendienste, die unter das österreichische Datenzugangsgesetz [[DZG]] fallen.
+    Es erweitert [[DCAT-AP]] um die spezifischen Anforderungen des Datenzugangsgesetzes
+    an die Beschreibung und Bereitstellung von Verwaltungsdaten.</p>
+</section>
+
+<section id="sotd">
+    <p class="note">Dieses Dokument befindet sich in Vorbereitung. Der Inhalt wird veröffentlicht,
+    sobald das Datenzugangsgesetz in Kraft getreten ist und die zugehörigen Metadatenanforderungen
+    final festgelegt wurden.</p>
+    <dl>
+        <dt>Kurzbezeichnung:</dt>
+        <dd>metadaten-DCAT-AP-AT-DZG</dd>
+        <dt>Doku-Klasse:</dt>
+        <dd>In Vorbereitung – noch nicht veröffentlicht</dd>
+        <dt>Basis:</dt>
+        <dd><a href="../3.0/">DCAT-AP AT 3.0</a></dd>
+    </dl>
+    <p>Rückmeldungen und Kommentare bitte als
+    <a href="https://github.com/datagvat/DCAT-AP.at/issues">GitHub Issue</a> einreichen.</p>
+</section>
+
+<section id="management-summary">
+    <h2>Management Summary</h2>
+    <p>Das österreichische Datenzugangsgesetz (DZG) regelt den Zugang zu Daten öffentlicher Stellen,
+    die über die bestehenden Open-Data-Verpflichtungen hinausgehen. Es schafft Rechtsgrundlagen für
+    den Datenzugang auf Antrag und legt Anforderungen an die Beschreibung und Bereitstellung von
+    Datensätzen fest.</p>
+    <p>DCAT-AP AT DZG wird spezifische Metadatenanforderungen für DZG-pflichtige Datensätze
+    definieren, insbesondere im Hinblick auf:</p>
+    <ul>
+        <li>Zugangsbedingungen und -beschränkungen</li>
+        <li>Dateninhaber und verantwortliche Stellen</li>
+        <li>Zugangsverfahren und Antragsbearbeitung</li>
+        <li>Qualitäts- und Aktualitätsinformationen</li>
+    </ul>
+
+    <div class="placeholder-box">
+        <h3>Inhalt in Vorbereitung</h3>
+        <p>Die Spezifikation wird nach Inkrafttreten des Datenzugangsgesetzes erarbeitet.
+        Der Zeitplan richtet sich nach dem Gesetzgebungsverfahren und der Festlegung
+        der technischen Durchführungsbestimmungen.</p>
+        <p>Für Rückfragen wenden Sie sich bitte an die
+        <a href="https://www.data.gv.at/infos/cooperation-ogd-oesterreich/">Cooperation OGD Österreich</a>.</p>
+    </div>
+</section>
+
+<section id="introduction">
+    <h2>Einführung</h2>
+
+    <p>Das österreichische <dfn>Datenzugangsgesetz (DZG)</dfn> schafft einen rechtlichen Rahmen
+    für den Zugang zu Daten öffentlicher Stellen, die bisher nicht als offene Daten verfügbar
+    waren. Es ergänzt die bestehenden Open-Data-Verpflichtungen und die EU-Open-Data-Richtlinie.</p>
+
+    <p>DCAT-AP AT DZG wird auf [[DCAT-AP]] Version 3.0.1 und dem österreichischen Profil
+    <a href="../3.0/">DCAT-AP AT 3.0</a> aufbauen und dieses um DZG-spezifische Anforderungen
+    ergänzen.</p>
+
+    <div class="placeholder-box">
+        <h3>Geplante Inhalte</h3>
+        <ul>
+            <li>Klassen und Eigenschaften für DZG-pflichtige Datensätze</li>
+            <li>Verpflichtende Metadatenfelder gemäß DZG</li>
+            <li>Vokabulare für Zugangskategorien und Einschränkungsgründe</li>
+            <li>Beispiele und Implementierungsempfehlungen</li>
+            <li>SHACL-Validierungsprofil</li>
+        </ul>
+    </div>
+</section>
+
+<section id="changelog">
+    <h2>Änderungshistorie</h2>
+    <dl>
+        <dt>DZG (in Vorbereitung)</dt>
+        <dd>Erste Vorbereitung des Dokuments. Inhalt wird nach Inkrafttreten des
+        Datenzugangsgesetzes erarbeitet.</dd>
+    </dl>
+</section>
+
+</body>
+</html>
