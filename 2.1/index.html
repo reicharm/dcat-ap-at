@@ -59,8 +59,16 @@
                 publisher: "W3C"
             }
         },
-        postProcess: [initRdforms]
+        postProcess: [initRdforms, function () { setStatusLabel("Empfehlung (BLSG-Beschluss)"); }]
     };
+
+    function setStatusLabel(label) {
+        var e = document.getElementById("w3c-state");
+        if (!e) return;
+        var t = e.querySelector("time");
+        e.textContent = label + " ";
+        if (t) e.appendChild(t);
+    }
 
     function initRdforms() {
         if (typeof rdforms_specs !== "undefined") {
@@ -108,6 +116,8 @@
     <link rel="stylesheet" href="../libs/style.css">
 
     <style>
+        /* kein "UNOFFICIAL"-Wasserzeichen */
+        body::before, body::after, html::before, html::after { content: none !important; display: none !important; }
         /* Tighten up the ReSpec header spacing for the otherLinks block */
         .head dl { margin-top: 0.5em; }
         #diagram { margin: 1.5em 0; }
