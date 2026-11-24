@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Österreichische Vokabulare – DCAT-AP AT</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; color: #1a1a2e; }
+        header { background: #134962; color: #fff; padding: 2rem; border-bottom: 4px solid #e84e0f; }
+        header .inner { max-width: 860px; margin: 0 auto; }
+        header h1 { font-size: 1.75rem; }
+        header p { margin-top: 0.5rem; opacity: .85; }
+        main { max-width: 860px; margin: 2rem auto; padding: 0 2rem 4rem; }
+        .back { display: inline-block; margin-bottom: 1.5rem; color: #134962; text-decoration: none; font-size: .9em; }
+        .back:hover { text-decoration: underline; }
+        .banner {
+            background: #fff3cd; border: 2px solid #ffc107; border-radius: 8px;
+            padding: 1.5rem 2rem; margin: 1.5rem 0;
+        }
+        .banner h2 { margin-top: 0; color: #856404; font-size: 1.1rem; }
+        .voc-grid { display: grid; gap: 1rem; margin-top: 1.5rem; }
+        .voc-card {
+            background: #fff; border: 1px solid #dde3ec; border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+        }
+        .voc-card h3 { font-size: 1rem; color: #134962; margin-bottom: 0.4rem; }
+        .voc-card p { font-size: .9rem; color: #555; margin-bottom: .6rem; }
+        .tag { background: #e3f2fd; color: #0d47a1; border-radius: 3px; padding: 1px 7px; font-size: .78em; font-weight: 600; }
+        footer { text-align: center; padding: 2rem; font-size: .85rem; color: #888; border-top: 1px solid #e0e6ee; }
+        footer a { color: #134962; }
+    </style>
+</head>
+<body>
+<header>
+    <div class="inner">
+        <h1>Österreichische Vokabulare</h1>
+        <p>Kontrollierte Vokabulare für österreichische Metadaten – DCAT-AP AT</p>
+    </div>
+</header>
+<main>
+    <a class="back" href="../">← Zurück zur Versionsübersicht</a>
+
+    <div class="banner">
+        <h2>⚠ In Vorbereitung</h2>
+        <p>
+            Die österreichischen kontrollierten Vokabulare werden derzeit erarbeitet und
+            werden hier als maschinenlesbare Ressourcen (SKOS/RDF) veröffentlicht.
+            Rückmeldungen bitte über den
+            <a href="https://github.com/datagvat/DCAT-AP.at/issues">GitHub Issue Tracker</a>.
+        </p>
+    </div>
+
+    <p style="line-height:1.7; color:#333;">
+        Für österreichische Open-Data-Metadaten werden eigene kontrollierte Vokabulare
+        gepflegt, die in Ergänzung zu den EU-weiten Vokabularen
+        (<a href="https://op.europa.eu/en/web/eu-vocabularies">EU Vocabularies</a>)
+        österreichspezifische Ausprägungen definieren.
+    </p>
+
+    <div class="voc-grid">
+
+        <div class="voc-card">
+            <h3>Österreichische Verwaltungsregionen</h3>
+            <p>Hierarchisches Vokabular der österreichischen Bundesländer, Bezirke und Gemeinden
+               für die räumliche Einordnung von Datensätzen (<code>dct:spatial</code>).</p>
+            <span class="tag">Geplant</span>
+        </div>
+
+        <div class="voc-card">
+            <h3>Österreichische Organisationstypen</h3>
+            <p>Vokabular für Typen öffentlicher Stellen in Österreich
+               (Bundesbehörden, Landesbehörden, Gemeinden, Körperschaften öffentlichen Rechts)
+               für <code>dcterms:type</code> auf <code>foaf:Agent</code>.</p>
+            <span class="tag">Geplant</span>
+        </div>
+
+        <div class="voc-card">
+            <h3>DZG-Zugangsvoraussetzungen</h3>
+            <p>Vokabular für Zugangsvoraussetzungen gemäß Datenzugangsgesetz,
+               Ausnahmegründe und Zugangsbeschränkungen.</p>
+            <span class="tag">Geplant</span>
+        </div>
+
+        <div class="voc-card">
+            <h3>Österreichische Lizenzen</h3>
+            <p>Auswahl empfohlener Lizenzen für österreichische Open-Data-Datensätze
+               (CC BY 4.0, CC0, Open Government Data Austria).</p>
+            <span class="tag">Geplant</span>
+        </div>
+
+    </div>
+</main>
+<footer>
+    <p>Copyright © 2024–2026 <a href="https://data.gv.at">BLSG Fachgruppe data.gv.at</a> · Lizenz: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+</footer>
+</body>
+</html>

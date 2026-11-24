@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DCAT-AP AT 3.0 – Metadatenstandard für Österreich</title>
+
+    <!-- ReSpec -->
+    <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
+    <script class="remove">
+    var respecConfig = {
+        specStatus:      "base",
+        shortName:       "dcat-ap-at",
+        latestVersion:   "https://dcat-ap.at/",
+        thisVersion:     "https://dcat-ap.at/3.0",
+        lang:            "de",
+        publishDate:     "2026-01-01",
+        copyrightStart:  "2024",
+        license:         "cc-by",
+        editors: [
+            { name: "Brigitte Barotanyi",   company: "Bundesministerium für Finanzen" },
+            { name: "Hannes Ebner",         company: "MetaSolutions AB" },
+            { name: "Gregor Eibl",          company: "Universität für Weiterbildung Krems" },
+            { name: "Gerhard Hartmann",     company: "Stadt Wien" },
+            { name: "Manfred Mittlböck",    company: "Research Studios Austria Forschungsgesellschaft mbH" },
+            { name: "Rainer Prager",        company: "Land Niederösterreich" },
+            { name: "Michael Reichart",     company: "Bundesrechenzentrum GmbH" }
+        ],
+        github: {
+            repoURL:   "https://github.com/datagvat/DCAT-AP.at",
+            branch:    "main"
+        },
+        otherLinks: [
+            {
+                key: "Frühere Versionen",
+                data: [
+                    { value: "DCAT-AP AT 2.1",     href: "../2.1/" },
+                    { value: "Versionsübersicht",   href: "../" }
+                ]
+            },
+            {
+                key: "Arbeitsgruppen",
+                data: [
+                    { value: "BLSG Fachgruppe data.gv.at" },
+                    { value: "BLSG AG-II" },
+                    { value: "AG Metadaten DCAT-AP, Cooperation OGD Österreich" }
+                ]
+            }
+        ],
+        localBiblio: {
+            "DCAT-AP": {
+                title:     "DCAT-AP 3.0.1",
+                href:      "https://semiceu.github.io/DCAT-AP/releases/3.0.1/",
+                publisher: "Publications Office of the European Union"
+            },
+            "DCAT": {
+                title:     "Data Catalog Vocabulary (DCAT) – Version 3",
+                href:      "https://www.w3.org/TR/vocab-dcat/",
+                publisher: "W3C"
+            },
+            "HVD-IR": {
+                title:     "Commission Implementing Regulation (EU) 2023/138 on High-Value Datasets",
+                href:      "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_2023_019_R_0001",
+                publisher: "Europäische Kommission"
+            },
+            "SHACL": {
+                title:     "Shapes Constraint Language (SHACL)",
+                href:      "https://www.w3.org/TR/shacl/",
+                publisher: "W3C"
+            }
+        }
+    };
+    </script>
+
+    <!-- Mermaid (class diagrams) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"
+            integrity="sha512-yD6UxqB1PGCP/nC8vd2pcozgicMkT/FEFo98T0ian+EtJPkbAL+h5gYV3r5Fpy1XWTVdDVoHx/E/9fFHdrHu1g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Highlight.js (code blocks) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+            integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+          integrity="sha512-0sPpvmxp9+e31gkU1G3pNFpEkMRGHRBWXTXWaBfJOlbf86STkDvEBMAtDLe7ekkAUmxoAeULFvuvr7Aw0GARA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../libs/style.css">
+
+    <style>
+        .head dl { margin-top: 0.5em; }
+        #diagram { margin: 1.5em 0; }
+
+        /* Obligation badges */
+        .badge-m {
+            background: #c8e6c9; color: #1b5e20;
+            border-radius: 3px; padding: 1px 5px; font-size: .8em;
+            white-space: nowrap;
+        }
+        .badge-r {
+            background: #fff9c4; color: #5d4037;
+            border-radius: 3px; padding: 1px 5px; font-size: .8em;
+            white-space: nowrap;
+        }
+        .badge-o {
+            background: #f5f5f5; color: #555;
+            border-radius: 3px; padding: 1px 5px; font-size: .8em;
+            white-space: nowrap;
+        }
+
+        /* Property tables */
+        table.props {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: .9em;
+            margin: 1em 0;
+        }
+        table.props th,
+        table.props td {
+            border: 1px solid #ccc;
+            padding: .4em .7em;
+            text-align: left;
+            vertical-align: top;
+        }
+        table.props th {
+            background: #f5f8fa;
+            font-weight: 600;
+        }
+        table.props tr:nth-child(even) td { background: #fafafa; }
+
+        /* Namespace table */
+        table.ns { border-collapse: collapse; font-size: .9em; }
+        table.ns th, table.ns td {
+            border: 1px solid #ccc; padding: .3em .7em; text-align: left;
+        }
+        table.ns th { background: #f5f8fa; }
+
+        /* HVD banner */
+        .hvd-note {
+            border-left: 4px solid #e84e0f;
+            background: #fff8f5;
+            padding: .6em 1em;
+            margin: .8em 0;
+            font-size: .9em;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Metadaten DCAT-AP AT</h1>
+<h2 class="subtitle">Erläuterungen zur Anpassung von DCAT-AP für Österreich – Version 3.0</h2>
+
+<section id="abstract">
+    <p>DCAT-AP AT ist das österreichische Profil der europäischen Metadatenspezifikation [[DCAT-AP]],
+    die zur Beschreibung von Datenkatalogen eingeführt wurde. [[DCAT-AP]] wiederum ist ein Profil der
+    W3C Recommendation [[DCAT]].</p>
+    <p>Dieses Dokument beschreibt den DCAT-AP AT Metadatenstandard in der Version 3.0 und legt fest,
+    welche Metadatenfelder für österreichische Open-Data-Portale verpflichtend oder optional sind.
+    Version 3.0 basiert auf DCAT-AP 3.0.1 und W3C DCAT 3; sie ergänzt die Vorgängerversion 2.1 um
+    Unterstützung für Hochwertige Datensätze (HVD) gemäß [[HVD-IR]], die neue Klasse
+    <code>dcat:DatasetSeries</code> sowie ein maschinenlesbares SHACL-Profil für die Validierung.</p>
+</section>
+
+<section id="sotd">
+    <p class="note">Dieses Dokument befindet sich in Vorbereitung (<em>Entwurf</em>).
+    Die Inhalte können sich bis zur endgültigen Veröffentlichung noch ändern.
+    Eine stabile Veröffentlichung ist für 2026 geplant.</p>
+    <dl>
+        <dt>Kurzbezeichnung:</dt>
+        <dd>metadaten-DCAT-AP-AT 3.0</dd>
+        <dt>Doku-Klasse:</dt>
+        <dd>Entwurf – in Vorbereitung</dd>
+        <dt>Vorgängerversion:</dt>
+        <dd><a href="../2.1/">DCAT-AP AT 2.1 (19. Juni 2024)</a></dd>
+        <dt>Geplante Veröffentlichung:</dt>
+        <dd>2026</dd>
+    </dl>
+    <p>Rückmeldungen und Kommentare bitte als
+    <a href="https://github.com/datagvat/DCAT-AP.at/issues">GitHub Issue</a> einreichen.</p>
+</section>
+
+<section id="management-summary">
+    <h2>Management Summary</h2>
+    <p>DCAT-AP ist der europäische Metadatenstandard für den Austausch offener Verwaltungsdaten.
+    DCAT-AP AT 3.0 ist das österreichische Profil des europäischen Standards [[DCAT-AP]] in der
+    Version 3.0.1. Es legt fest, welche Eigenschaften für österreichische Datenkataloge und Datensätze
+    verpflichtend sind, und ergänzt den EU-Standard um nationale Anforderungen.</p>
+    <p>Die wichtigsten Neuerungen gegenüber Version 2.1:</p>
+    <ul>
+        <li><strong>HVD-Unterstützung:</strong> Neue Eigenschaft <code>dcatap:hvdCategory</code> für
+        Hochwertige Datensätze gemäß der EU-Durchführungsverordnung [[HVD-IR]].</li>
+        <li><strong>Datensatz-Reihen:</strong> Neue Klasse <code>dcat:DatasetSeries</code> für
+        thematisch zusammengehörige Datensätze (z.&nbsp;B. Zeitreihen).</li>
+        <li><strong>Identifier verpflichtend:</strong> <code>dct:identifier</code> ist nun für
+        Datensätze verpflichtend.</li>
+        <li><strong>SHACL-Profil:</strong> Die Spezifikation wird durch ein maschinenlesbares
+        SHACL-Validierungsprofil (<a href="dcat-ap-3-at.hub.shapes.ttl"><code>dcat-ap-3-at.hub.shapes.ttl</code></a>)
+        ergänzt.</li>
+        <li><strong>Österreichische Vokabulare:</strong> Erste eigene kontrollierte Vokabulare werden
+        unter <code>dcat-ap.at/voc/</code> bereitgestellt (in Vorbereitung).</li>
+    </ul>
+</section>
+
+<section id="introduction">
+    <h2>Einführung</h2>
+
+    <p>Bei DCAT-AP AT handelt es sich um das österreichische Profil der europäischen
+    Metadatenspezifikation [[DCAT-AP]], die zur Beschreibung von Datenkatalogen eingeführt wurde.
+    [[DCAT-AP]] wiederum ist ein Profil der W3C Recommendation [[DCAT]].</p>
+
+    <p>Die folgende Abbildung zeigt die Standardhierarchie:</p>
+
+    <figure id="hierarchy-diagram">
+        <div class="mermaid">
+graph TD
+    W3C["W3C DCAT 3\n(W3C Recommendation)"]
+    EU["DCAT-AP 3.0.1\n(EU-Standard)"]
+    AT["DCAT-AP AT 3.0\n(Österreichisches Profil)"]
+    W3C --> EU --> AT
+    HVD["HVD-IR (EU 2023/138)"] -.->|ergänzt| AT
+        </div>
+        <figcaption>Standardhierarchie DCAT-AP AT 3.0</figcaption>
+    </figure>
+
+    <p>Das folgende Diagramm zeigt die primären Klassen von DCAT-AP AT 3.0 und ihre Beziehungen.
+    Neu in Version 3.0 ist die Klasse <code>dcat:DatasetSeries</code>.</p>
+
+    <figure id="class-diagram">
+        <div class="mermaid">
+classDiagram
+
+Catalog --> Dataset : dcat:dataset
+Catalog --> Agent : dct:publisher
+Catalog --> DataService : dcat:service
+Catalog --> CatalogRecord : dcat:record
+Dataset --> Distribution : dcat:distribution
+Dataset --> Agent : dct:publisher
+Dataset --> ContactPoint : dcat:contactPoint
+Dataset --> DatasetSeries : dcat:inSeries
+DataService --> Dataset : dcat:servesDataset
+Distribution --> DataService : dcat:accessService
+
+class Catalog {
+  dct:title [M]
+  dct:description [M]
+  dct:publisher [M]
+}
+
+class Dataset {
+  dct:title [M]
+  dct:description [M]
+  dct:identifier [M]
+  dcat:contactPoint [M]
+  dcat:keyword [M]
+  dct:publisher [M]
+  dcat:theme [M]
+}
+
+class Distribution {
+  dcat:accessURL [M]
+  dct:format [M]
+  dct:license [M]
+}
+
+class DataService {
+  dcat:endpointURL [M]
+  dct:title [M]
+}
+
+class DatasetSeries {
+  dct:title [M]
+  dct:description [M]
+}
+
+class CatalogRecord {
+  foaf:primaryTopic [M]
+  dct:modified [M]
+}
+
+class Agent {
+  foaf:name [M]
+}
+
+class ContactPoint {
+  vcard:fn [M]
+  vcard:hasEmail [M]
+}
+        </div>
+        <figcaption>Primäre Klassen von DCAT-AP AT 3.0 · [M] = verpflichtend</figcaption>
+    </figure>
+</section>
+
+<section id="namespaces">
+    <h2>Namensräume</h2>
+    <p>Die folgende Tabelle listet alle in DCAT-AP AT 3.0 verwendeten Namespace-Präfixe.</p>
+    <table class="ns">
+        <thead>
+            <tr><th>Präfix</th><th>Namespace-URI</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>adms</code></td><td><code>http://www.w3.org/ns/adms#</code></td></tr>
+            <tr><td><code>dcat</code></td><td><code>http://www.w3.org/ns/dcat#</code></td></tr>
+            <tr><td><code>dcatap</code></td><td><code>http://data.europa.eu/r5r/</code></td></tr>
+            <tr><td><code>dct</code></td><td><code>http://purl.org/dc/terms/</code></td></tr>
+            <tr><td><code>dzg</code></td><td><code>https://data.gv.at/shapes/dcat-ap-at-dzg#</code></td></tr>
+            <tr><td><code>eli</code></td><td><code>http://data.europa.eu/eli/ontology#</code></td></tr>
+            <tr><td><code>foaf</code></td><td><code>http://xmlns.com/foaf/0.1/</code></td></tr>
+            <tr><td><code>locn</code></td><td><code>http://www.w3.org/ns/locn#</code></td></tr>
+            <tr><td><code>odrl</code></td><td><code>http://www.w3.org/ns/odrl/2/</code></td></tr>
+            <tr><td><code>prov</code></td><td><code>http://www.w3.org/ns/prov#</code></td></tr>
+            <tr><td><code>sh</code></td><td><code>http://www.w3.org/ns/shacl#</code></td></tr>
+            <tr><td><code>skos</code></td><td><code>http://www.w3.org/2004/02/skos/core#</code></td></tr>
+            <tr><td><code>spdx</code></td><td><code>http://spdx.org/rdf/terms#</code></td></tr>
+            <tr><td><code>time</code></td><td><code>http://www.w3.org/2006/time#</code></td></tr>
+            <tr><td><code>vcard</code></td><td><code>http://www.w3.org/2006/vcard/ns#</code></td></tr>
+            <tr><td><code>xsd</code></td><td><code>http://www.w3.org/2001/XMLSchema#</code></td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section id="classes">
+    <h2>Klassen und Eigenschaften</h2>
+    <p>Die folgenden Abschnitte beschreiben jede Klasse von DCAT-AP AT 3.0 mit ihren Eigenschaften.
+    Die Verpflichtungsgrade sind farblich markiert:</p>
+    <ul>
+        <li><span class="badge-m">verpflichtend</span> – muss angegeben werden (min. 1 Wert)</li>
+        <li><span class="badge-o">optional</span> – kann angegeben werden</li>
+    </ul>
+
+    <!-- ═══ Dataset ═══ -->
+    <section id="prop-dataset">
+        <h3>Datensatz (<code>dcat:Dataset</code>)</h3>
+        <p>Ein <dfn>Datensatz</dfn> (<code>dcat:Dataset</code>) ist eine identifizierbare
+        Sammlung von Daten, die von einer Organisation veröffentlicht oder kuratiert wird.
+        Er ist die zentrale Klasse in DCAT-AP AT. Ein Datensatz kann über eine oder mehrere
+        <a href="#prop-distribution">Distributionen</a> verfügbar gemacht werden und optional
+        Teil einer <a href="#prop-datasetseries">Datensatz-Reihe</a> sein.</p>
+
+        <table class="props simple">
+            <thead>
+                <tr>
+                    <th>Eigenschaft</th><th>URI</th><th>Pflicht</th>
+                    <th>Kard.</th><th>Typ / Bereich</th><th>Beschreibung</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Titel</td>
+                    <td><code><a href="http://purl.org/dc/terms/title">dct:title</a></code></td>
+                    <td><span class="badge-m">verpflichtend</span></td>
+                    <td>1..n</td><td>Literal</td>
+                    <td>Name des Datensatzes. Kann in mehreren Sprachen angegeben werden.</td>
+                </tr>
+                <tr>
+                    <td>Beschreibung</td>
+                    <td><code><a href="http://purl.org/dc/terms/description">dct:description</a></code></td>
+                    <td><span class="badge-m">verpflichtend</span></td>
+                    <td>1..n</td><td>Literal</td>
+                    <td>Freitextbeschreibung des Datensatzes. Kann mehrsprachig angegeben werden.</td>
+                </tr>
+                <tr>
+                    <td>Identifier</td>
+                    <td><code><a href="http://purl.org/dc/terms/identifier">dct:identifier</a></code></td>
+                    <td><span class="badge-m">verpflichtend</span></td>
+                    <td>1..n</td><td>Literal</td>
+                    <td>Eindeutige Kennung des Datensatzes (neu verpflichtend in Version 3.0).</td>
+                </tr>
+                <tr>
+                    <td>Kontaktpunkt</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#contactPoint">dcat:contactPoint</a></code></td>
+                    <td><span class="badge-m">verpflichtend</span></td>
+                    <td>1..n</td><td>Ressource</td>
+                    <td>Kontaktangaben für Rückfragen zum Datensatz (<code>vcard:Kind</code>).</td>
+                </tr>
+                <tr>
+                    <td>Schlagwort</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#keyword">dcat:keyword</a></code></td>
+                    <td><span class="badge-m">verpflichtend</span></td>
+                    <td>1..n</td><td>Literal</td>
+                    <td>Mindestens ein Schlagwort, das den Datensatz beschreibt.</td>
+                </tr>
+                <tr>
+                    <td>Herausgeber</td>
+                    <td><code><a href="http://purl.org/dc/terms/publisher">dct:publisher</a></code></td>
+                    <td><span class="badge-m">verpflichtend</span></td>
+                    <td>1..n</td><td>Ressource</td>
+                    <td>Verantwortliche Organisation (<code>foaf:Agent</code>), die den Datensatz publiziert.</td>
+                </tr>
+                <tr>
+                    <td>Thema</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#theme">dcat:theme</a></code></td>
+                    <td><span class="badge-m">verpflichtend</span></td>
+                    <td>1..n</td><td>URI</td>
+                    <td>Thematische Einordnung aus dem EU Data-Theme-Vokabular.</td>
+                </tr>
+                <tr>
+                    <td>HVD-Kategorie</td>
+                    <td><code><a href="http://data.europa.eu/r5r/hvdCategory">dcatap:hvdCategory</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>URI</td>
+                    <td>Kategorie Hochwertiger Datensätze gemäß [[HVD-IR]]. Nur bei HVD-pflichtigen Datensätzen.</td>
+                </tr>
+                <tr>
+                    <td>Teil einer Reihe</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#inSeries">dcat:inSeries</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Verweist auf eine <code>dcat:DatasetSeries</code>, der dieser Datensatz angehört.</td>
+                </tr>
+                <tr>
+                    <td>Zugriffsrechte</td>
+                    <td><code><a href="http://purl.org/dc/terms/accessRights">dct:accessRights</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Aussage über Zugangsbeschränkungen (z.&nbsp;B. öffentlich, nicht-öffentlich).</td>
+                </tr>
+                <tr>
+                    <td>Anwendbare Gesetzgebung</td>
+                    <td><code><a href="http://data.europa.eu/r5r/applicableLegislation">dcatap:applicableLegislation</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Rechtliche Grundlage (z.&nbsp;B. HVD-VO, Datenzugangsgesetz). ELI-URI verwenden.</td>
+                </tr>
+                <tr>
+                    <td>Konformität</td>
+                    <td><code><a href="http://purl.org/dc/terms/conformsTo">dct:conformsTo</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Standard oder Spezifikation, dem der Datensatz entspricht.</td>
+                </tr>
+                <tr>
+                    <td>Urheber</td>
+                    <td><code><a href="http://purl.org/dc/terms/creator">dct:creator</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Erstellende Organisation oder Person (<code>foaf:Agent</code>).</td>
+                </tr>
+                <tr>
+                    <td>Dokumentation</td>
+                    <td><code><a href="http://xmlns.com/foaf/0.1/page">foaf:page</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>URI</td>
+                    <td>Link zu einer Dokumentationsseite über den Datensatz.</td>
+                </tr>
+                <tr>
+                    <td>Aktualisierungsfrequenz</td>
+                    <td><code><a href="http://purl.org/dc/terms/accrualPeriodicity">dct:accrualPeriodicity</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Häufigkeit der Aktualisierung aus dem EU-Frequency-Vokabular.</td>
+                </tr>
+                <tr>
+                    <td>Räumliche Abdeckung</td>
+                    <td><code><a href="http://purl.org/dc/terms/spatial">dct:spatial</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Geografischer Bereich, den der Datensatz abdeckt.</td>
+                </tr>
+                <tr>
+                    <td>Hat Version</td>
+                    <td><code><a href="http://purl.org/dc/terms/hasVersion">dct:hasVersion</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Verweist auf eine andere Version dieses Datensatzes.</td>
+                </tr>
+                <tr>
+                    <td>Wird referenziert von</td>
+                    <td><code><a href="http://purl.org/dc/terms/isReferencedBy">dct:isReferencedBy</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Ressource, die auf diesen Datensatz verweist.</td>
+                </tr>
+                <tr>
+                    <td>Einstiegsseite</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#landingPage">dcat:landingPage</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>URI</td>
+                    <td>Webseite, über die man Zugang zum Datensatz oder weiteren Informationen erhält.</td>
+                </tr>
+                <tr>
+                    <td>Sprache</td>
+                    <td><code><a href="http://purl.org/dc/terms/language">dct:language</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Sprache des Datensatzes (EU Language Authority Table).</td>
+                </tr>
+                <tr>
+                    <td>Zuletzt geändert</td>
+                    <td><code><a href="http://purl.org/dc/terms/modified">dct:modified</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Literal</td>
+                    <td>Datum der letzten Änderung des Datensatzes.</td>
+                </tr>
+                <tr>
+                    <td>ADMS-Identifier</td>
+                    <td><code><a href="http://www.w3.org/ns/adms#identifier">adms:identifier</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Alternativer Identifier in einem bestimmten System (<code>adms:Identifier</code>).</td>
+                </tr>
+                <tr>
+                    <td>Provenienz</td>
+                    <td><code><a href="http://purl.org/dc/terms/provenance">dct:provenance</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Aussage zur Herkunft und Geschichte des Datensatzes.</td>
+                </tr>
+                <tr>
+                    <td>Qualifizierte Zuweisung</td>
+                    <td><code><a href="http://www.w3.org/ns/prov#qualifiedAttribution">prov:qualifiedAttribution</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Verknüpfung mit einer Organisation in einer bestimmten Rolle.</td>
+                </tr>
+                <tr>
+                    <td>Qualifizierte Beziehung</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#qualifiedRelation">dcat:qualifiedRelation</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Beziehung zu einer anderen Ressource mit expliziter Rolle.</td>
+                </tr>
+                <tr>
+                    <td>Beziehung</td>
+                    <td><code><a href="http://purl.org/dc/terms/relation">dct:relation</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Allgemeine Beziehung zu einer anderen Ressource.</td>
+                </tr>
+                <tr>
+                    <td>Veröffentlichungsdatum</td>
+                    <td><code><a href="http://purl.org/dc/terms/issued">dct:issued</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Literal</td>
+                    <td>Datum der formellen Veröffentlichung des Datensatzes.</td>
+                </tr>
+                <tr>
+                    <td>Probe</td>
+                    <td><code><a href="http://www.w3.org/ns/adms#sample">adms:sample</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Verweist auf eine Distribution, die eine Stichprobe des Datensatzes enthält.</td>
+                </tr>
+                <tr>
+                    <td>Quelle</td>
+                    <td><code><a href="http://purl.org/dc/terms/source">dct:source</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Datensatz, aus dem dieser Datensatz abgeleitet wurde.</td>
+                </tr>
+                <tr>
+                    <td>Räumliche Auflösung</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#spatialResolutionInMeters">dcat:spatialResolutionInMeters</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td><code>xsd:decimal</code></td>
+                    <td>Mindestmaß der räumlichen Auflösung in Metern.</td>
+                </tr>
+                <tr>
+                    <td>Zeitliche Abdeckung</td>
+                    <td><code><a href="http://purl.org/dc/terms/temporal">dct:temporal</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Zeitraum, den der Datensatz inhaltlich abdeckt.</td>
+                </tr>
+                <tr>
+                    <td>Zeitliche Auflösung</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#temporalResolution">dcat:temporalResolution</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td><code>xsd:duration</code></td>
+                    <td>Mindestmaß des zeitlichen Abstands zwischen Datenpunkten (ISO 8601 Duration).</td>
+                </tr>
+                <tr>
+                    <td>Typ</td>
+                    <td><code><a href="http://purl.org/dc/terms/type">dct:type</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Art des Datensatzes (z.&nbsp;B. Datensatz, Dienst) aus kontrolliertem Vokabular.</td>
+                </tr>
+                <tr>
+                    <td>Versionsnummer</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#version">dcat:version</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Literal</td>
+                    <td>Versionsnummer oder -bezeichnung des Datensatzes.</td>
+                </tr>
+                <tr>
+                    <td>Versionshinweise</td>
+                    <td><code><a href="http://www.w3.org/ns/adms#versionNotes">adms:versionNotes</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Literal</td>
+                    <td>Beschreibung der Unterschiede zur vorherigen Version.</td>
+                </tr>
+                <tr>
+                    <td>Erzeugt durch</td>
+                    <td><code><a href="http://www.w3.org/ns/prov#wasGeneratedBy">prov:wasGeneratedBy</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Aktivität (<code>prov:Activity</code>), die diesen Datensatz erzeugt hat.</td>
+                </tr>
+                <tr>
+                    <td>Distribution</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#distribution">dcat:distribution</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Verknüpfung mit einer konkreten Abrufform des Datensatzes (<code>dcat:Distribution</code>).</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="note">Themen (<code>dcat:theme</code>) müssen aus dem EU-kontrollierten Vokabular
+        <a href="http://publications.europa.eu/resource/authority/data-theme">Data Theme</a> stammen.
+        Für HVD-pflichtige Datensätze muss zusätzlich <code>dcatap:hvdCategory</code> und
+        <code>dcatap:applicableLegislation</code> mit der ELI-URI der HVD-Durchführungsverordnung
+        (<code>http://data.europa.eu/eli/reg_impl/2023/138/oj</code>) angegeben werden.</p>
+    </section>
+
+    <!-- ═══ Distribution ═══ -->
+    <section id="prop-distribution">
+        <h3>Distribution (<code>dcat:Distribution</code>)</h3>
+        <p>Eine <dfn>Distribution</dfn> stellt eine konkrete, abrufbare Form eines Datensatzes dar –
+        etwa eine CSV-Datei, ein GeoPackage oder eine API-Antwort.
+        Ein Datensatz kann mehrere Distributionen in verschiedenen Formaten besitzen.
+        Im österreichischen Profil sind Format und Lizenz verpflichtend.</p>
+
+        <table class="props simple">
+            <thead>
+                <tr>
+                    <th>Eigenschaft</th><th>URI</th><th>Pflicht</th>
+                    <th>Kard.</th><th>Typ / Bereich</th><th>Beschreibung</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Zugriffs-URL</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#accessURL">dcat:accessURL</a></code></td>
+                    <td><span class="badge-m">verpflichtend</span></td>
+                    <td>1..n</td><td>URI</td>
+                    <td>URL, über den auf die Distribution zugegriffen werden kann.</td>
+                </tr>
+                <tr>
+                    <td>Format</td>
+                    <td><code><a href="http://purl.org/dc/terms/format">dct:format</a></code></td>
+                    <td><span class="badge-m">verpflichtend</span></td>
+                    <td>1..n</td><td>URI</td>
+                    <td>Dateiformat der Distribution; URI aus dem EU File-Type-Vokabular.</td>
+                </tr>
+                <tr>
+                    <td>Lizenz</td>
+                    <td><code><a href="http://purl.org/dc/terms/license">dct:license</a></code></td>
+                    <td><span class="badge-m">verpflichtend</span></td>
+                    <td>1..1</td><td>Ressource</td>
+                    <td>Lizenz unter der die Distribution bereitgestellt wird (genau eine).</td>
+                </tr>
+                <tr>
+                    <td>Zugriffsdienst</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#accessService">dcat:accessService</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Datendienst, über den diese Distribution zugänglich ist.</td>
+                </tr>
+                <tr>
+                    <td>Konformität</td>
+                    <td><code><a href="http://purl.org/dc/terms/conformsTo">dct:conformsTo</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Standard oder Schema, dem die Distribution entspricht.</td>
+                </tr>
+                <tr>
+                    <td>Veröffentlichungsdatum</td>
+                    <td><code><a href="http://purl.org/dc/terms/issued">dct:issued</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Literal</td>
+                    <td>Datum, an dem die Distribution erstmals veröffentlicht wurde.</td>
+                </tr>
+                <tr>
+                    <td>Sprache</td>
+                    <td><code><a href="http://purl.org/dc/terms/language">dct:language</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Sprache der Inhalte in der Distribution.</td>
+                </tr>
+                <tr>
+                    <td>Zuletzt geändert</td>
+                    <td><code><a href="http://purl.org/dc/terms/modified">dct:modified</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Literal</td>
+                    <td>Datum der letzten Änderung der Distribution.</td>
+                </tr>
+                <tr>
+                    <td>Nutzungsrechte</td>
+                    <td><code><a href="http://purl.org/dc/terms/rights">dct:rights</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Aussage zu Rechten, die über die Lizenz hinausgehen.</td>
+                </tr>
+                <tr>
+                    <td>Titel</td>
+                    <td><code><a href="http://purl.org/dc/terms/title">dct:title</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Literal</td>
+                    <td>Name der Distribution (wenn mehrere Distributionen unterschieden werden sollen).</td>
+                </tr>
+                <tr>
+                    <td>Prüfsumme</td>
+                    <td><code><a href="http://spdx.org/rdf/terms#checksum">spdx:checksum</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Prüfsumme zur Integritätsprüfung der Distribution.</td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td><code><a href="http://www.w3.org/ns/adms#status">adms:status</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Reifegrad oder Entwicklungsstatus der Distribution.</td>
+                </tr>
+                <tr>
+                    <td>Dateigröße</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#byteSize">dcat:byteSize</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td><code>xsd:nonNegativeInteger</code></td>
+                    <td>Größe der Distribution in Byte.</td>
+                </tr>
+                <tr>
+                    <td>Download-URL</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#downloadURL">dcat:downloadURL</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>URI</td>
+                    <td>Direkter Download-Link zur Datei der Distribution.</td>
+                </tr>
+                <tr>
+                    <td>Medientyp</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#mediaType">dcat:mediaType</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>MIME-Typ der Distribution (IANA Media Types).</td>
+                </tr>
+                <tr>
+                    <td>Dokumentation</td>
+                    <td><code><a href="http://xmlns.com/foaf/0.1/page">foaf:page</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>URI</td>
+                    <td>Link zur Dokumentation der Distribution.</td>
+                </tr>
+                <tr>
+                    <td>Nutzungsrichtlinie</td>
+                    <td><code><a href="http://www.w3.org/ns/odrl/2/hasPolicy">odrl:hasPolicy</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>ODRL-Richtlinie für die Nutzung der Distribution.</td>
+                </tr>
+                <tr>
+                    <td>Kompressionsformat</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#compressFormat">dcat:compressFormat</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Kompressionsformat (z.&nbsp;B. ZIP, GZIP) der Distribution.</td>
+                </tr>
+                <tr>
+                    <td>Paketformat</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#packageFormat">dcat:packageFormat</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Containerformat (z.&nbsp;B. TAR), das mehrere Dateien zusammenfasst.</td>
+                </tr>
+                <tr>
+                    <td>Zeitliche Auflösung</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#temporalResolution">dcat:temporalResolution</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td><code>xsd:duration</code></td>
+                    <td>Zeitliche Auflösung der Daten in der Distribution.</td>
+                </tr>
+                <tr>
+                    <td>Räumliche Auflösung</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#spatialResolutionInMeters">dcat:spatialResolutionInMeters</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td><code>xsd:decimal</code></td>
+                    <td>Räumliche Auflösung der Daten in der Distribution (in Meter).</td>
+                </tr>
+                <tr>
+                    <td>Beschreibung</td>
+                    <td><code><a href="http://purl.org/dc/terms/description">dct:description</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Literal</td>
+                    <td>Freitextbeschreibung der Distribution.</td>
+                </tr>
+                <tr>
+                    <td>Verfügbarkeit</td>
+                    <td><code><a href="http://data.europa.eu/r5r/availability">dcatap:availability</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Geplante Verfügbarkeitsdauer aus dem EU-Availability-Vokabular.</td>
+                </tr>
+                <tr>
+                    <td>Typ</td>
+                    <td><code><a href="http://purl.org/dc/terms/type">dct:type</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Art der Distribution.</td>
+                </tr>
+                <tr>
+                    <td>Anwendbare Gesetzgebung</td>
+                    <td><code><a href="http://data.europa.eu/r5r/applicableLegislation">dcatap:applicableLegislation</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Rechtliche Grundlage (ELI-URI) für die Distribution.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="note"><code>dct:format</code> sollte eine URI aus dem
+        <a href="http://publications.europa.eu/resource/authority/file-type">EU File Type</a>-Vokabular
+        sein (z.&nbsp;B. <code>CSV</code>, <code>GEOJSON</code>, <code>RDF_XML</code>).
+        <code>dcatap:availability</code> sollte aus dem
+        <a href="http://data.europa.eu/r5r/availability/">Planned Availability</a>-Vokabular stammen,
+        z.&nbsp;B. <code>stable</code> für dauerhaft verfügbare Daten.</p>
+    </section>
+
+    <!-- ═══ Catalog ═══ -->
+    <section id="prop-catalog">
+        <h3>Katalog (<code>dcat:Catalog</code>)</h3>
+        <p>Ein <dfn>Katalog</dfn> (<code>dcat:Catalog</code>) ist eine kuratierte Sammlung von
+        Metadaten zu Datensätzen und Datendiensten.
+        Das österreichische Open-Data-Portal <a href="https://www.data.gv.at">data.gv.at</a>
+        ist selbst ein solcher Katalog.</p>
+
+        <table class="props simple">
+            <thead>
+                <tr>
+                    <th>Eigenschaft</th><th>URI</th><th>Pflicht</th>
+                    <th>Kard.</th><th>Typ / Bereich</th><th>Beschreibung</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Titel</td>
+                    <td><code><a href="http://purl.org/dc/terms/title">dct:title</a></code></td>
+                    <td><span class="badge-m">verpflichtend</span></td>
+                    <td>1..n</td><td>Literal</td>
+                    <td>Name des Katalogs.</td>
+                </tr>
+                <tr>
+                    <td>Beschreibung</td>
+                    <td><code><a href="http://purl.org/dc/terms/description">dct:description</a></code></td>
+                    <td><span class="badge-m">verpflichtend</span></td>
+                    <td>1..n</td><td>Literal</td>
+                    <td>Freitextbeschreibung des Katalogs.</td>
+                </tr>
+                <tr>
+                    <td>Herausgeber</td>
+                    <td><code><a href="http://purl.org/dc/terms/publisher">dct:publisher</a></code></td>
+                    <td><span class="badge-m">verpflichtend</span></td>
+                    <td>1..n</td><td>Ressource</td>
+                    <td>Verantwortliche Organisation für den Katalog (<code>foaf:Agent</code>).</td>
+                </tr>
+                <tr>
+                    <td>Sprache</td>
+                    <td><code><a href="http://purl.org/dc/terms/language">dct:language</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Sprache(n) der Metadaten im Katalog.</td>
+                </tr>
+                <tr>
+                    <td>Anwendbare Gesetzgebung</td>
+                    <td><code><a href="http://data.europa.eu/r5r/applicableLegislation">dcatap:applicableLegislation</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Rechtliche Grundlage (ELI-URI).</td>
+                </tr>
+                <tr>
+                    <td>Lizenz</td>
+                    <td><code><a href="http://purl.org/dc/terms/license">dct:license</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Lizenz für die Metadaten des Katalogs.</td>
+                </tr>
+                <tr>
+                    <td>Veröffentlichungsdatum</td>
+                    <td><code><a href="http://purl.org/dc/terms/issued">dct:issued</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Literal</td>
+                    <td>Datum der Veröffentlichung des Katalogs.</td>
+                </tr>
+                <tr>
+                    <td>Räumliche Abdeckung</td>
+                    <td><code><a href="http://purl.org/dc/terms/spatial">dct:spatial</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Geografische Abdeckung des Katalogs.</td>
+                </tr>
+                <tr>
+                    <td>Zeitliche Abdeckung</td>
+                    <td><code><a href="http://purl.org/dc/terms/temporal">dct:temporal</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Zeitraum, den der Katalog inhaltlich abdeckt.</td>
+                </tr>
+                <tr>
+                    <td>Ist Teil von</td>
+                    <td><code><a href="http://purl.org/dc/terms/hasPart">dct:hasPart</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Teilkatalog, der in diesem Katalog enthalten ist.</td>
+                </tr>
+                <tr>
+                    <td>Zuletzt geändert</td>
+                    <td><code><a href="http://purl.org/dc/terms/modified">dct:modified</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Literal</td>
+                    <td>Datum der letzten Änderung des Katalogs.</td>
+                </tr>
+                <tr>
+                    <td>Nutzungsrechte</td>
+                    <td><code><a href="http://purl.org/dc/terms/rights">dct:rights</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Nutzungsrechte an den Metadaten des Katalogs.</td>
+                </tr>
+                <tr>
+                    <td>Themen-Taxonomie</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#themeTaxonomy">dcat:themeTaxonomy</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Vokabular, das für die Themenklassifikation im Katalog verwendet wird.</td>
+                </tr>
+                <tr>
+                    <td>Dienst</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#service">dcat:service</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Datendienst, der im Katalog beschrieben wird.</td>
+                </tr>
+                <tr>
+                    <td>Teilkatalog</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#catalog">dcat:catalog</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Verknüpfung mit einem anderen Katalog.</td>
+                </tr>
+                <tr>
+                    <td>Urheber</td>
+                    <td><code><a href="http://purl.org/dc/terms/creator">dct:creator</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Erstellende Organisation oder Person.</td>
+                </tr>
+                <tr>
+                    <td>Homepage</td>
+                    <td><code><a href="http://xmlns.com/foaf/0.1/homepage">foaf:homepage</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>URI</td>
+                    <td>Webseite des Katalogs.</td>
+                </tr>
+                <tr>
+                    <td>Katalogeintrag</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#record">dcat:record</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Einzelner Katalogeintrag (<code>dcat:CatalogRecord</code>).</td>
+                </tr>
+                <tr>
+                    <td>Datensatz</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#dataset">dcat:dataset</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Datensatz, der im Katalog beschrieben wird.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="note"><code>dcat:themeTaxonomy</code> verweist auf das verwendete kontrollierte
+        Vokabular für Themen. Für österreichische Kataloge empfiehlt sich die EU-Datenthemen-Taxonomie:
+        <code>http://publications.europa.eu/resource/authority/data-theme</code>.</p>
+    </section>
+
+    <!-- ═══ DataService ═══ -->
+    <section id="prop-dataservice">
+        <h3>Datendienst (<code>dcat:DataService</code>)</h3>
+        <p>Ein <dfn>Datendienst</dfn> (<code>dcat:DataService</code>) ist eine Sammlung von
+        Operationen, die über eine API programmatischen Zugriff auf einen oder mehrere Datensätze
+        ermöglicht – z.&nbsp;B. ein WFS, WMS, OGC API Features oder ein SPARQL-Endpoint.
+        Für HVD-pflichtige Datendienste muss <code>dcatap:hvdCategory</code> angegeben werden.</p>
+
+        <table class="props simple">
+            <thead>
+                <tr>
+                    <th>Eigenschaft</th><th>URI</th><th>Pflicht</th>
+                    <th>Kard.</th><th>Typ / Bereich</th><th>Beschreibung</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Endpoint-URL</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#endpointURL">dcat:endpointURL</a></code></td>
+                    <td><span class="badge-m">verpflichtend</span></td>
+                    <td>1..n</td><td>URI</td>
+                    <td>URL des API-Endpunkts.</td>
+                </tr>
+                <tr>
+                    <td>Titel</td>
+                    <td><code><a href="http://purl.org/dc/terms/title">dct:title</a></code></td>
+                    <td><span class="badge-m">verpflichtend</span></td>
+                    <td>1..n</td><td>Literal</td>
+                    <td>Name des Datendienstes.</td>
+                </tr>
+                <tr>
+                    <td>HVD-Kategorie</td>
+                    <td><code><a href="http://data.europa.eu/r5r/hvdCategory">dcatap:hvdCategory</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>URI</td>
+                    <td>HVD-Kategorie bei HVD-pflichtigen Datendiensten.</td>
+                </tr>
+                <tr>
+                    <td>Zugriffsrechte</td>
+                    <td><code><a href="http://purl.org/dc/terms/accessRights">dct:accessRights</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Zugangsbeschränkungen des Datendienstes.</td>
+                </tr>
+                <tr>
+                    <td>Anwendbare Gesetzgebung</td>
+                    <td><code><a href="http://data.europa.eu/r5r/applicableLegislation">dcatap:applicableLegislation</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Rechtliche Grundlage (ELI-URI).</td>
+                </tr>
+                <tr>
+                    <td>Konformität</td>
+                    <td><code><a href="http://purl.org/dc/terms/conformsTo">dct:conformsTo</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Standard, dem der Datendienst entspricht (z.&nbsp;B. OGC API).</td>
+                </tr>
+                <tr>
+                    <td>Kontaktpunkt</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#contactPoint">dcat:contactPoint</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Kontaktangaben für Rückfragen zum Dienst.</td>
+                </tr>
+                <tr>
+                    <td>Beschreibung</td>
+                    <td><code><a href="http://purl.org/dc/terms/description">dct:description</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Literal</td>
+                    <td>Freitextbeschreibung des Datendienstes.</td>
+                </tr>
+                <tr>
+                    <td>Endpoint-Beschreibung</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#endpointDescription">dcat:endpointDescription</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Maschinenlesbare Beschreibung des Endpoints (OpenAPI, GetCapabilities).</td>
+                </tr>
+                <tr>
+                    <td>Format</td>
+                    <td><code><a href="http://purl.org/dc/terms/format">dct:format</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Format der vom Dienst gelieferten Daten.</td>
+                </tr>
+                <tr>
+                    <td>Schlagwort</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#keyword">dcat:keyword</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Literal</td>
+                    <td>Schlagwörter, die den Datendienst beschreiben.</td>
+                </tr>
+                <tr>
+                    <td>Einstiegsseite</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#landingPage">dcat:landingPage</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>URI</td>
+                    <td>Webseite mit Informationen über den Datendienst.</td>
+                </tr>
+                <tr>
+                    <td>Dokumentation</td>
+                    <td><code><a href="http://xmlns.com/foaf/0.1/page">foaf:page</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>URI</td>
+                    <td>Link zur Dokumentation des Datendienstes.</td>
+                </tr>
+                <tr>
+                    <td>Lizenz</td>
+                    <td><code><a href="http://purl.org/dc/terms/license">dct:license</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Lizenz des Datendienstes.</td>
+                </tr>
+                <tr>
+                    <td>Herausgeber</td>
+                    <td><code><a href="http://purl.org/dc/terms/publisher">dct:publisher</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Verantwortliche Organisation für den Datendienst.</td>
+                </tr>
+                <tr>
+                    <td>Bediente Datensätze</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#servesDataset">dcat:servesDataset</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Datensatz, der über diesen Dienst zugänglich gemacht wird.</td>
+                </tr>
+                <tr>
+                    <td>Thema</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#theme">dcat:theme</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>URI</td>
+                    <td>Thematische Einordnung aus dem EU Data-Theme-Vokabular.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="note"><code>dcat:endpointDescription</code> sollte auf eine maschinenlesbare
+        API-Beschreibung verweisen, z.&nbsp;B. eine OGC GetCapabilities-URL oder eine
+        OpenAPI-Spezifikation. Für HVD-Datendienste sind <code>dcatap:hvdCategory</code> und
+        <code>dcatap:applicableLegislation</code> anzugeben.</p>
+    </section>
+
+    <!-- ═══ DatasetSeries ═══ -->
+    <section id="prop-datasetseries">
+        <h3>Datensatz-Reihe (<code>dcat:DatasetSeries</code>) <span style="font-size:.75em;color:#e84e0f;font-weight:normal;">[Neu in 3.0]</span></h3>
+        <p>Eine <dfn>Datensatz-Reihe</dfn> (<code>dcat:DatasetSeries</code>) ist eine Sammlung
+        thematisch zusammengehöriger Datensätze, die über eine logische Reihenfolge oder
+        Zeitdimension verbunden sind – z.&nbsp;B. jährliche Statistiken oder Messreihen.
+        Einzelne Datensätze verweisen mit <code>dcat:inSeries</code> auf ihre Reihe.</p>
+
+        <table class="props simple">
+            <thead>
+                <tr>
+                    <th>Eigenschaft</th><th>URI</th><th>Pflicht</th>
+                    <th>Kard.</th><th>Typ / Bereich</th><th>Beschreibung</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Titel</td>
+                    <td><code><a href="http://purl.org/dc/terms/title">dct:title</a></code></td>
+                    <td><span class="badge-m">verpflichtend</span></td>
+                    <td>1..n</td><td>Literal</td>
+                    <td>Name der Datensatz-Reihe.</td>
+                </tr>
+                <tr>
+                    <td>Beschreibung</td>
+                    <td><code><a href="http://purl.org/dc/terms/description">dct:description</a></code></td>
+                    <td><span class="badge-m">verpflichtend</span></td>
+                    <td>1..n</td><td>Literal</td>
+                    <td>Freitextbeschreibung der Datensatz-Reihe.</td>
+                </tr>
+                <tr>
+                    <td>Kontaktpunkt</td>
+                    <td><code><a href="http://www.w3.org/ns/dcat#contactPoint">dcat:contactPoint</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Kontaktangaben für Rückfragen zur Reihe.</td>
+                </tr>
+                <tr>
+                    <td>Räumliche Abdeckung</td>
+                    <td><code><a href="http://purl.org/dc/terms/spatial">dct:spatial</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Geografische Abdeckung der Reihe.</td>
+                </tr>
+                <tr>
+                    <td>Herausgeber</td>
+                    <td><code><a href="http://purl.org/dc/terms/publisher">dct:publisher</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Verantwortliche Organisation für die Datensatz-Reihe.</td>
+                </tr>
+                <tr>
+                    <td>Anwendbare Gesetzgebung</td>
+                    <td><code><a href="http://data.europa.eu/r5r/applicableLegislation">dcatap:applicableLegislation</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>URI</td>
+                    <td>Rechtliche Grundlage (ELI-URI).</td>
+                </tr>
+                <tr>
+                    <td>Aktualisierungsfrequenz</td>
+                    <td><code><a href="http://purl.org/dc/terms/accrualPeriodicity">dct:accrualPeriodicity</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>URI</td>
+                    <td>Frequenz, mit der neue Datensätze zur Reihe hinzugefügt werden.</td>
+                </tr>
+                <tr>
+                    <td>Zuletzt geändert</td>
+                    <td><code><a href="http://purl.org/dc/terms/modified">dct:modified</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Literal</td>
+                    <td>Datum der letzten Änderung der Reihe.</td>
+                </tr>
+                <tr>
+                    <td>Veröffentlichungsdatum</td>
+                    <td><code><a href="http://purl.org/dc/terms/issued">dct:issued</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Literal</td>
+                    <td>Datum der Erstveröffentlichung der Reihe.</td>
+                </tr>
+                <tr>
+                    <td>Zeitliche Abdeckung</td>
+                    <td><code><a href="http://purl.org/dc/terms/temporal">dct:temporal</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Gesamter Zeitraum, den die Reihe abdeckt.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="note">Einzelne Datensätze, die zur Reihe gehören, verweisen mit
+        <code>dcat:inSeries</code> auf die <code>dcat:DatasetSeries</code>-Ressource.
+        Diese Klasse wurde in DCAT 3 / DCAT-AP 3.0 neu eingeführt.</p>
+    </section>
+
+    <!-- ═══ CatalogRecord ═══ -->
+    <section id="prop-catalogrecord">
+        <h3>Katalog-Eintrag (<code>dcat:CatalogRecord</code>)</h3>
+        <p>Ein <dfn>Katalog-Eintrag</dfn> (<code>dcat:CatalogRecord</code>) beschreibt die Metadaten
+        <em>über</em> einen Katalogeintrag – also wann ein Datensatz aufgenommen wurde, welcher
+        Standard die Metadaten beschreibt usw. Er ist optional und wird nur benötigt, wenn
+        Provenienz-Informationen zu den Metadaten selbst dokumentiert werden sollen.</p>
+
+        <table class="props simple">
+            <thead>
+                <tr>
+                    <th>Eigenschaft</th><th>URI</th><th>Pflicht</th>
+                    <th>Kard.</th><th>Typ / Bereich</th><th>Beschreibung</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Primäres Thema</td>
+                    <td><code><a href="http://xmlns.com/foaf/0.1/primaryTopic">foaf:primaryTopic</a></code></td>
+                    <td><span class="badge-m">verpflichtend</span></td>
+                    <td>1..n</td><td>Ressource</td>
+                    <td>Datensatz oder Datendienst, auf den sich dieser Katalogeintrag bezieht.</td>
+                </tr>
+                <tr>
+                    <td>Zuletzt geändert</td>
+                    <td><code><a href="http://purl.org/dc/terms/modified">dct:modified</a></code></td>
+                    <td><span class="badge-m">verpflichtend</span></td>
+                    <td>1..n</td><td>Literal</td>
+                    <td>Datum der letzten Änderung der Metadaten in diesem Eintrag.</td>
+                </tr>
+                <tr>
+                    <td>Konformität</td>
+                    <td><code><a href="http://purl.org/dc/terms/conformsTo">dct:conformsTo</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Metadatenstandard, dem dieser Eintrag entspricht.</td>
+                </tr>
+                <tr>
+                    <td>Veröffentlichungsdatum</td>
+                    <td><code><a href="http://purl.org/dc/terms/issued">dct:issued</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Literal</td>
+                    <td>Datum, an dem der Datensatz erstmals in den Katalog aufgenommen wurde.</td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td><code><a href="http://www.w3.org/ns/adms#status">adms:status</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Status der Metadaten (z.&nbsp;B. veröffentlicht, entwurf).</td>
+                </tr>
+                <tr>
+                    <td>Sprache</td>
+                    <td><code><a href="http://purl.org/dc/terms/language">dct:language</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Sprache der beschreibenden Metadaten.</td>
+                </tr>
+                <tr>
+                    <td>Quelle</td>
+                    <td><code><a href="http://purl.org/dc/terms/source">dct:source</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Ursprünglicher Metadatensatz, aus dem dieser Eintrag erzeugt wurde.</td>
+                </tr>
+                <tr>
+                    <td>Titel</td>
+                    <td><code><a href="http://purl.org/dc/terms/title">dct:title</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Literal</td>
+                    <td>Name des Katalogeintrags.</td>
+                </tr>
+                <tr>
+                    <td>Beschreibung</td>
+                    <td><code><a href="http://purl.org/dc/terms/description">dct:description</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Literal</td>
+                    <td>Beschreibung des Katalogeintrags.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="note"><code>foaf:primaryTopic</code> verweist auf den Datensatz oder Datendienst,
+        auf den sich dieser Katalogeintrag bezieht. <code>dct:conformsTo</code> kann z.&nbsp;B.
+        auf die DCAT-AP AT 3.0 Spezifikation (<code>https://dcat-ap.at/3.0</code>) verweisen.</p>
+    </section>
+
+    <!-- ═══ Agent ═══ -->
+    <section id="prop-agent">
+        <h3>Akteur (<code>foaf:Agent</code>)</h3>
+        <p>Ein <dfn>Akteur</dfn> (<code>foaf:Agent</code>) repräsentiert eine Organisation oder
+        Person, die als Herausgeber, Urheber oder verantwortliche Stelle eines Datensatzes auftritt.
+        Die Klasse wird über <code>dct:publisher</code> und <code>dct:creator</code> referenziert.</p>
+
+        <table class="props simple">
+            <thead>
+                <tr>
+                    <th>Eigenschaft</th><th>URI</th><th>Pflicht</th>
+                    <th>Kard.</th><th>Typ / Bereich</th><th>Beschreibung</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Name</td>
+                    <td><code><a href="http://xmlns.com/foaf/0.1/name">foaf:name</a></code></td>
+                    <td><span class="badge-m">verpflichtend</span></td>
+                    <td>1..n</td><td>Literal</td>
+                    <td>Name der Organisation oder Person.</td>
+                </tr>
+                <tr>
+                    <td>Homepage</td>
+                    <td><code><a href="http://xmlns.com/foaf/0.1/homepage">foaf:homepage</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>URI</td>
+                    <td>Webseite der Organisation.</td>
+                </tr>
+                <tr>
+                    <td>E-Mail</td>
+                    <td><code><a href="http://xmlns.com/foaf/0.1/mbox">foaf:mbox</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>URI</td>
+                    <td>E-Mail-Adresse als <code>mailto:</code>-URI.</td>
+                </tr>
+                <tr>
+                    <td>Adresse</td>
+                    <td><code><a href="http://www.w3.org/2006/vcard/ns#hasAddress">vcard:hasAddress</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Postanschrift der Organisation (<code>vcard:Address</code>).</td>
+                </tr>
+                <tr>
+                    <td>Typ</td>
+                    <td><code><a href="http://purl.org/dc/terms/type">dct:type</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>Ressource</td>
+                    <td>Art der Organisation aus dem ADMS Publisher Type Vokabular.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="note"><code>foaf:name</code> sollte den offiziellen deutschen Namen der
+        Organisation enthalten. <code>dct:type</code> kann den Typ der Organisation aus dem
+        <a href="http://purl.org/adms/publishertype/">ADMS Publisher Type</a>-Vokabular benennen
+        (z.&nbsp;B. <code>LocalAuthority</code>, <code>NationalAuthority</code>).</p>
+    </section>
+
+    <!-- ═══ ContactPoint ═══ -->
+    <section id="prop-contactpoint">
+        <h3>Kontaktpunkt (<code>vcard:Kind</code>)</h3>
+        <p>Ein <dfn>Kontaktpunkt</dfn> (<code>vcard:Kind</code>, in der Praxis meist
+        <code>vcard:Organization</code> oder <code>vcard:Individual</code>) enthält
+        Kontaktinformationen für Rückfragen zum Datensatz oder Datendienst.
+        Er wird über <code>dcat:contactPoint</code> am Datensatz referenziert.</p>
+
+        <table class="props simple">
+            <thead>
+                <tr>
+                    <th>Eigenschaft</th><th>URI</th><th>Pflicht</th>
+                    <th>Kard.</th><th>Typ / Bereich</th><th>Beschreibung</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Name</td>
+                    <td><code><a href="http://www.w3.org/2006/vcard/ns#fn">vcard:fn</a></code></td>
+                    <td><span class="badge-m">verpflichtend</span></td>
+                    <td>1..n</td><td>Literal</td>
+                    <td>Vollständiger Name des Kontakts (Person oder Organisationseinheit).</td>
+                </tr>
+                <tr>
+                    <td>E-Mail</td>
+                    <td><code><a href="http://www.w3.org/2006/vcard/ns#hasEmail">vcard:hasEmail</a></code></td>
+                    <td><span class="badge-m">verpflichtend</span></td>
+                    <td>1..n</td><td>URI</td>
+                    <td>E-Mail-Adresse als <code>mailto:</code>-URI.</td>
+                </tr>
+                <tr>
+                    <td>URL</td>
+                    <td><code><a href="http://www.w3.org/2006/vcard/ns#hasURL">vcard:hasURL</a></code></td>
+                    <td><span class="badge-o">optional</span></td>
+                    <td>0..n</td><td>URI</td>
+                    <td>Webseite des Kontakts oder der zuständigen Einheit.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="note"><code>vcard:hasEmail</code> sollte als URI in der Form
+        <code>mailto:adresse@example.at</code> angegeben werden. Als Typ empfiehlt sich
+        <code>vcard:Organization</code> für Organisationseinheiten.</p>
+    </section>
+</section>
+
+<!-- ═══ HVD ═══ -->
+<section id="hvd">
+    <h2>Hochwertige Datensätze (HVD)</h2>
+    <p>Die EU-Durchführungsverordnung (EU) 2023/138 [[HVD-IR]] legt fest, welche Datensätze als
+    <dfn>Hochwertige Datensätze</dfn> (High Value Datasets, HVD) gelten und unter welchen
+    Bedingungen sie kostenfrei als offene Daten bereitzustellen sind. Betroffen sind u.&nbsp;a.
+    Geodaten, Meteorologie, Statistik, Unternehmen und Mobilität.</p>
+
+    <div class="hvd-note">
+        <strong>HVD-Pflicht:</strong> Datensätze und Datendienste, die unter die HVD-Verordnung
+        fallen, müssen mit <code>dcatap:hvdCategory</code> und
+        <code>dcatap:applicableLegislation</code> gekennzeichnet werden.
+    </div>
+
+    <h3>Verpflichtende HVD-Felder</h3>
+    <dl>
+        <dt><code>dcatap:hvdCategory</code></dt>
+        <dd>URI aus dem HVD-Kategorien-Vokabular:
+        <a href="http://data.europa.eu/bna/c_164e0bf5">Geodaten</a>,
+        <a href="http://data.europa.eu/bna/c_ac64a52d">Meteorologie</a>,
+        <a href="http://data.europa.eu/bna/c_dd313021">Unternehmen</a>,
+        <a href="http://data.europa.eu/bna/c_e1da4e07">Mobilität</a>,
+        <a href="http://data.europa.eu/bna/c_b79e35eb">Erdbeobachtung und Umwelt</a>,
+        <a href="http://data.europa.eu/bna/c_a9135398">Statistik</a>.
+        </dd>
+        <dt><code>dcatap:applicableLegislation</code></dt>
+        <dd>ELI-URI der HVD-Durchführungsverordnung:
+        <code>http://data.europa.eu/eli/reg_impl/2023/138/oj</code></dd>
+    </dl>
+
+    <h3>Turtle-Beispiel (HVD-Datensatz)</h3>
+    <pre><code class="language-turtle">@prefix dcat: &lt;http://www.w3.org/ns/dcat#&gt; .
+@prefix dcatap: &lt;http://data.europa.eu/r5r/&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+
+&lt;https://data.gv.at/katalog/dataset/example-hvd&gt;
+    a dcat:Dataset ;
+    dct:title "Geodaten Österreich (HVD)"@de ;
+    dcatap:hvdCategory &lt;http://data.europa.eu/bna/c_164e0bf5&gt; ;
+    dcatap:applicableLegislation &lt;http://data.europa.eu/eli/reg_impl/2023/138/oj&gt; .
+</code></pre>
+</section>
+
+<!-- ═══ Vocabularies ═══ -->
+<section id="vocabularies">
+    <h2>Österreichische Vokabulare</h2>
+    <p>Zusätzlich zu den EU-kontrollierten Vokabularen stellt die BLSG Fachgruppe data.gv.at
+    eigene österreichische Vokabulare bereit. Diese ergänzen den Standard um nationale
+    Anforderungen, insbesondere für österreichische Verwaltungsstrukturen.</p>
+
+    <p class="note">Die österreichischen Vokabulare befinden sich in Vorbereitung und werden
+    unter <code>https://dcat-ap.at/voc/</code> veröffentlicht. Konzepte und Entwürfe sind
+    im <a href="../concept/">Verzeichnis <code>concept/</code></a> dieses Repositories einsehbar.</p>
+
+    <p>Geplante Vokabulare:</p>
+    <ul>
+        <li><strong>Österreichische Verwaltungseinheiten</strong> – Ergänzung zum EU
+        <a href="http://publications.europa.eu/resource/authority/country">Country Authority Table</a>
+        mit Bundesländern, Bezirken und Gemeinden.</li>
+        <li><strong>Österreichische Lizenztypen</strong> – Verweise auf gängige offene Lizenzen
+        (CC BY, CC0, Österreich-spezifische Lizenzen).</li>
+        <li><strong>Datenthemen Österreich</strong> – Ergänzende Themen zu den EU Data Themes
+        für österreichischspezifische Verwaltungsbereiche.</li>
+    </ul>
+
+    <p>Bereits empfohlene EU-Vokabulare für österreichische Datenkataloge:</p>
+    <table class="ns">
+        <thead>
+            <tr><th>Eigenschaft</th><th>Vokabular</th><th>URI</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>dcat:theme</code></td>
+                <td>EU Data Themes</td>
+                <td><code><a href="http://publications.europa.eu/resource/authority/data-theme">data-theme</a></code></td>
+            </tr>
+            <tr>
+                <td><code>dct:format</code></td>
+                <td>EU File Types</td>
+                <td><code><a href="http://publications.europa.eu/resource/authority/file-type">file-type</a></code></td>
+            </tr>
+            <tr>
+                <td><code>dct:language</code></td>
+                <td>EU Languages</td>
+                <td><code><a href="http://publications.europa.eu/resource/authority/language">language</a></code></td>
+            </tr>
+            <tr>
+                <td><code>dct:accrualPeriodicity</code></td>
+                <td>EU Frequencies</td>
+                <td><code><a href="http://publications.europa.eu/resource/authority/frequency">frequency</a></code></td>
+            </tr>
+            <tr>
+                <td><code>dct:accessRights</code></td>
+                <td>EU Access Rights</td>
+                <td><code><a href="http://publications.europa.eu/resource/authority/access-right">access-right</a></code></td>
+            </tr>
+            <tr>
+                <td><code>dcatap:availability</code></td>
+                <td>Planned Availability</td>
+                <td><code><a href="http://data.europa.eu/r5r/availability/">availability</a></code></td>
+            </tr>
+            <tr>
+                <td><code>dcatap:hvdCategory</code></td>
+                <td>HVD Categories</td>
+                <td><code><a href="http://data.europa.eu/bna/">bna</a></code></td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- ═══ Validation ═══ -->
+<section id="validation">
+    <h2>Validierung</h2>
+    <p>DCAT-AP AT 3.0 stellt ein maschinenlesbares [[SHACL]]-Profil bereit, mit dem
+    Metadatensätze automatisch validiert werden können. Das Profil ist unter
+    <a href="dcat-ap-3-at.hub.shapes.ttl"><code>dcat-ap-3-at.hub.shapes.ttl</code></a>
+    abrufbar.</p>
+    <p>Das Profil definiert für jede Klasse eine <code>sh:NodeShape</code>:</p>
+    <ul>
+        <li><code>dzg:DatasetShape</code> → <code>dcat:Dataset</code></li>
+        <li><code>dzg:DistributionShape</code> → <code>dcat:Distribution</code></li>
+        <li><code>dzg:CatalogShape</code> → <code>dcat:Catalog</code></li>
+        <li><code>dzg:DataServiceShape</code> → <code>dcat:DataService</code></li>
+        <li><code>dzg:DatasetSeriesShape</code> → <code>dcat:DatasetSeries</code></li>
+        <li><code>dzg:CatalogRecordShape</code> → <code>dcat:CatalogRecord</code></li>
+    </ul>
+    <p>Validierungswerkzeuge: <a href="https://www.itb.ec.europa.eu/shacl/any/upload">EU Interoperability Test Bed</a>,
+    <a href="https://shacl.org/playground/">SHACL Playground</a>.</p>
+</section>
+
+<!-- ═══ Changelog ═══ -->
+<section id="changelog">
+    <h2>Änderungshistorie</h2>
+    <dl>
+        <dt>3.0 (geplant 2026)</dt>
+        <dd>
+            <ul>
+                <li>Aktualisierung auf DCAT-AP 3.0.1 und W3C DCAT 3.</li>
+                <li>Neue Klasse <code>dcat:DatasetSeries</code> für Datensatz-Reihen.</li>
+                <li><code>dct:identifier</code> ist nun für Datensätze verpflichtend.</li>
+                <li>HVD-Unterstützung: <code>dcatap:hvdCategory</code> für Datensätze und
+                Datendienste.</li>
+                <li>Maschinenlesbares SHACL-Validierungsprofil
+                (<code>dcat-ap-3-at.hub.shapes.ttl</code>).</li>
+                <li>Referenz auf EU-Durchführungsverordnung [[HVD-IR]] für Hochwertige
+                Datensätze.</li>
+                <li>Vorbereitung österreichischer Vokabulare unter
+                <code>dcat-ap.at/voc/</code>.</li>
+            </ul>
+        </dd>
+        <dt>2.1.0 (19. Juni 2024)</dt>
+        <dd>Erstveröffentlichung von DCAT-AP AT als österreichisches Profil von DCAT-AP.
+        Siehe <a href="../2.1/">DCAT-AP AT 2.1</a>.</dd>
+    </dl>
+</section>
+
+<script>
+    mermaid.initialize({ startOnLoad: true, theme: "neutral", themeVariables: { fontSize: "14px" } });
+    document.addEventListener("DOMContentLoaded", () => {
+        if (typeof hljs !== "undefined") hljs.highlightAll();
+    });
+</script>
+
+</body>
+</html>
