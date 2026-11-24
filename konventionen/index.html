@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DCAT-AP AT – Konventionen und Handlungsanleitung</title>
+
+    <!-- ReSpec -->
+    <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
+    <script class="remove">
+    var respecConfig = {
+        specStatus:      "unofficial",
+        shortName:       "dcat-ap-at-konventionen",
+        latestVersion:   "https://dcat-ap.at/konventionen",
+        thisVersion:     "https://dcat-ap.at/konventionen",
+        lang:            "de",
+        publishDate:     "2026-01-01",
+        copyrightStart:  "2026",
+        license:         "cc-by",
+        editors: [
+            { name: "Brigitte Barotanyi",   company: "Bundesministerium für Finanzen" },
+            { name: "Hannes Ebner",         company: "MetaSolutions AB" },
+            { name: "Gregor Eibl",          company: "Universität für Weiterbildung Krems" },
+            { name: "Gerhard Hartmann",     company: "Stadt Wien" },
+            { name: "Manfred Mittlböck",    company: "Research Studios Austria Forschungsgesellschaft mbH" },
+            { name: "Rainer Prager",        company: "Land Niederösterreich" },
+            { name: "Michael Reichart",     company: "Bundesrechenzentrum GmbH" }
+        ],
+        github: {
+            repoURL:   "https://github.com/reicharm/dcat-ap-at",
+            branch:    "main"
+        },
+        otherLinks: [
+            {
+                key: "Zugehörige Dokumente",
+                data: [
+                    { value: "DCAT-AP AT 3.0", href: "../3.0/" },
+                    { value: "DCAT-AP AT 2.1", href: "../2.1/" },
+                    { value: "Versionsübersicht", href: "../" }
+                ]
+            }
+        ],
+        postProcess: [function () { setStatusLabel("In Vorbereitung"); }],
+        lint: {
+            "no-unused-dfns": false,
+            "required-sections": false
+        },
+        localBiblio: {
+            "DCAT-AP-AT": {
+                title:     "DCAT-AP AT 3.0",
+                href:      "https://dcat-ap.at/3.0/",
+                publisher: "BLSG Fachgruppe data.gv.at"
+            }
+        }
+    };
+    function setStatusLabel(label) {
+        var e = document.getElementById("w3c-state");
+        if (!e) return;
+        var t = e.querySelector("time");
+        e.textContent = label + " ";
+        if (t) e.appendChild(t);
+    }
+    </script>
+
+    <link rel="stylesheet" href="../libs/style.css">
+
+    <style>
+        body::before, body::after, html::before, html::after { content: none !important; display: none !important; }
+        .placeholder-box { border: 2px dashed #aaa; background: #f9f9f9; padding: 1.2em 1.6em; border-radius: 4px; margin: 1.5em 0; color: #555; }
+        .placeholder-box h3 { margin-top: 0; color: #333; }
+        table.conv { border-collapse: collapse; width: 100%; font-size: .92em; margin: .8em 0 1.4em; }
+        table.conv th, table.conv td { border: 1px solid #ccc; padding: .4em .7em; text-align: left; vertical-align: top; }
+        table.conv th { background: #f0f4f8; width: 11em; white-space: nowrap; }
+        .conv-example { border-left: 4px solid #c5d5e8; background: #f8fbff; padding: .4em 1.2em; margin: 1em 0; }
+        .badge-konv { background: #e3f2fd; color: #0d47a1; border-radius: 3px; padding: 1px 6px; font-size: .8em; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+<section id="abstract">
+    <p>
+        Dieses Dokument sammelt <strong>gemeinsame Konventionen und Handlungsanleitungen</strong> für die
+        Erfassung von Metadaten nach <a href="../3.0/">DCAT-AP AT</a>. Es enthält Empfehlungen zu allem, was der
+        Standard nicht erzwingt, was aber zu einfacherer Erfassung und besserer Datenqualität beiträgt.
+    </p>
+</section>
+
+<section id="sotd">
+    <p class="note">Dieses Dokument befindet sich in Vorbereitung. Die Konventionen werden schrittweise in der
+    Arbeitsgruppe abgestimmt und hier veröffentlicht. Sie sind <em>Empfehlungen</em> und ergänzen den Standard,
+    ohne ihn zu ändern.</p>
+    <p>Rückmeldungen und Vorschläge für neue Konventionen bitte als
+    <a href="https://github.com/reicharm/dcat-ap-at/issues">GitHub Issue</a> einreichen.</p>
+</section>
+
+<section id="zweck">
+    <h2>Zweck und Abgrenzung</h2>
+    <p>
+        <a href="../3.0/">DCAT-AP AT</a> legt fest, <em>welche</em> Metadaten mit welcher Kardinalität und welchen
+        Vokabularen angegeben werden. Die Qualität eines Katalogs hängt aber zusätzlich davon ab, <em>wie</em>
+        diese Felder befüllt werden: einheitliche Schreibweisen, sinnvolle Titel, gepflegte Kontaktdaten,
+        konsistente Verwendung von Identifikatoren. Diese Konventionen schließen diese Lücke.
+    </p>
+    <table class="conv">
+        <thead><tr><th></th><th>Standard (DCAT-AP AT)</th><th>Konvention (dieses Dokument)</th></tr></thead>
+        <tbody>
+            <tr><th>Verbindlichkeit</th><td>Verpflichtend, empfohlen oder optional je Eigenschaft</td><td>Empfehlung; kann von Portalen verbindlich gemacht werden</td></tr>
+            <tr><th>Prüfung</th><td>Maschinell per SHACL</td><td>Teils maschinell (Hinweise), teils redaktionell</td></tr>
+            <tr><th>Änderung</th><td>Neue Version des Standards</td><td>Laufende Weiterentwicklung</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section id="aufbau">
+    <h2>Aufbau einer Konvention</h2>
+    <p>Jede Konvention wird nach demselben Schema beschrieben, damit sie schnell erfassbar und prüfbar ist.</p>
+    <table class="conv">
+        <tbody>
+            <tr><th>Kennung</th><td>Eindeutige Kennung, z. B. <code>K-DS-01</code> (Klasse und laufende Nummer)</td></tr>
+            <tr><th>Titel</th><td>Kurze, handlungsorientierte Bezeichnung</td></tr>
+            <tr><th>Geltungsbereich</th><td>Klasse und Eigenschaft(en), auf die sich die Konvention bezieht (mit Link in <a href="../3.0/">DCAT-AP AT 3.0</a>)</td></tr>
+            <tr><th>Empfehlung</th><td>Was zu tun ist, mit Verbindlichkeit nach [[RFC2119]] (SOLL, SOLLTE NICHT, KANN)</td></tr>
+            <tr><th>Begründung</th><td>Nutzen für Datenqualität, Auffindbarkeit oder Weiterverwendung</td></tr>
+            <tr><th>Beispiel</th><td>Gutes und schlechtes Beispiel, nach Möglichkeit in Turtle</td></tr>
+            <tr><th>Prüfbarkeit</th><td>Maschinell prüfbar (z. B. SHACL-Hinweis) oder redaktionell</td></tr>
+            <tr><th>Status</th><td>Entwurf, abgestimmt oder zurückgezogen</td></tr>
+        </tbody>
+    </table>
+
+    <div class="conv-example">
+        <p><strong>Beispiel zur Veranschaulichung des Schemas</strong> (keine abgestimmte Konvention)</p>
+        <table class="conv">
+            <tbody>
+                <tr><th>Kennung</th><td><code>K-DS-00</code> <span class="badge-konv">Beispiel</span></td></tr>
+                <tr><th>Titel</th><td>Titel ohne Dateiformat und Jahreszahl im Namen</td></tr>
+                <tr><th>Geltungsbereich</th><td><code>dct:title</code> an <code>dcat:Dataset</code></td></tr>
+                <tr><th>Empfehlung</th><td>Der Titel SOLL den Inhalt beschreiben und SOLLTE NICHT das Dateiformat enthalten, da dieses an der Distribution angegeben wird.</td></tr>
+                <tr><th>Begründung</th><td>Vermeidet Redundanz und uneinheitliche Titel bei mehreren Formaten.</td></tr>
+                <tr><th>Prüfbarkeit</th><td>Redaktionell</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section id="themen">
+    <h2>Geplante Themenfelder</h2>
+    <div class="placeholder-box">
+        <h3>Inhalt in Vorbereitung</h3>
+        <p>Die folgenden Themen sind vorgesehen. Reihenfolge und Inhalt werden in der Arbeitsgruppe abgestimmt.</p>
+        <ul>
+            <li>Titel, Beschreibung und Schlagwörter: Formulierung und Länge</li>
+            <li>Identifikatoren und Persistenz von URIs</li>
+            <li>Herausgeber, Kontaktpunkt und Organisationsangaben</li>
+            <li>Lizenzen und Rechteangaben richtig wählen</li>
+            <li>Formate, Medientypen und Zugangs-/Download-URLs bei Distributionen</li>
+            <li>Zeitliche und räumliche Abdeckung angeben</li>
+            <li>Aktualisierung, Versionen und Datensatzreihen</li>
+            <li>Hochwertige Datensätze (HVD) und Datenzugangsgesetz (DZG): praktische Hinweise</li>
+            <li>Checkliste vor der Veröffentlichung</li>
+        </ul>
+    </div>
+</section>
+
+<section id="changelog">
+    <h2>Änderungshistorie</h2>
+    <dl>
+        <dt>In Vorbereitung</dt>
+        <dd>Anlage des Bereichs und des Beschreibungsschemas. Es sind noch keine Konventionen abgestimmt.</dd>
+    </dl>
+</section>
+
+</body>
+</html>
