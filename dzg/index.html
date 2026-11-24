@@ -48,8 +48,10 @@
                 ]
             }
         ],
+        postProcess: [function () { setStatusLabel("In Vorbereitung"); }],
         lint: {
-            "no-unused-dfns": false
+            "no-unused-dfns": false,
+            "required-sections": false
         },
         localBiblio: {
             "DCAT-AP": {
@@ -69,12 +71,22 @@
             }
         }
     };
+
+    function setStatusLabel(label) {
+        var e = document.getElementById("w3c-state");
+        if (!e) return;
+        var t = e.querySelector("time");
+        e.textContent = label + " ";
+        if (t) e.appendChild(t);
+    }
     </script>
 
     <!-- Custom styles -->
     <link rel="stylesheet" href="../libs/style.css">
 
     <style>
+        /* kein "UNOFFICIAL"-Wasserzeichen */
+        body::before, body::after, html::before, html::after { content: none !important; display: none !important; }
         .head dl { margin-top: 0.5em; }
         .placeholder-box {
             border: 2px dashed #aaa;
